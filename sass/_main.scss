@@ -6,6 +6,12 @@
 	margin: 0 auto;
 }
 
+
+%main{
+	width: 1000px;
+	margin: 0 auto;
+}
+
 // icons
 .icon{
 	display: inline-block;
@@ -126,7 +132,7 @@
 	border: 1px solid #747474;
 	@include border-radius(4px);
 	background-color: #a1a1a1;
-	@include box-shadow(0 1px 1px #0a131d, inset 0 1px 0 rgba(255,255,255,.4));
+	@include box-shadow(0 1px 1px #0a131d, inset 0 1px 0 rgba(255,255,255,.5));
 	@include background-image(linear-gradient(bottom, #a1a1a1 0%, #c4c4c4 100%));
 	&:hover,
 	&:focus{
@@ -157,16 +163,31 @@
 
 	// different colors
 	.btn_primary {
-		border: 1px solid #023669;
-		background-color: #00759b;
-		@include border-radius(4px);
-		@include box-shadow(0 1px 1px #0a131d, inset 0 1px 0 rgba(210,230,244,.64));
-		@include background-image(linear-gradient(bottom, #004d9b 0%, #1076cc 100%));
+		border: 1px solid #025b78;
+		background-color: #014f9e;
+		@include background-image(linear-gradient(#1075cc, #014f9e));
+		background-repeat: repeat-x;
+		border-color:  #1075cc  #1075cc #014f9e;
+		border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
 		&:hover,
 		&:focus,
 		&:active{
 			color: #fff;
-			background-color: #2267ae;
+			background-color: #014f9e;
+		}
+	}
+	.btn_grey {
+		border: 1px solid #747474;
+		background-color: #b2b3b4;
+		@include background-image(linear-gradient(#a1a1a1, #b2b3b4));
+		background-repeat: repeat-x;
+		border-color:  #a1a1a1  #a1a1a1 #b2b3b4;
+		border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+		&:hover,
+		&:focus,
+		&:active{
+			color: #fff;
+			background-color: #b2b3b4;
 		}
 	}
 	.btn_red {
@@ -195,6 +216,20 @@
 		&:active{
 			color: #fff;
 			background-color: #017a29;
+		}
+	}
+	.btn_reg {
+		border: 1px solid #025b78;
+		background-color: #00759b;
+		@include background-image(linear-gradient(#109fcd, #00759b));
+		background-repeat: repeat-x;
+		border-color:  #109fcd  #109fcd #00759b;
+		border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+		&:hover,
+		&:focus,
+		&:active{
+			color: #fff;
+			background-color: #00759b;
 		}
 	}
 
@@ -1412,3 +1447,141 @@
 			@include cb;
 			text-align: center;
 		}
+
+.landing{
+	background: url(../img/bg_landing.png) 50% 0% no-repeat;
+	background-color:  #1a2b3b;
+	min-width: 1020px;
+	.topper{
+		@extend %main;
+		@extend %clr;
+		height: 130px;
+	}
+	// logotype
+	.logo{
+		float: left;
+		margin-top: 40px;
+		margin-left: 0;
+		a{
+			@extend %hide-text;
+			display: block;
+			@include sized-sprite($icons, logo_landing);
+		}
+	}
+	.user{
+		float: right;
+		@extend %clr;
+		margin-top: 20px;
+		color: #fff;
+		@include border-radius(6px);
+		@include background-clip(padding-box);
+		background-color: rgba(57,81,103,.4);
+		width: 610px;
+		height: 85px;
+		line-height: 85px;
+	}
+		.user__text{
+			position: relative;
+			margin-left: 20px;
+			float: left;
+			@include cb;
+			font-size: 22px;
+			&:after{
+				position: absolute;;
+				right: -40px;
+				top: 38px;
+				content: "";
+				@include sized-sprite($icons, arr2);
+			}
+		}
+		.user__buttons{
+			@extend %clr;
+			width: 315px;
+			float: right;
+			margin-top: 17px;
+			margin-right: 15px;
+			.btn{
+				float: left;
+				@include text-shadow(0 -1px 0 #063b6f);
+				font-size: 18px;
+				@include cb;
+				color: #f1f9ff;
+			}
+			.btn_reg{
+				width: 182px;
+			}
+			.btn_primary{
+				float: right;
+				width: 112px;
+			}
+		}
+	.main{
+		height: 500px;
+		line-height: 500px;
+		overflow: hidden;
+		background: url(../img/bg_img.jpg) 50% 0% no-repeat;
+	}
+		.main__holder{
+			@extend %main;
+		}
+	.video{
+		margin-top: 40px;
+
+	}
+	.promo{
+		@extend %main;
+		@extend %clr;
+		margin-top: 50px;
+		margin-bottom: 100px;
+		position: relative;
+		&:before{
+			position: absolute;
+			top: -20px;
+			left: 0;
+			content:"";
+			background: url(../img/phones.png) no-repeat;
+			width: 288px;
+			height: 320px;
+		}
+	}
+		.promo__content{
+			width: 620px;
+			float: right;
+			@extend %clr;
+			color: #fff;
+		}
+		.promo__heading{
+			font-size: 49px;
+			text-transform: uppercase;
+			@include cb;
+			margin-bottom: 25px;
+		}
+		.promo__info{
+			@extend %clr;
+		}
+		.promo__text{
+			float: left;
+			width: 315px;
+			@include cr;
+			font-size: 26px;
+			line-height: 1.6;
+		}
+		.promo__buttons{
+			float: right;
+			width: 240px;
+			a{
+				display: block;
+				@include transition (all .2s linear);
+				&:hover{
+					opacity: .6;
+				}
+			}
+		}
+		.btn_appstore{
+			@include sized-sprite($icons, btn_appstore);
+			margin-bottom: 25px;
+		}
+		.btn_gplay{
+			@include sized-sprite($icons, btn_gplay);
+		}
+}

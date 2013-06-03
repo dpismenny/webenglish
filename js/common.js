@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
 
-	// ---------------- Accordion -------------------- //
+	// ---------------- -------------------- //
 	    $(".js-accord-body").hide();
 	    $(".js-accord-body1").show();
 	    $(".js-accord").click(function(){
@@ -10,23 +10,19 @@ $(document).ready(function() {
 	            $(this).next().slideUp("fast");
 	        }
 	        else{
-	            $(".js-accord-body").slideUp("fast");
-	            $(".js-accord").removeClass("is-active");
+	            // $(".js-accord-body").slideUp("fast");
+	            // $(".js-accord").removeClass("is-active");
 	            $(this).addClass("is-active");
 	            $(this).next().slideDown("fast");
 	        }
 	    });
 
+	     $(".account__list li").not('.account__more').click(function(){
+	          $(this).toggleClass('is-selected');
+	          return false;
+	    });
 
-	    $(".account__list li").click(function(){
-	    	if ($(this).hasClass('is-selected')) {
-	    	 $(this).removeClass('is-selected');
-	    	}
-	    	else {
-	    	 $(this).addClass('is-selected');
-	    	}
-		});
-
+	// ---------------- -------------------- //
 		$('.account__rate-num .more').click(function(){
 			var count = parseInt($(this).next('input').val());
 			if (count < 1) {$(this).next('input').val(1);}
@@ -41,7 +37,7 @@ $(document).ready(function() {
 			return false;
 		});
 
-	// ---------------- POPUP .login-popup -------------------- //
+	// ----------------  -------------------- //
 	    $('.btn_primary').click(function() {
 	     if ($(this).hasClass('is-active')) {
 	      $(this).removeClass('is-active');
@@ -54,7 +50,7 @@ $(document).ready(function() {
 	     return false;
 	    });
 
-	// ---------------- POPUP .login-popup -------------------- //
+	// ----------------  -------------------- //
 	    $('.js-evaluation').click(function() {
 	     if ($(this).hasClass('is-active')) {
 	      $(this).removeClass('is-active');
