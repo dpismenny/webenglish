@@ -62,4 +62,19 @@ $(document).ready(function() {
 	     }
 	     return false;
 	    });
+
+	// ----------------  -------------------- //
+	    $('.js-auth').click(function() {
+	     if ($(this).hasClass('is-open')) {
+	      $(".js-auth").removeClass('is-open');
+	      $(".js-popups").fadeOut();
+	     }
+	     else {
+	      $(".js-auth").removeClass('is-open');
+	      $(this).addClass('is-open');
+	      $(".js-popups").fadeOut();
+	      $(this).next().fadeIn();
+	     }
+	     return false;
+	    });
 });

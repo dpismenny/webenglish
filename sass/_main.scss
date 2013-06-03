@@ -12,6 +12,28 @@
 	margin: 0 auto;
 }
 
+//input
+.input{
+	font-size: 20px;
+	@include cb;
+	color: #7f8891;
+	padding: 12px 40px 12px 15px;
+	border: 1px solid #92999c;
+	@include border-radius(4px);
+	@include background-clip(padding-box);
+	background-color: #fff;
+	@include box-shadow(inset 0 1px 4px rgba(38,39,40,.61));
+	width: 100%;
+	border: 1px solid #eee;
+	outline: 0;
+	@include transition(border linear 0.2s, box-shadow linear 0.2s);
+	&:focus{
+		border: 1px solid #287ebb;
+		border-color: rgba(82, 168, 236, 0.8);
+		box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+	}
+}
+
 // icons
 .icon{
 	display: inline-block;
@@ -25,6 +47,10 @@
 	.icon_listen{@include sized-sprite($icons, headphones);}
 	.icon_listen2{@include sized-sprite($icons, headphones2);}
 	.icon_complete{@include sized-sprite($icons, complete);}
+	.icon_email{@include sized-sprite($icons, ico_email);}
+	.icon_password{@include sized-sprite($icons, ico_password);}
+	.icon_apply{@include sized-sprite($icons, ico_apply);}
+	.icon_error{@include sized-sprite($icons, ico_error);}
 
 //sticker
 .sticker{
@@ -218,7 +244,7 @@
 			background-color: #017a29;
 		}
 	}
-	.btn_reg {
+	.btn_lightblue {
 		border: 1px solid #025b78;
 		background-color: #00759b;
 		@include background-image(linear-gradient(#109fcd, #00759b));
@@ -1498,21 +1524,22 @@
 			@extend %clr;
 			width: 315px;
 			float: right;
-			margin-top: 17px;
 			margin-right: 15px;
-			.btn{
+			.user__registration{
 				float: left;
+				width: 182px;
+			}
+			.user__login{
+				float: right;
+				width: 112px;
+			}
+			.btn{
 				@include text-shadow(0 -1px 0 #063b6f);
 				font-size: 18px;
 				@include cb;
 				color: #f1f9ff;
-			}
-			.btn_reg{
-				width: 182px;
-			}
-			.btn_primary{
-				float: right;
-				width: 112px;
+				width: 100%;
+				display: inline-block;
 			}
 		}
 	.main{
@@ -1548,6 +1575,7 @@
 			width: 620px;
 			float: right;
 			@extend %clr;
+			margin-right: 5px;
 			color: #fff;
 		}
 		.promo__heading{
@@ -1568,7 +1596,7 @@
 		}
 		.promo__buttons{
 			float: right;
-			width: 240px;
+			width: 225px;
 			a{
 				display: block;
 				@include transition (all .2s linear);
@@ -1585,3 +1613,198 @@
 			@include sized-sprite($icons, btn_gplay);
 		}
 }
+
+
+//popup
+.popup{
+	display: none;
+	position: absolute;
+	border: 1px solid #192b3b;
+	@include border-radius(4px);
+	@include background-clip(padding-box);
+	background-color: #f1f4f5;
+	@include box-shadow(0 8px 16px rgba(11,23,34,.82));
+	line-height: 1.4;
+	color: #7f8891;
+	@include cr;
+	z-index: 1000;
+	a{
+		color: #7f8891;
+		text-decoration: underline;
+		&:hover{
+			text-decoration: none;
+		}
+	}
+}
+	.user__registration,
+	.user__login{
+		position: relative;
+	}
+	.popup__wrap{
+		position: relative;
+		padding: 30px 30px 20px;
+		&:before{
+			width: 0px;
+			height: 0px;
+			border-style: solid;
+			border-width: 0 10px 10px 10px;
+			border-color: transparent transparent #f1f4f5 transparent;
+		}
+	}
+	.popup__registration{
+		top: 85px;
+		left: -125px;
+		width: 440px;
+		.popup__wrap{
+			&:before{
+				position: absolute;
+				top: -10px;
+				left: 210px;
+				content: "";
+			}
+		}
+	}
+	.popup__login{
+		top: 85px;
+		left: -248px;
+		width: 360px;
+		.popup__wrap{
+			&:before{
+				position: absolute;
+				top: -10px;
+				right: 45px;
+				content: "";
+			}
+		}
+	}
+	.popup__row{
+		margin-bottom: 20px;
+		position: relative;
+		.input{
+			width: 243px;
+		}
+		.icon{
+			position: absolute;
+			content: "";
+		}
+		.icon_email{
+			right: 15px;
+			top: 17px;
+		}
+		.icon_password{
+			right: 17px;
+			top: 15px;
+		}
+	}
+	.popup__info{
+		@extend %clr;
+		line-height: 50px;
+		height: 50px;
+		a{
+			float: left;
+			font-size: 14px;
+			display: inline-block;
+			vertical-align: middle;
+		}
+		.btn{
+			float: right;
+			width: 180px !important;
+			text-decoration: none;
+		}
+		.btn_mod{
+			float: left;
+		}
+	}
+
+	.popup__label{
+		@extend %clr;
+		margin-bottom: 20px;
+		position: relative;
+		::-webkit-input-placeholder { font-size: 16px; line-height: 30px;}
+		::-moz-placeholder { font-size: 16px; line-height: 30px;} /* firefox 19+ */
+		:-ms-input-placeholder { font-size: 16px; line-height: 30px;} /* ie */
+		input:-moz-placeholder { font-size: 16px; line-height: 30px;}
+		.input{
+			float: left;
+			position: relative;
+			width: 235px;
+			font-size: 26px;
+			@include cr;
+			color: #000;
+			padding: 9px 15px 9px 15px;
+		}
+		.icon{
+			position: absolute;
+			top: 18px;
+			right: -18px;
+			content: "";
+		}
+	}
+	.popup__title{
+		float: left;
+		width: 107px;
+		margin-right: 18px;
+		margin-left: -12px;
+		min-height: 1px;
+		height: 50px;
+		line-height: 50px;
+		text-align: right;
+		font-size: 20px;
+		color: #192b3b;
+		@include cb;
+	}
+	.popup__text{
+		clear: both;
+		padding-top: 10px;
+		padding-left: 115px;
+	}
+	.popup__select{
+		position: relative;
+		width: 360px;
+		select{
+			position: absolute;
+			opacity: 0;
+			height: 49px;
+			-webkit-appearance: none;
+			width: 382px;
+			z-index: 3;
+			top: 0;
+			left: 0;
+			text-transform: uppercase;
+			cursor: pointer;
+			option{
+				background: #cdd0d3;
+			}
+		}
+		i{
+			position: absolute;
+			top: 21px;
+			right: 0px;
+			content: "";
+			@include sized-sprite($icons, arr3);
+		}
+	}
+	.popup__select-value{
+		@include cb;
+		border: 1px solid #92999c;
+		@include border-radius(4px);
+		@include background-clip(padding-box);
+		background-color: #00759b;
+		@include box-shadow(inset 0 1px 0 #fff);
+		@include background-image(linear-gradient(bottom, #cdd0d3 0%, #edeeef 100%));
+		// text-align: center;
+		font-size: 20px;
+		display: block;
+		padding: 13px 0 13px 20px;
+		width: 100%;
+		color: #192b3b;
+		@include text-shadow(0 1px 0 #eceef0);
+	}
+	.popup__pass{
+		width: 175px;
+		float: right;
+		font-size: 13px;
+		line-height: 1.2;
+		margin-top: 10px;
+		margin-left: 20px;
+	}
