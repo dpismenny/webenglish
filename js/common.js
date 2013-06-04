@@ -1,6 +1,5 @@
 $(document).ready(function() {
 
-	$(".chzn-select").chosen({disable_search_threshold: 100});
 
 	// ---------------- -------------------- //
 	    $(".js-accord-body").hide();
@@ -51,6 +50,7 @@ $(document).ready(function() {
 	     return false;
 	    });
 
+
 	// ----------------  -------------------- //
 	    $('.js-evaluation').click(function() {
 	     if ($(this).hasClass('is-active')) {
@@ -78,4 +78,21 @@ $(document).ready(function() {
 	     }
 	     return false;
 	    });
+
+	// // ----------------  -------------------- //
+	//     $('.js-audit').click(function() {
+	//      if ($(this).hasClass('is-active')) {
+	//       $(this).removeClass('is-active');
+	//       $(this).children('.js-audit-info').fadeOut();
+	//      }
+	//      else {
+	//       $(this).addClass('is-active');
+	//       $(this).children('.js-audit-info').fadeIn();
+	//      }
+	//      return false;
+	//     });
+
+	// ----------------  -------------------- //
+	$(".chzn-select").chosen({disable_search_threshold: 100});
+
 });
