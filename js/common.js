@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+	$(".chzn-select").chosen({disable_search_threshold: 100});
 
 	// ---------------- -------------------- //
 	    $(".js-accord-body").hide();
