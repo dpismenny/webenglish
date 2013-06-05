@@ -1,0 +1,44 @@
+@import "lib/base";
+// Styledocco example of commenting blocks, should be removed or renamed
+
+.lteie8{
+	.audit__row,
+	.balance__row,
+	.evaluation__row,
+	.feedback__row,
+	.warnings__item{
+		background: #152331;
+	}
+	.balance__row_topper,
+	.evaluation__row_topper{
+		background: #1a3b4f;
+	}
+	.infotable,
+	.user{
+		background: #243749;
+	}
+	.chzn-container-single .chzn-single{
+		background-color: #eeeeee;
+	}
+	.infotable_warning{
+		background-color: #4b2d31;
+	}
+
+	.splayer{
+		&.is-hold{
+			.splayer__playpause{
+				&.splayer__play{
+					@include sized-sprite($icons, ico_play_hold);
+				}
+				&.splayer__pause{
+					@include sized-sprite($icons, ico_pause_hold);
+				}
+				&.splayer__rec{
+
+					@include sized-sprite($icons, ico_rec_hold);
+				}
+			}
+		}
+	}
+
+}

@@ -33,7 +33,7 @@
 
 	<!-- BEGIN .l-sidebar -->
 	<div class="l-sidebar">
-		<nav class="nav">
+		<div class="nav">
 			<ul>
 				<li>
 					<a href="#">Account</a>
@@ -56,7 +56,7 @@
 				</li>
 				<li><a href="#">Rules</a></li>
 			</ul>
-		</nav>
+		</div>
 		<!-- BEGIN .cash -->
 		<div class="cash">
 			<h1 class="cash__title">Your balance:</h1>
@@ -76,7 +76,15 @@
 				<li class="warnings__item">
 					<div class="warnings__title">First warning</div>
 					<div class="warnings__date">Expires on January 01, 2013 at 12:15</div>
-					<div class="warnings__player"><img src="img/pl.png"></div>
+					<div class="warnings__player">
+						<div class="splayer">
+							<div class="splayer__playpause splayer__pause"></div>
+							<div class="splayer__track">
+								<div class="splayer__bar" style="width:60%;"></div>
+							</div>
+							<div class="splayer__timeleft">-01:05</div>
+						</div>
+					</div>
 					<div class="warnings__comment">
 						<h1 class="warnings__comment-heading">Auditor's comment:</h1>
 						<div class="warnings__text">Even if the customer takes liberties in conversation, keep the dialogue neutral tones and smooth emotsonalny level. Ripped off is simply inexcusable for a professional. It is noticeable that emotions are very much to you in the way, pay attention to the 15:47 and 26:18</div>
@@ -85,7 +93,15 @@
 				<li class="warnings__item">
 					<div class="warnings__title">Second warning</div>
 					<div class="warnings__date">Expires on January 01, 2013 at 12:15</div>
-					<div class="warnings__player"><img src="img/pl2.png"></div>
+					<div class="warnings__player">
+						<div class="splayer is-hold">
+							<div class="splayer__playpause splayer__play"></div>
+							<div class="splayer__track">
+								<div class="splayer__bar" style="width:60%;"></div>
+							</div>
+							<div class="splayer__timeleft">-01:05</div>
+						</div>
+					</div>
 					<div class="warnings__comment">
 						<h1 class="warnings__comment-heading">Auditor's comment:</h1>
 						<div class="warnings__text">You have repeatedly moved away from the microphone. Also you so many times a client asked again, you were hard to hear. Sounds like you had a very bad run headphones, check out their technical serviceability</div>
