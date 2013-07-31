@@ -1035,11 +1035,11 @@
 		margin-bottom: 23px;
 		position: relative;
 		@extend %clr;
-		.btn{
-			float: right;
-		}
-		.btn_primary{
+		.btn_left{
 			float: left;
+		}
+		.btn_right{
+			float: right;
 		}
 	}
 	.test__check{

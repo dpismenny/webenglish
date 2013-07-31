@@ -303,8 +303,8 @@ a { color: #00919e; }
 .test__cancel a:hover { text-decoration: none; }
 
 .test__buttons { margin-top: 40px; margin-bottom: 23px; position: relative; }
-.test__buttons .btn { float: right; }
-.test__buttons .btn_primary { float: left; }
+.test__buttons .btn_left { float: left; }
+.test__buttons .btn_right { float: right; }
 
 .test__check { display: none; border: 1px solid #192b3b; -webkit-border-radius: 4px; -moz-border-radius: 4px; -ms-border-radius: 4px; -o-border-radius: 4px; border-radius: 4px; -webkit-background-clip: padding; -moz-background-clip: padding; background-clip: padding-box; background-color: #f1f4f5; -webkit-box-shadow: 0 8px 16px rgba(11, 23, 34, 0.82); -moz-box-shadow: 0 8px 16px rgba(11, 23, 34, 0.82); box-shadow: 0 8px 16px rgba(11, 23, 34, 0.82); position: absolute; top: -308px; left: 70px; width: 340px; height: 295px; color: #273b4f; font-size: 18px; font-weight: normal; font-style: normal; font-family: 'cuprumbold'; }
 
