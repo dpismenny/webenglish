@@ -1954,6 +1954,7 @@
 		height: 50px;
 	}
 		.audit__playpause{
+		  display:none;
 			float: left;
 			@include sized-sprite($icons, ico_play);
 			margin-right: 20px;
@@ -1996,6 +1997,9 @@
 			font-size: 16px;
 		}
 	}
+    .audit__button_cancel{
+      display: none;
+    }
 	.audit__row_long{
 		.audit__track{
 			width: 500px;
@@ -2007,6 +2011,18 @@
 		.audit__button{
 			margin-left: 0;
 		}
+		.audit__time{
+		  display: none;
+		}
+		.audit__playpause{
+		  display: block;
+		} 
+		.audit__button{
+       display: none;
+    }
+      .audit__button_cancel{
+        display: block;
+      }
 	}
 	.audit__claim{
 		float: left;

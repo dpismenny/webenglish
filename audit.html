@@ -6,8 +6,9 @@
 	<title>Template</title>
 	<meta name="viewport" content="width=device-width"/>
 	<link rel="stylesheet" media="screen" href="css/screen.css" >
-	<script src="js/jquery.js"></script>
-	<script src="js/common.js"></script>
+	<!--script src="js/jquery.js"></script>
+	<script src="js/common.js"></script-->
+	<script src="build/build.js"></script>
 </head>
 <body>
 <!-- BEGIN .panel -->
@@ -73,18 +74,19 @@
 		<div class="audit">
 			<h1 class="h1">Complaints Audit</h1>
 			<!-- BEGIN .row -->
-			<div class="audit__row">
+			<div class="audit__row js-audit-row">
 				<div class="audit__wrap js-evaluation">
 					<div class="audit__numb">12345</div>
 					<div class="audit__controls">
+						<div class="audit__playpause"></div>
 						<div class="audit__track">
 							<div class="audit__bar" style="width: 0%;"></div>
 						</div>
 						<div class="audit__timeleft">14:17</div>
 					</div>
 					<div class="audit__time">Audit Time: 28:34</div>
-					<div class="audit__button"><a href="#" class="btn btn_primary">Audit
-					</a></div>
+					<div class="audit__button js-button-audit"><a href="#" class="btn btn_primary">Audit</a></div>
+					<div class="audit__button audit__button_cancel js-button-cancel"><a href="#" class="btn btn_cancel">Cancel</a></div>
 				</div>
 				<div class="audit__info js-evaluation-info">
 					<div class="audit__claim">
@@ -104,7 +106,7 @@
 			</div>
 			<!-- /.row -->
 			<!-- BEGIN .row -->
-			<div class="audit__row audit__row_long">
+			<div class="audit__row audit__row_long js-audit-row">
 				<div class="audit__wrap js-evaluation">
 					<div class="audit__numb">12345</div>
 					<div class="audit__controls">
@@ -114,8 +116,9 @@
 						</div>
 						<div class="audit__timeleft">14:17</div>
 					</div>
-					<div class="audit__button"><a href="#" class="btn btn_cancel">Cancel
-					</a></div>
+					<div class="audit__time">Audit Time: 28:34</div>
+					<div class="audit__button js-button-audit"><a href="#" class="btn btn_primary">Audit</a></div>
+					<div class="audit__button audit__button_cancel js-button-cancel"><a href="#" class="btn btn_cancel">Cancel</a></div>
 				</div>
 				<div class="audit__info js-evaluation-info">
 					<div class="audit__claim">
