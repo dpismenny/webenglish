@@ -1,0 +1,9 @@
+{
+  "name": "3waytalk",
+  "version": "0.0.0",
+  "main": "js/app.js",
+  "dependencies": {
+    "html5shiv": "git://github.com/aFarkas/html5shiv.git#~3.6.2",
+    "jquery": "git://github.com/components/jquery.git#~2.0.3"
+  }
+}
