@@ -24,10 +24,20 @@ module.exports = function(grunt) {
 		},
 
 		concat: {
+			app: {
+				src: [
+					'js/src/app._head.js',
+					'js/src/app.audit.js',
+					'js/src/app.user.js',
+					'js/src/app._foot.js'
+				],
+				dest: 'js/app.js'
+			},
 			glue: {
 				src: [
 					'bower_components/html5shiv/dist/html5shiv.js',
 					'bower_components/jquery/jquery.min.js',
+					'chosen/chosen.jquery.min.js',
 					'js/app.min.js'
 				],
 				dest: 'build/build.js'
@@ -36,11 +46,11 @@ module.exports = function(grunt) {
 
 		watch: {
 			app: {
-				files: ['js/app.js'],
-				tasks: ['jshint', 'uglify', 'concat']
+				files: ['js/src/*.js'],
+				tasks: ['concat:app', 'jshint', 'uglify', 'concat:glue']
 			}
 		}
 	});
 
-	grunt.registerTask('default', ['jshint', 'uglify', 'concat', 'watch']);
+	grunt.registerTask('default', ['concat:app', 'jshint', 'uglify', 'concat:glue', 'watch']);
 };
