@@ -1,6 +1,6 @@
 	$('.js-auth').click(function() {
 		var	_this = $(this),
-			_popup = $(".js-popups");
+			_popup = $('.js-popups');
 
 		if ( _this.hasClass('is-open') ) {
 			_this.removeClass('is-open');
@@ -15,4 +15,4 @@
 		return false;
 	});
 
-	$(".chzn-select").chosen({ disable_search_threshold: 100 });
+	$('.chzn-select').chosen({ disable_search_threshold: 100 });

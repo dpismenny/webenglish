@@ -29,6 +29,7 @@ module.exports = function(grunt) {
 					'js/src/app._head.js',
 					'js/src/app.audit.js',
 					'js/src/app.user.js',
+					'js/src/app.rating.js',
 					'js/src/app._foot.js'
 				],
 				dest: 'js/app.js'
