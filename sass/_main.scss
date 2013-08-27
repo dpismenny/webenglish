@@ -1355,7 +1355,7 @@
 	}
 	.account__list{
 		li{
-			@extend %Clr;
+			@extend %clr;
 			list-style-type: none;
 			li{
 				cursor: pointer;
@@ -1954,16 +1954,21 @@
 		height: 50px;
 	}
 		.audit__playpause{
-		  display:none;
+		  //display:none;
 			float: left;
-			@include sized-sprite($icons, ico_play);
 			margin-right: 20px;
 			margin-top: 15px;
 			cursor: pointer;
 		}
+  		.audit__playpause_play{
+  		  @include sized-sprite($icons, ico_play);
+  		}
+  		.audit__playpause_pause{
+  		  @include sized-sprite($icons, ico_pause);
+  		}
 		.audit__track{
 			float: left;
-			width: 378px;
+			width: 346px; // was 378px
 			height: 4px;
 			overflow: hidden;
 			background: #273c50;

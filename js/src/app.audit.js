@@ -24,6 +24,7 @@
 
 		$('.js-audit-row').each(function() {
 			var	_row = $(this),
+				_player = $('.js-player', _row),
 				_form = null,
 				data = _row.data(),
 				blocked = false;
@@ -90,6 +91,7 @@
 											.off()
 											.remove();
 									});
+									_player.data('sound').stop();
 								})
 								.submit(submitHandler)
 								.appendTo(_row)
@@ -100,9 +102,11 @@
 								.click(function() {
 									_form.trigger('submit', { name: this.name });
 								});
+
 							if ( json.time_left )
 								timerStart(_form, json.time_left);
 
+							_player.trigger('init');
 						// form hide
 						} else if ( _form && _form.length ) {
 							_form

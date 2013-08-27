@@ -3,6 +3,6 @@
 	"error": false,
     "file": "http://site.ru/file.wav",
     "expires_at": "2013-08-22 18:85",
-    "time_left": 10,
+    "time_left": 20,
     "form": "<form action=\"#\" method=\"POST\" class=\"audit__info\"><div class=\"audit__claim\"><div class=\"audit__claim-title\">Customer’s Claim:</div><textarea class=\"textarea\" readonly>Heavy-to-understand accent</textarea></div><div class=\"audit__decision\"><div class=\"audit__decision-time\">Time Remained for Audit: <span class=\"js-audit-time\">10:20<span></div><div class=\"audit__decision-button\"><button name=\"yes\" type=\"submit\" class=\"btn btn_block btn_large btn_green\">The Customer's Claim is justified</button></div><div class=\"audit__decision-button\"><button name=\"no\" class=\"btn btn_block btn_large btn_red\">The Customer’s Claim isn’t justified</button></div><input type=\"checkbox\" name=\"mvt_opinion[accepted]\" value=\"1\" style=\"display: none;\"></div></form>"
 }

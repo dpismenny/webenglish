@@ -1,0 +1,26 @@
+[
+	{
+		"id":1,
+		"name":"#1",
+		"speeches":[
+			{"id":10,"origin":"/files/ENG-T10-L1-D2-V1-M.mp3","translated":"/translated/file.mp3"},
+			{"id":20,"origin":"/files/ENG-T10-L1-D2-V1-M.mp3","translated":"/translated/file.mp3"}
+		]
+	},
+	{
+		"id":2,
+		"name":"#2",
+		"speeches":[
+			{"id":4,"origin":"/files/ENG-T10-L1-D2-V1-M.mp3","translated":"/translated/file.mp3"},
+			{"id":6,"origin":"/files/ENG-T10-L1-D2-V1-M.mp3","translated":"/translated/file.mp3"}
+		]
+	},
+	{
+		"id":3,
+		"name":"#3",
+		"speeches":[
+			{"id":40,"origin":"/files/ENG-T10-L1-D2-V1-M.mp3","translated":"/translated/file.mp3"},
+			{"id":60,"origin":"/files/ENG-T10-L1-D2-V1-M.mp3","translated":"/translated/file.mp3"}
+		]
+	}
+]
