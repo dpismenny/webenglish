@@ -3,11 +3,12 @@
 <!--[if gt IE 8]><!--><html><!--<![endif]-->
 <head>
 	<meta charset="utf-8">
-	<title>Template</title>
+	<title>Warnings</title>
 	<meta name="viewport" content="width=device-width"/>
 	<link rel="stylesheet" media="screen" href="css/screen.css" >
-	<script src="js/jquery.js"></script>
-	<script src="js/common.js"></script>
+	<!--script src="js/jquery.js"></script>
+	<script src="js/common.js"></script-->
+	<script src="build/build.js"></script>
 </head>
 <body>
 <!-- BEGIN .panel -->
@@ -77,12 +78,12 @@
 					<div class="warnings__title">First warning</div>
 					<div class="warnings__date">Expires on January 01, 2013 at 12:15</div>
 					<div class="warnings__player">
-						<div class="splayer">
-							<div class="splayer__playpause splayer__pause"></div>
+						<div class="splayer js-player" data-url="/sound/1.mp3">
+							<div class="splayer__playpause splayer__play js-playpause" data-pause="splayer__pause" data-play="splayer__play"></div>
 							<div class="splayer__track">
-								<div class="splayer__bar" style="width:60%;"></div>
+								<div class="splayer__bar js-bar"></div>
 							</div>
-							<div class="splayer__timeleft">-01:05</div>
+							<div class="splayer__timeleft js-player-time">00:00</div>
 						</div>
 					</div>
 					<div class="warnings__comment">
@@ -94,12 +95,12 @@
 					<div class="warnings__title">Second warning</div>
 					<div class="warnings__date">Expires on January 01, 2013 at 12:15</div>
 					<div class="warnings__player">
-						<div class="splayer is-hold">
-							<div class="splayer__playpause splayer__play"></div>
+						<div class="splayer js-player" data-url="/sound/22.mp3">
+							<div class="splayer__playpause splayer__play js-playpause" data-pause="splayer__pause" data-play="splayer__play"></div>
 							<div class="splayer__track">
-								<div class="splayer__bar" style="width:60%;"></div>
+								<div class="splayer__bar js-bar"></div>
 							</div>
-							<div class="splayer__timeleft">-01:05</div>
+							<div class="splayer__timeleft js-player-time">00:00</div>
 						</div>
 					</div>
 					<div class="warnings__comment">

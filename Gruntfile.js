@@ -28,8 +28,9 @@ module.exports = function(grunt) {
 				src: [
 					'js/src/app._head.js',
 					'js/src/app.audit.js',
-					'js/src/app.user.js',
-					'js/src/app.rating.js',
+					'js/src/app.player.js',
+					'js/src/app.user.js', // from common.js
+					'js/src/app.rating.js', // from common.js
 					'js/src/app._foot.js'
 				],
 				dest: 'js/app.js'
@@ -38,7 +39,8 @@ module.exports = function(grunt) {
 				src: [
 					'bower_components/html5shiv/dist/html5shiv.js',
 					'bower_components/jquery/jquery.min.js',
-					'chosen/chosen.jquery.min.js',
+					'js/chosen/chosen.jquery.min.js',
+					'js/soundmanager2/soundmanager2-nodebug-jsmin.js',
 					'js/app.min.js'
 				],
 				dest: 'build/build.js'
