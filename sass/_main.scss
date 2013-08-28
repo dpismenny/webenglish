@@ -292,6 +292,19 @@
 			background-color: #00759b;
 		}
 	}
+	.btn_green, .btn_red {
+	  &.is-disabled {
+      border: 1px solid #747474;
+      background-color: #b2b3b4;
+      @include background-image(linear-gradient(#a1a1a1, #b2b3b4));
+      background-repeat: repeat-x;
+      border-color:  #a1a1a1  #a1a1a1 #b2b3b4;
+      border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+      &:hover {
+        background-position: 0 0;
+      }
+    }
+	}
 
 // panel
 .panel{
@@ -1767,6 +1780,8 @@
 		}
 		.icon{
 			position: absolute;
+			top: 18px;
+			right: -18px;
 			content: "";
 		}
 		.icon_email{
@@ -1777,6 +1792,61 @@
 			right: 17px;
 			top: 15px;
 		}
+      &.error{
+        position: relative;
+        .input{
+          border: 1px solid #f2415a;
+          background: #fff;
+          &:focus{
+            border: 1px solid #f14159;
+            @include background-clip(padding-box);
+            border-color: #f2415a;
+            @include box-shadow(inset 0 1px 4px rgba(38,39,40,.61));
+          }
+        }
+        .error__help{
+          position: absolute;
+          top: -20px;
+          left: -315px;
+          border: 1px solid #9c0021;
+          @include border-radius(4px);
+          @include background-clip(padding-box);
+          background-color: #f2415a;
+          @include box-shadow(0 8px 16px rgba(11,23,34,.82), inset 0 1px 0 rgba(255,255,255,.7));
+          width: 300px;
+          z-index: 1005;
+          color: #fff;
+          font-size: 18px;
+          @include cr;
+        }
+        .error__wrap{
+          height: 100%;
+          position: relative;
+          padding: 20px 10px 20px 20px;
+          &:before{
+            position: absolute;
+            top: 35px;
+            right: -11px;
+            content: "";
+            width: 0px;
+            height: 0px;
+            border-style: solid;
+            border-width: 10px 0 10px 11px;
+            border-color: transparent transparent transparent #9a1230;
+          }
+          &:after{
+            position: absolute;
+            top: 35px;
+            right: -10px;
+            content: "";
+            width: 0px;
+            height: 0px;
+            border-style: solid;
+            border-width: 10px 0 10px 11px;
+            border-color: transparent transparent transparent #f24158;
+          }
+        }
+      }
 	}
 	.popup__info{
 		@extend %clr;
@@ -1967,6 +2037,7 @@
   		  @include sized-sprite($icons, ico_pause);
   		}
 		.audit__track{
+		  cursor: pointer;
 			float: left;
 			width: 346px; // was 378px
 			height: 4px;
@@ -2157,6 +2228,7 @@
 	}
 }
 	.splayer__track{
+	  cursor: pointer;
 		position: absolute;
 		right: 60px;
 		left: 45px;

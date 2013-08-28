@@ -80,211 +80,67 @@
 				<div class="evaluation__col evaluation__level">State</div>
 			</div>
 			<!-- /.row -->
+
+			<script type="text/template" id="tpl_evaluation_player">
+			<div class="splayer js-player" data-url="<%= url %>">
+				<div class="splayer__playpause splayer__play js-playpause" data-pause="splayer__pause" data-play="splayer__play"></div>
+				<div class="splayer__track">
+					<div class="splayer__bar js-bar"></div>
+				</div>
+				<div class="splayer__timeleft js-player-time">00:00</div>
+			</div>
+			</script>
+
+			<script type="text/template" id="tpl_evaluation_info">
+			<div class="evaluation__info">
+				<div class="test test_mod">
+					<div class="test__icon"><i class="icon icon_listen2"></i></div>
+					<div class="test__title_mod">Listen to a part of the translation</div>
+
+					<div class="test_player js-player-wrap">
+						<!-- player -->
+					</div>
+
+					<div class="test__steps js-steps">
+						<ul>
+							<% _.each(dialogs, function(dialog, i) { %>
+							<li<% if (!i) { %> class="is-active"<% } %>><%= (i + 1) %></li>
+							<% }); %>
+						</ul>
+					</div>
+					<div class="evaluation__text">This part is translated:</div>
+					<div class="evaluation__buttons">
+						<a data-value="correct" class="btn btn_green is-disabled js-evaluation-button" href="#">Correct</a>
+						<a data-value="incorrect" class="btn btn_red is-disabled js-evaluation-button" href="#">Incorrect</a>
+					</div>
+				</div>
+			</div>
+			</script>
+			
 			<!-- BEGIN .row -->
 			<div class="evaluation__row">
-				<div class="evaluation__wrap js-evaluation" data-url="/restfake/dialogs.json">
+				<div class="evaluation__wrap js-evaluation" data-post="/rest/evaluation/" data-url="/restfake/dialogs.json">
 					<div class="evaluation__col evaluation__name">ivan petrovskiy</div>
 					<div class="evaluation__col evaluation__lang">russian</div>
 					<div class="evaluation__col evaluation__level"><span class="label label_lightgreen">Pending Evaluation</span></div>
 				</div>
-
-				<script type="text/template" id="tpl_evaluation_info">
-				<div class="evaluation__info">
-					<div class="test test_mod">
-						<div class="test__icon"><i class="icon icon_listen2"></i></div>
-						<div class="test__title_mod">Listen to a part of the translation</div>
-						
-						<div class="test_player">
-							<div class="splayer">
-								<div class="splayer__playpause splayer__play"></div>
-								<div class="splayer__track">
-									<div class="splayer__bar" style="width:60%;"></div>
-								</div>
-								<div class="splayer__timeleft">00:00</div>
-							</div>
-						</div>
-						<div class="test_player">
-							<div class="splayer is-hold">
-								<div class="splayer__playpause splayer__pause"></div>
-								<div class="splayer__track">
-									<div class="splayer__bar" style="width:0%;"></div>
-								</div>
-								<div class="splayer__timeleft">00:00</div>
-							</div>
-						</div>
-
-						<div class="test__steps">
-							<ul>
-								<% _.each(dialogs, function(dialog, i) { %>
-								<li><%= i %></li>
-								<% }); %>
-								<li class="is-done">1</li>
-								<li class="is-done">2</li>
-								<li class="is-active">3</li>
-								<li>4</li>
-								<li>5</li>
-								<li>6</li>
-								<li>7</li>
-								<li>8</li>
-								<li>9</li>
-								<li>10</li>
-							</ul>
-						</div>
-						<div class="evaluation__text">This part is translated:</div>
-						<div class="evaluation__buttons">
-							<a class="btn btn_green" href="#">Correct</a>
-							<a class="btn btn_red" href="#">Incorrect</a>
-						</div>
-					</div>
-				</div>
-				</script>
-				
-				<!--div class="js-evaluation-info evaluation__info">
-					<div class="test test_mod">
-						<div class="test__icon"><i class="icon icon_listen2"></i></div>
-						<div class="test__title_mod">Listen to a part of the translation</div>
-						<div class="test_player">
-							<div class="splayer">
-								<div class="splayer__playpause splayer__play"></div>
-								<div class="splayer__track">
-									<div class="splayer__bar" style="width:60%;"></div>
-								</div>
-								<div class="splayer__timeleft">-01:05</div>
-							</div>
-						</div>
-						<div class="test_player">
-							<div class="splayer is-hold">
-								<div class="splayer__playpause splayer__pause"></div>
-								<div class="splayer__track">
-									<div class="splayer__bar" style="width:0%;"></div>
-								</div>
-								<div class="splayer__timeleft">-01:05</div>
-							</div>
-						</div>
-						<div class="test__steps">
-							<ul>
-								<li class="is-done">1</li>
-								<li class="is-done">2</li>
-								<li class="is-active">3</li>
-								<li>4</li>
-								<li>5</li>
-								<li>6</li>
-								<li>7</li>
-								<li>8</li>
-								<li>9</li>
-								<li>10</li>
-							</ul>
-						</div>
-						<div class="evaluation__text">This part is translated:</div>
-						<div class="evaluation__buttons">
-							<a class="btn btn_green" href="#">Correct</a>
-							<a class="btn btn_red" href="#">Incorrect</a>
-						</div>
-					</div>
-				</div-->
 			</div>
 			<!-- /.row -->
 			<!-- BEGIN .row -->
 			<div class="evaluation__row">
-				<div class="evaluation__wrap js-evaluation">
+				<div class="evaluation__wrap js-evaluation" data-post="/rest/evaluation/" data-url="/restfake/dialogs.json">
 					<div class="evaluation__col evaluation__name">gaichek sidorov gaichek sidorov gaichek sidorov gaichek sidorov</div>
 					<div class="evaluation__col evaluation__lang">russian</div>
 					<div class="evaluation__col evaluation__level"><span class="label label_lightgreen">Pending Evaluation</span></div>
 				</div>
-				<div class="js-evaluation-info evaluation__info">
-					<div class="test test_mod">
-						<div class="test__icon"><i class="icon icon_listen2"></i></div>
-						<div class="test__title_mod">Listen to a part of the translation</div>
-						<div class="test_player">
-							<div class="splayer is-hold">
-								<div class="splayer__playpause splayer__play"></div>
-								<div class="splayer__track">
-									<div class="splayer__bar" style="width:60%;"></div>
-								</div>
-								<div class="splayer__timeleft">-01:05</div>
-							</div>
-						</div>
-						<div class="test_player">
-							<div class="splayer">
-								<div class="splayer__playpause splayer__pause"></div>
-								<div class="splayer__track">
-									<div class="splayer__bar" style="width:0%;"></div>
-								</div>
-								<div class="splayer__timeleft">-01:05</div>
-							</div>
-						</div>
-						<div class="test__steps">
-							<ul>
-								<li class="is-done">1</li>
-								<li class="is-done">2</li>
-								<li class="is-active">3</li>
-								<li>4</li>
-								<li>5</li>
-								<li>6</li>
-								<li>7</li>
-								<li>8</li>
-								<li>9</li>
-								<li>10</li>
-							</ul>
-						</div>
-						<div class="evaluation__text">This part is translated:</div>
-						<div class="evaluation__buttons">
-							<a class="btn btn_green" href="#">Correct</a>
-							<a class="btn btn_red" href="#">Incorrect</a>
-						</div>
-					</div>
-				</div>
 			</div>
 			<!-- /.row -->
 			<!-- BEGIN .row -->
 			<div class="evaluation__row">
-				<div class="evaluation__wrap js-evaluation">
+				<div class="evaluation__wrap js-evaluation" data-post="/rest/evaluation/" data-url="/restfake/dialogs.json">
 					<div class="evaluation__col evaluation__name">nino katamadze</div>
 					<div class="evaluation__col evaluation__lang">english</div>
 					<div class="evaluation__col evaluation__level"><span class="label label_lightgreen">Pending Evaluation</span></div>
-				</div>
-				<div class="js-evaluation-info evaluation__info">
-					<div class="test test_mod">
-						<div class="test__icon"><i class="icon icon_listen2"></i></div>
-						<div class="test__title_mod">Listen to a part of the translation</div>
-						<div class="test_player">
-							<div class="splayer">
-								<div class="splayer__playpause splayer__play"></div>
-								<div class="splayer__track">
-									<div class="splayer__bar" style="width:60%;"></div>
-								</div>
-								<div class="splayer__timeleft">-01:05</div>
-							</div>
-						</div>
-						<div class="test_player">
-							<div class="splayer is-hold">
-								<div class="splayer__playpause splayer__rec"></div>
-								<div class="splayer__track">
-									<div class="splayer__bar" style="width:0%;"></div>
-								</div>
-								<div class="splayer__timeleft">-01:05</div>
-							</div>
-						</div>
-						<div class="test__steps">
-							<ul>
-								<li class="is-done">1</li>
-								<li class="is-done">2</li>
-								<li class="is-active">3</li>
-								<li>4</li>
-								<li>5</li>
-								<li>6</li>
-								<li>7</li>
-								<li>8</li>
-								<li>9</li>
-								<li>10</li>
-							</ul>
-						</div>
-						<div class="evaluation__text">This part is translated:</div>
-						<div class="evaluation__buttons">
-							<a class="btn btn_green" href="#">Correct</a>
-							<a class="btn btn_red" href="#">Incorrect</a>
-						</div>
-					</div>
 				</div>
 			</div>
 			<!-- /.row -->
