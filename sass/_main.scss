@@ -1535,6 +1535,10 @@
 					}
 				}
 			}
+			&.is-hold {
+			  opacity: 0.5;
+			  cursor: default;
+			}
 		}
 		.evaluation__info{
 			cursor: default;
@@ -1991,6 +1995,10 @@
 		color: #fff;
 		font-size: 18px;
 		@include cb;
+		&.is-hold {
+		  opacity: 0.5;
+		  cursor: default;
+		}
 	}
 	.audit__wrap{
 		overflow: hidden;
@@ -2024,7 +2032,7 @@
 		height: 50px;
 	}
 		.audit__playpause{
-		  //display:none;
+		  display:none;
 			float: left;
 			margin-right: 20px;
 			margin-top: 15px;
@@ -2039,7 +2047,7 @@
 		.audit__track{
 		  cursor: pointer;
 			float: left;
-			width: 346px; // was 378px
+			width: 378px; // was 346px
 			height: 4px;
 			overflow: hidden;
 			background: #273c50;

@@ -27,8 +27,8 @@ module.exports = function(grunt) {
 			app: {
 				src: [
 					'js/src/app._head.js',
-					'js/src/app.audit.js',
 					'js/src/app.player.js',
+					'js/src/app.audit.js',
 					'js/src/app.evaluation.js',
 					'js/src/app.user.js', // from common.js
 					'js/src/app.rating.js', // from common.js

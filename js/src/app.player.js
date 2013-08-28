@@ -131,7 +131,7 @@
 					},
 					volume: 100
 				});
-	
+
 				_playpause.one('click.init', function() {
 					_this.trigger('init');
 				});

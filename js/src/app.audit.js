@@ -22,9 +22,11 @@
 			callback();
 		}
 
-		$('.js-audit-row').each(function() {
+		var	_all = $('.js-audit-row');
+
+		_all.each(function() {
 			var	_row = $(this),
-				_player = $('.js-player', _row),
+				_player = $('.js-player-empty', _row),
 				_form = null,
 				data = _row.data(),
 				blocked = false;
@@ -46,22 +48,24 @@
 				return false;
 			}
 
-			_row.on('click', '.js-button-audit, .js-button-cancel', function(e) {
+			_row.on('click', function(e) {
 				// ajax request or animation in progress
-				if ( blocked )
+				if ( blocked || _row.hasClass('is-hold') )
 					return false;
 
 				var	_button = $(this),
-					isAudit = _button.hasClass('js-button-audit'),
-					isCancel = _button.hasClass('js-button-cancel'),
+					isCancel = $(e.target).closest('.js-button-cancel').length,
 					isActive,
 					url;
 
+				if ( !isCancel && _row.hasClass(data.active) )
+					return false;
+
 				// detect button type
-				if ( data.form && isAudit ) {
+				if ( data.form && !isCancel ) {
 					isActive = true;
 					url = data.form;
-				} else if ( data.cancel && isCancel ) {
+				} else if ( data.cancel && isCancel ) { 
 					isActive = false;
 					url = data.cancel;
 				} else
@@ -72,8 +76,12 @@
 				$.ajax(url, {
 					success: function(json) {
 						// toggle row state
-						if ( data.active )
+						if ( data.active ) {
 							_row.toggleClass(data.active, isActive);
+							_all
+								.not('.' + data.active)
+								.toggleClass('is-hold', isActive);
+						}
 
 						// form show
 						if ( json.form ) {
@@ -92,6 +100,7 @@
 											.remove();
 									});
 									_player.data('sound').stop();
+									_all.removeClass('is-hold');
 								})
 								.submit(submitHandler)
 								.appendTo(_row)
@@ -106,7 +115,12 @@
 							if ( json.time_left )
 								timerStart(_form, json.time_left);
 
+							if ( !_player.data('url') && json.file )
+								_player
+									.data('url', json.file)
+									.jsplayer();
 							_player.trigger('init');
+
 						// form hide
 						} else if ( _form && _form.length ) {
 							_form
@@ -126,4 +140,6 @@
 				return false;
 			});
 		});
+
+		_win.trigger('sm2init');
 	})();

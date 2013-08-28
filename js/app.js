@@ -34,135 +34,6 @@ jQuery(function($) {
 			.replace('{seconds}', zeroFormatter(seconds));
 	}
 	/*
-	 * Audit component
-	 */
-	(function() {
-
-		// start audit timer 
-		function timerStart(_form, time) {
-			var	timer = null,
-				_time = $('.js-audit-time', _form),
-				callback = function() {
-					time--;
-					_time.text(timeFormatter(time));
-					if ( time <= 0 )
-						_form.trigger('timerdone');
-				};
-
-			_form.on('closeend timerdone', function() {
-				clearInterval(timer);
-				timer = null;
-			});
-			timer = setInterval(callback, 1000);
-			callback();
-		}
-
-		$('.js-audit-row').each(function() {
-			var	_row = $(this),
-				_player = $('.js-player', _row),
-				_form = null,
-				data = _row.data(),
-				blocked = false;
-
-			function submitHandler(e, data) {
-				data = data || {};
-				if ( !data.name )
-					return false;
-				$('[name="mvt_opinion[accepted]"]', _form).attr('checked', data.name == 'yes');
-				$.ajax(_form.attr('action'), {
-					type: _form.attr('method'),
-					data: _form.serialize(),
-					complete: function() {
-						_form
-							.on('closeend', function() { _row.off().remove(); })
-							.trigger('close');
-					}
-				});
-				return false;
-			}
-
-			_row.on('click', '.js-button-audit, .js-button-cancel', function(e) {
-				// ajax request or animation in progress
-				if ( blocked )
-					return false;
-
-				var	_button = $(this),
-					isAudit = _button.hasClass('js-button-audit'),
-					isCancel = _button.hasClass('js-button-cancel'),
-					isActive,
-					url;
-
-				// detect button type
-				if ( data.form && isAudit ) {
-					isActive = true;
-					url = data.form;
-				} else if ( data.cancel && isCancel ) {
-					isActive = false;
-					url = data.cancel;
-				} else
-					return false;
-
-				// ajax request
-				blocked = true;
-				$.ajax(url, {
-					success: function(json) {
-						// toggle row state
-						if ( data.active )
-							_row.toggleClass(data.active, isActive);
-
-						// form show
-						if ( json.form ) {
-							_form = $(json.form);
-							_form
-								.on('timerdone', function() {
-									_row.removeClass(data.active);
-									_form.trigger('close');
-									// @todo: notification
-								})
-								.on('close', function() {
-									_form.slideUp(function() {
-										_form
-											.trigger('closeend')
-											.off()
-											.remove();
-									});
-									_player.data('sound').stop();
-								})
-								.submit(submitHandler)
-								.appendTo(_row)
-								.slideDown(function() {
-									blocked = false;
-								})
-								.find(':submit')
-								.click(function() {
-									_form.trigger('submit', { name: this.name });
-								});
-
-							if ( json.time_left )
-								timerStart(_form, json.time_left);
-
-							_player.trigger('init');
-						// form hide
-						} else if ( _form && _form.length ) {
-							_form
-								.on('closeend', function() { blocked = false; })
-								.trigger('close');
-						} else {
-							// @todo
-							blocked = false;
-						}
-					},
-					error: function() {
-						// @todo
-						blocked = false;
-					}
-				});
-
-				return false;
-			});
-		});
-	})();
-	/*
 	 * Player component
 	 */
 	(function(soundManager) {
@@ -295,7 +166,7 @@ jQuery(function($) {
 					},
 					volume: 100
 				});
-	
+
 				_playpause.one('click.init', function() {
 					_this.trigger('init');
 				});
@@ -314,6 +185,151 @@ jQuery(function($) {
 			_win.trigger('sm2init');
 	})(window.soundManager);
 	/*
+	 * Audit component
+	 */
+	(function() {
+
+		// start audit timer 
+		function timerStart(_form, time) {
+			var	timer = null,
+				_time = $('.js-audit-time', _form),
+				callback = function() {
+					time--;
+					_time.text(timeFormatter(time));
+					if ( time <= 0 )
+						_form.trigger('timerdone');
+				};
+
+			_form.on('closeend timerdone', function() {
+				clearInterval(timer);
+				timer = null;
+			});
+			timer = setInterval(callback, 1000);
+			callback();
+		}
+
+		var	_all = $('.js-audit-row');
+
+		_all.each(function() {
+			var	_row = $(this),
+				_player = $('.js-player-empty', _row),
+				_form = null,
+				data = _row.data(),
+				blocked = false;
+
+			function submitHandler(e, data) {
+				data = data || {};
+				if ( !data.name )
+					return false;
+				$('[name="mvt_opinion[accepted]"]', _form).attr('checked', data.name == 'yes');
+				$.ajax(_form.attr('action'), {
+					type: _form.attr('method'),
+					data: _form.serialize(),
+					complete: function() {
+						_form
+							.on('closeend', function() { _row.off().remove(); })
+							.trigger('close');
+					}
+				});
+				return false;
+			}
+
+			_row.on('click', function(e) {
+				// ajax request or animation in progress
+				if ( blocked || _row.hasClass('is-hold') )
+					return false;
+
+				var	_button = $(this),
+					isCancel = $(e.target).closest('.js-button-cancel').length,
+					isActive,
+					url;
+
+				if ( !isCancel && _row.hasClass(data.active) )
+					return false;
+
+				// detect button type
+				if ( data.form && !isCancel ) {
+					isActive = true;
+					url = data.form;
+				} else if ( data.cancel && isCancel ) { 
+					isActive = false;
+					url = data.cancel;
+				} else
+					return false;
+
+				// ajax request
+				blocked = true;
+				$.ajax(url, {
+					success: function(json) {
+						// toggle row state
+						if ( data.active ) {
+							_row.toggleClass(data.active, isActive);
+							_all
+								.not('.' + data.active)
+								.toggleClass('is-hold', isActive);
+						}
+
+						// form show
+						if ( json.form ) {
+							_form = $(json.form);
+							_form
+								.on('timerdone', function() {
+									_row.removeClass(data.active);
+									_form.trigger('close');
+									// @todo: notification
+								})
+								.on('close', function() {
+									_form.slideUp(function() {
+										_form
+											.trigger('closeend')
+											.off()
+											.remove();
+									});
+									_player.data('sound').stop();
+									_all.removeClass('is-hold');
+								})
+								.submit(submitHandler)
+								.appendTo(_row)
+								.slideDown(function() {
+									blocked = false;
+								})
+								.find(':submit')
+								.click(function() {
+									_form.trigger('submit', { name: this.name });
+								});
+
+							if ( json.time_left )
+								timerStart(_form, json.time_left);
+
+							if ( !_player.data('url') && json.file )
+								_player
+									.data('url', json.file)
+									.jsplayer();
+							_player.trigger('init');
+
+						// form hide
+						} else if ( _form && _form.length ) {
+							_form
+								.on('closeend', function() { blocked = false; })
+								.trigger('close');
+						} else {
+							// @todo
+							blocked = false;
+						}
+					},
+					error: function() {
+						// @todo
+						blocked = false;
+					}
+				});
+
+				return false;
+			});
+		});
+
+		_win.trigger('sm2init');
+	})();
+	/*
 	 * Evaluation component
 	 */
 	(function() {
@@ -324,13 +340,17 @@ jQuery(function($) {
 		var	tplInfo = _.template($('#tpl_evaluation_info').html()),
 			tplPlayer = _.template($('#tpl_evaluation_player').html());
 
+		var	_all = $('.js-evaluation');
+
 		// Init evaluation rows
-		$('.js-evaluation').each(function() {
+		_all.each(function() {
 			var	_this = $(this),
-				_info, _steps, _player, _playerWrap, _buttons,
+				_info, _steps, _buttons,
+				_player, _playerWrap,
 				dialogIndex = 0,
 				speechIndex = -1,
 				data = _this.data(),
+				blocked = false,
 				json;
 
 			function initDialogs(response) {
@@ -345,6 +365,9 @@ jQuery(function($) {
 				_this
 					.addClass('is-active')
 					.trigger('next');
+				_all
+					.not('.is-active')
+					.addClass('is-hold');
 			}
 
 			_this
@@ -365,6 +388,8 @@ jQuery(function($) {
 							_info.remove();
 							_this.remove();
 						});
+						_all
+							.removeClass('is-hold');
 						return;
 					}
 
@@ -432,13 +457,28 @@ jQuery(function($) {
 						.trigger('init');
 				})
 				.click(function() {
+					if ( blocked || _this.hasClass('is-hold') )
+						return;
+
+					// @tofix
 					if ( _info ) {
-						_this.toggleClass('is-active', !_info.is(':visible'));
+						var active = !_info.is(':visible');
+						_this.toggleClass('is-active', active);
+						_all.not('.is-active').toggleClass('is-hold', active);
+						if ( active )
+							_player.trigger('init');
+						else
+							_player.data('sound').stop();
+						
 						return _info.slideToggle();
 					}
 
+					blocked = true;
 					$.ajax(data.url, {
 						success: initDialogs,
+						complete: function() {
+							blocked = false;
+						},
 						error: function() {
 							// @todo
 						}

@@ -9,13 +9,17 @@
 		var	tplInfo = _.template($('#tpl_evaluation_info').html()),
 			tplPlayer = _.template($('#tpl_evaluation_player').html());
 
+		var	_all = $('.js-evaluation');
+
 		// Init evaluation rows
-		$('.js-evaluation').each(function() {
+		_all.each(function() {
 			var	_this = $(this),
-				_info, _steps, _player, _playerWrap, _buttons,
+				_info, _steps, _buttons,
+				_player, _playerWrap,
 				dialogIndex = 0,
 				speechIndex = -1,
 				data = _this.data(),
+				blocked = false,
 				json;
 
 			function initDialogs(response) {
@@ -30,6 +34,9 @@
 				_this
 					.addClass('is-active')
 					.trigger('next');
+				_all
+					.not('.is-active')
+					.addClass('is-hold');
 			}
 
 			_this
@@ -50,6 +57,8 @@
 							_info.remove();
 							_this.remove();
 						});
+						_all
+							.removeClass('is-hold');
 						return;
 					}
 
@@ -117,13 +126,28 @@
 						.trigger('init');
 				})
 				.click(function() {
+					if ( blocked || _this.hasClass('is-hold') )
+						return;
+
+					// @tofix
 					if ( _info ) {
-						_this.toggleClass('is-active', !_info.is(':visible'));
+						var active = !_info.is(':visible');
+						_this.toggleClass('is-active', active);
+						_all.not('.is-active').toggleClass('is-hold', active);
+						if ( active )
+							_player.trigger('init');
+						else
+							_player.data('sound').stop();
+						
 						return _info.slideToggle();
 					}
 
+					blocked = true;
 					$.ajax(data.url, {
 						success: initDialogs,
+						complete: function() {
+							blocked = false;
+						},
 						error: function() {
 							// @todo
 						}
