@@ -295,7 +295,10 @@ jQuery(function($) {
 								})
 								.find(':submit')
 								.click(function() {
-									_form.trigger('submit', { name: this.name });
+									var	_button = $(this);
+									if ( _button.hasClass('is-disabled') )
+										return false;
+									_form.trigger('submit', { name: _button.attr('name') });
 								});
 
 							if ( json.time_left )
@@ -304,7 +307,12 @@ jQuery(function($) {
 							if ( !_player.data('url') && json.file )
 								_player
 									.data('url', json.file)
-									.jsplayer();
+									.jsplayer()
+									.on('finish', function() {
+										_form
+											.find(':submit')
+											.removeClass('is-disabled');
+									});
 							_player.trigger('init');
 
 						// form hide
