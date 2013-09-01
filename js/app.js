@@ -15,12 +15,12 @@ jQuery(function($) {
 	 * Utils
 	 */
 
-	// adds zero for digits: 9 -> '09'
+	// Adds zero for digits: 9 -> '09'
 	function zeroFormatter(value) {
 		return (value > 9 ? '' : '0') + value;
 	}
 
-	// converts seconds to time string: 1234 -> '20:34'
+	// Converts seconds to time string: 1234 -> '20:34'
 	function timeFormatter(value, ms) {
 		value = parseInt(value || 0, 10);
 		value = ms ? Math.round(value / 1000) : value;
@@ -41,7 +41,7 @@ jQuery(function($) {
 			return;
 
 		// Setup options 
-		_win.on('sm2init', function() {
+		_win.one('sm2init', function() {
 			soundManager.setup({
 				url: '/js/soundmanager2/swf/',
 				preferFlash: false,
@@ -176,13 +176,14 @@ jQuery(function($) {
 		};
 
 		// Init players for all views
-		_win.on('sm2ready', function() {
+		_win.one('sm2ready', function() {
 			$('.js-player').jsplayer({ test: true });
 		});
 
 		// Auto init for detected players
 		if ( $('.js-player').length )
 			_win.trigger('sm2init');
+
 	})(window.soundManager);
 	/*
 	 * Audit component

@@ -6,7 +6,7 @@
 			return;
 
 		// Setup options 
-		_win.on('sm2init', function() {
+		_win.one('sm2init', function() {
 			soundManager.setup({
 				url: '/js/soundmanager2/swf/',
 				preferFlash: false,
@@ -141,11 +141,12 @@
 		};
 
 		// Init players for all views
-		_win.on('sm2ready', function() {
+		_win.one('sm2ready', function() {
 			$('.js-player').jsplayer({ test: true });
 		});
 
 		// Auto init for detected players
 		if ( $('.js-player').length )
 			_win.trigger('sm2init');
+
 	})(window.soundManager);
