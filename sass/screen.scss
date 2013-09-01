@@ -1,6 +1,14 @@
+@charset "utf-8";
 @import "common";
 @import "fonts";
 @import "layouts";
+@import "notifications";
+@import "popup-notification";
+@import "error-notification";
+@import "panel";
+@import "favorites";
+@import "cost";
+@import "queue";
 @import "main";
 @import "ie";
 @import "chosen";

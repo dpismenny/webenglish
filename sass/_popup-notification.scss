@@ -1,0 +1,35 @@
+.popup-notification{
+  position: fixed;
+  top: 45%;
+  left: 0;
+  right: 0;
+  width: 380px; 
+  padding: 20px 25px; 
+  background-color: #d6e5f5; 
+  border-radius:4px;
+  box-shadow:0 0 0 4px rgba(4, 14, 24, .42);
+  z-index: 1000;
+  margin: auto;
+  }
+.popup-notification__message{
+  color:#152331;
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: normal;
+  font-style: normal;
+  font-family: 'cuprumbold';
+  }
+.popup-notification__close{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  @include sized-sprite($icons, close-default);
+  overflow: hidden;
+  text-indent: -9999px;
+  &:hover{
+    @include sized-sprite($icons, close-hover);
+    }
+  &:active{
+    @include sized-sprite($icons, close-active);
+    }
+  }
