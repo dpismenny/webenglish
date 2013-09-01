@@ -5,43 +5,72 @@
 		if ( !soundManager )
 			return;
 
-		// Setup options 
-		_win.one('sm2init', function() {
+		// Setup SM2 options
+		_win.one('sm2_init', function() {
 			soundManager.setup({
 				url: '/js/soundmanager2/swf/',
 				preferFlash: false,
 				onready: function() {
-					_win.trigger('sm2ready');
+					_win.trigger('sm2_ready');
 				},
 				ontimeout: function() {
-					// @todo
+					throw new Error('SoundManager2 init error');
 				}
 			});
 		});
 
-		// jsplayer jQuery-plugin
+		/**
+		 * jsplayer - jQuery-plugin for SM2 player view 
+		 * @class jsplayer
+		 * @memberOf jQuery.fn
+		 * @param {Object} [opts] Player options
+		 * @param {String} [opts.url] Sound file URL
+		 * @param {Number} [opts.volume] Sound volume [0..100], default - 100 
+		 * @param {Boolean} [opts.autoplay] Auto play mode, default - false
+		 * @param {Boolean} [opts.autoload] Auto load sound file, default - false
+		 * @param {String} [opts.classPause] Class for pause-mode of control
+		 * @param {String} [opts.classPlay] Class for play-mode of control
+		 * @fires jsplayer#event:do_init
+		 * @fires jsplayer#event:do_stop
+		 * @fires jsplayer#event:error File loading error
+		 * @fires jsplayer#event:time Remaining time changes
+		 * @fires jsplayer#event:bar Progress bar position changes
+		 * @fires jsplayer#event:play_state Play state for player control
+		 * @fires jsplayer#event:pause_state Pause state for player control
+		 */
 		$.fn.jsplayer = function(opts) {
+			opts = opts || {};
+
 			return $(this).each(function() {
 				var	_this = $(this),
 					_time = $('.js-player-time', _this),
 					_playpause = $('.js-playpause', _this),
 					_bar = $('.js-bar', _this),
 					_track = _bar.parent(),
-					autoPlay = !!_this.data('autoplay'),
-					isPause = _playpause.data('pause'),
-					isPlay = _playpause.data('play'),
-					url = _this.data('url');
+					url = _this.data('url') || opts.url,
+					volume = _this.data('volume') || opts.volume || 100,
+					autoPlay = !!_this.data('autoplay') || opts.autoplay,
+					autoLoad = !!_this.data('autoload') || opts.autoload,
+					classPause = _playpause.data('pause') || opts.classPause,
+					classPlay = _playpause.data('play') || opts.classPlay;
+
+				if ( _this.data('jsplayer_added') )
+					return false;
 
 				_this
-					// Init player, fired load or play
-					.on('init', function() {
-						_playpause.off('.init');
+					// Init player, call sound.load() or sound.play()
+					.on('do_init', function() {
 						if ( sound.position > 0 )
 							return;
 						else if ( sound.loaded )
 							sound.play();
 						else
 							sound.load();
+						_playpause.off('.init');
+					})
+					// Call sound.stop()
+					.on('do_stop', function() {
+						sound.stop();
 					})
 					// File load error
 					.on('error', function() {
@@ -60,15 +89,16 @@
 					// Set play state for player control
 					.on('play_state', function() {
 						_playpause
-							.removeClass(isPlay)
-							.addClass(isPause);
+							.removeClass(classPlay)
+							.addClass(classPause);
 					})
 					// Set pause state for player control
 					.on('pause_state', function() {
 						_playpause
-							.removeClass(isPause)
-							.addClass(isPlay);
-					});
+							.removeClass(classPause)
+							.addClass(classPlay);
+					})
+					.data('jsplayer_added', true);
 
 				// Bar click handler, change track current position
 				_track
@@ -86,19 +116,21 @@
 				// Sound instance
 				var sound = soundManager.createSound({
 					url: url,
-					autoLoad: false,
+					autoLoad: autoLoad,
 					autoPlay: autoPlay,
 					onload: function() {
 						if ( !this.loaded )
 							return _this.trigger('error');
 
 						_this.trigger('time', this.duration);
-						_playpause.click($.proxy(function() {
-							if ( this.paused || this.playState === 0 )
-								this.play();
-							else
-								this.pause();
-						}, this));
+						_playpause
+							.off()
+							.click($.proxy(function() {
+								if ( this.paused || this.playState === 0 )
+									this.play();
+								else
+									this.pause();
+							}, this));
 						this.play();
 					},
 					onplay: function() {
@@ -133,20 +165,18 @@
 				});
 
 				_playpause.one('click.init', function() {
-					_this.trigger('init');
+					_this.trigger('do_init');
 				});
-
-				_this.data('sound', sound);
 			});
 		};
 
 		// Init players for all views
-		_win.one('sm2ready', function() {
+		_win.one('sm2_ready', function() {
 			$('.js-player').jsplayer({ test: true });
 		});
 
 		// Auto init for detected players
 		if ( $('.js-player').length )
-			_win.trigger('sm2init');
+			_win.trigger('sm2_init');
 
 	})(window.soundManager);

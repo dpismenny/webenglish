@@ -1,6 +1,11 @@
 jQuery(function($) {
 	'use strict';
 
+	/**
+	 * Global events emitter
+	 * @fires #event:sm2_init Setup SM2 options
+	 * @fires #event:sm2_ready SM2 ready to use
+	 */
 	var	_win = $(window);
 
 	/*
@@ -40,43 +45,72 @@ jQuery(function($) {
 		if ( !soundManager )
 			return;
 
-		// Setup options 
-		_win.one('sm2init', function() {
+		// Setup SM2 options
+		_win.one('sm2_init', function() {
 			soundManager.setup({
 				url: '/js/soundmanager2/swf/',
 				preferFlash: false,
 				onready: function() {
-					_win.trigger('sm2ready');
+					_win.trigger('sm2_ready');
 				},
 				ontimeout: function() {
-					// @todo
+					throw new Error('SoundManager2 init error');
 				}
 			});
 		});
 
-		// jsplayer jQuery-plugin
+		/**
+		 * jsplayer - jQuery-plugin for SM2 player view 
+		 * @class jsplayer
+		 * @memberOf jQuery.fn
+		 * @param {Object} [opts] Player options
+		 * @param {String} [opts.url] Sound file URL
+		 * @param {Number} [opts.volume] Sound volume [0..100], default - 100 
+		 * @param {Boolean} [opts.autoplay] Auto play mode, default - false
+		 * @param {Boolean} [opts.autoload] Auto load sound file, default - false
+		 * @param {String} [opts.classPause] Class for pause-mode of control
+		 * @param {String} [opts.classPlay] Class for play-mode of control
+		 * @fires jsplayer#event:do_init
+		 * @fires jsplayer#event:do_stop
+		 * @fires jsplayer#event:error File loading error
+		 * @fires jsplayer#event:time Remaining time changes
+		 * @fires jsplayer#event:bar Progress bar position changes
+		 * @fires jsplayer#event:play_state Play state for player control
+		 * @fires jsplayer#event:pause_state Pause state for player control
+		 */
 		$.fn.jsplayer = function(opts) {
+			opts = opts || {};
+
 			return $(this).each(function() {
 				var	_this = $(this),
 					_time = $('.js-player-time', _this),
 					_playpause = $('.js-playpause', _this),
 					_bar = $('.js-bar', _this),
 					_track = _bar.parent(),
-					autoPlay = !!_this.data('autoplay'),
-					isPause = _playpause.data('pause'),
-					isPlay = _playpause.data('play'),
-					url = _this.data('url');
+					url = _this.data('url') || opts.url,
+					volume = _this.data('volume') || opts.volume || 100,
+					autoPlay = !!_this.data('autoplay') || opts.autoplay,
+					autoLoad = !!_this.data('autoload') || opts.autoload,
+					classPause = _playpause.data('pause') || opts.classPause,
+					classPlay = _playpause.data('play') || opts.classPlay;
+
+				if ( _this.data('jsplayer_added') )
+					return false;
 
 				_this
-					// Init player, fired load or play
-					.on('init', function() {
-						_playpause.off('.init');
+					// Init player, call sound.load() or sound.play()
+					.on('do_init', function() {
 						if ( sound.position > 0 )
 							return;
 						else if ( sound.loaded )
 							sound.play();
 						else
 							sound.load();
+						_playpause.off('.init');
+					})
+					// Call sound.stop()
+					.on('do_stop', function() {
+						sound.stop();
 					})
 					// File load error
 					.on('error', function() {
@@ -95,15 +129,16 @@ jQuery(function($) {
 					// Set play state for player control
 					.on('play_state', function() {
 						_playpause
-							.removeClass(isPlay)
-							.addClass(isPause);
+							.removeClass(classPlay)
+							.addClass(classPause);
 					})
 					// Set pause state for player control
 					.on('pause_state', function() {
 						_playpause
-							.removeClass(isPause)
-							.addClass(isPlay);
-					});
+							.removeClass(classPause)
+							.addClass(classPlay);
+					})
+					.data('jsplayer_added', true);
 
 				// Bar click handler, change track current position
 				_track
@@ -121,19 +156,21 @@ jQuery(function($) {
 				// Sound instance
 				var sound = soundManager.createSound({
 					url: url,
-					autoLoad: false,
+					autoLoad: autoLoad,
 					autoPlay: autoPlay,
 					onload: function() {
 						if ( !this.loaded )
 							return _this.trigger('error');
 
 						_this.trigger('time', this.duration);
-						_playpause.click($.proxy(function() {
-							if ( this.paused || this.playState === 0 )
-								this.play();
-							else
-								this.pause();
-						}, this));
+						_playpause
+							.off()
+							.click($.proxy(function() {
+								if ( this.paused || this.playState === 0 )
+									this.play();
+								else
+									this.pause();
+							}, this));
 						this.play();
 					},
 					onplay: function() {
@@ -168,335 +205,346 @@ jQuery(function($) {
 				});
 
 				_playpause.one('click.init', function() {
-					_this.trigger('init');
+					_this.trigger('do_init');
 				});
-
-				_this.data('sound', sound);
 			});
 		};
 
 		// Init players for all views
-		_win.one('sm2ready', function() {
+		_win.one('sm2_ready', function() {
 			$('.js-player').jsplayer({ test: true });
 		});
 
 		// Auto init for detected players
 		if ( $('.js-player').length )
-			_win.trigger('sm2init');
+			_win.trigger('sm2_init');
 
 	})(window.soundManager);
 	/*
 	 * Audit component
 	 */
 	(function() {
+		/**
+		 * auditWrap - jQuery wrapper for audit view
+		 * @class auditWrap
+		 * @memberOf jQuery.fn
+		 * @fires auditWrap#event:init_form
+		 * @fires auditWrap#event:timer_start
+		 * @fires auditWrap#event:req_form
+		 * @fires auditWrap#event:req_cancel
+		 */
+		$.fn.auditWrap = function() {
+			_win.trigger('sm2_init');
 
-		// start audit timer 
-		function timerStart(_form, time) {
-			var	timer = null,
-				_time = $('.js-audit-time', _form),
-				callback = function() {
-					time--;
-					_time.text(timeFormatter(time));
-					if ( time <= 0 )
-						_form.trigger('timerdone');
-				};
+			var	_all = $(this);
+			return _all.each(function() {
+				var	_this = $(this),
+					_player = $('.js-player-empty', _this),
+					_form = null,
+					data = _this.data(),
+					classActive = data.active,
+					urlForm = data.form,
+					urlCancel = data.cancel,
+					blocked = false;
 
-			_form.on('closeend timerdone', function() {
-				clearInterval(timer);
-				timer = null;
-			});
-			timer = setInterval(callback, 1000);
-			callback();
-		}
+				if ( !urlForm || !urlCancel || !classActive )
+					throw new Error('Missing required data-attribites for audit element');
 
-		var	_all = $('.js-audit-row');
+				_this
+					.on('timer_start', function(e, time) {
+						var	timer = null,
+							_time = $('.js-audit-time', _form),
+							callback = function() {
+								time--;
+								_time.text(timeFormatter(time));
+								if ( time <= 0 )
+									_form.trigger('timerdone');
+							};
 
-		_all.each(function() {
-			var	_row = $(this),
-				_player = $('.js-player-empty', _row),
-				_form = null,
-				data = _row.data(),
-				blocked = false;
+						_form.on('closeend timerdone', function() {
+							clearInterval(timer);
+							timer = null;
+						});
+						timer = setInterval(callback, 1000);
+						callback();
+					})
+					.on('init_form', function() {
+						var	_buttons = $(':submit', _form),
+							_accepted = $('[name="mvt_opinion[accepted]"]', _form);
 
-			function submitHandler(e, data) {
-				data = data || {};
-				if ( !data.name )
-					return false;
-				$('[name="mvt_opinion[accepted]"]', _form).attr('checked', data.name == 'yes');
-				$.ajax(_form.attr('action'), {
-					type: _form.attr('method'),
-					data: _form.serialize(),
-					complete: function() {
 						_form
-							.on('closeend', function() { _row.off().remove(); })
-							.trigger('close');
-					}
-				});
-				return false;
-			}
-
-			_row.on('click', function(e) {
-				// ajax request or animation in progress
-				if ( blocked || _row.hasClass('is-hold') )
-					return false;
-
-				var	_button = $(this),
-					isCancel = $(e.target).closest('.js-button-cancel').length,
-					isActive,
-					url;
-
-				if ( !isCancel && _row.hasClass(data.active) )
-					return false;
-
-				// detect button type
-				if ( data.form && !isCancel ) {
-					isActive = true;
-					url = data.form;
-				} else if ( data.cancel && isCancel ) { 
-					isActive = false;
-					url = data.cancel;
-				} else
-					return false;
-
-				// ajax request
-				blocked = true;
-				$.ajax(url, {
-					success: function(json) {
-						// toggle row state
-						if ( data.active ) {
-							_row.toggleClass(data.active, isActive);
-							_all
-								.not('.' + data.active)
-								.toggleClass('is-hold', isActive);
-						}
-
-						// form show
-						if ( json.form ) {
-							_form = $(json.form);
-							_form
-								.on('timerdone', function() {
-									_row.removeClass(data.active);
-									_form.trigger('close');
-									// @todo: notification
-								})
-								.on('close', function() {
-									_form.slideUp(function() {
-										_form
-											.trigger('closeend')
-											.off()
-											.remove();
-									});
-									_player.data('sound').stop();
-									_all.removeClass('is-hold');
-								})
-								.submit(submitHandler)
-								.appendTo(_row)
-								.slideDown(function() {
-									blocked = false;
-								})
-								.find(':submit')
-								.click(function() {
-									var	_button = $(this);
-									if ( _button.hasClass('is-disabled') )
-										return false;
-									_form.trigger('submit', { name: _button.attr('name') });
+							.off()
+							.on('timerdone', function() {
+								_this.removeClass(classActive);
+								_form.trigger('close');
+								// @todo: notification
+							})
+							.on('close', function() {
+								_form.slideUp(function() {
+									_form
+										.trigger('closeend')
+										.off()
+										.remove();
 								});
-
-							if ( json.time_left )
-								timerStart(_form, json.time_left);
-
-							if ( !_player.data('url') && json.file )
-								_player
-									.data('url', json.file)
-									.jsplayer()
-									.on('finish', function() {
+								_player.trigger('do_stop');
+								_all.removeClass('is-hold');
+							})
+							.on('submit', function(e, data) {
+								_accepted.attr('checked', data.name === 'yes');
+								$.ajax(_form.attr('action'), {
+									type: _form.attr('method'),
+									data: _form.serialize(),
+									complete: function() {
 										_form
-											.find(':submit')
-											.removeClass('is-disabled');
-									});
-							_player.trigger('init');
+											.on('closeend', function() { _this.off().remove(); })
+											.trigger('close');
+									}
+								});
+								return false;
+							})
+							.appendTo(_this)
+							.slideDown(function() {
+								blocked = false;
+							});
 
-						// form hide
-						} else if ( _form && _form.length ) {
-							_form
-								.on('closeend', function() { blocked = false; })
-								.trigger('close');
-						} else {
-							// @todo
-							blocked = false;
-						}
-					},
-					error: function() {
-						// @todo
-						blocked = false;
-					}
-				});
+						_buttons.click(function() {
+							var	_button = $(this);
+							if ( _button.hasClass('is-disabled') )
+								return false;
+							_form.trigger('submit', { name: _button.attr('name') });
+						});
+					})
+					.on('req_form', function() {
+						blocked = true;
+						$.ajax(urlForm, {
+							success: function(json) {
+								// Set view for opened block
+								_this.addClass(classActive);
+								_all
+									.not('.' + classActive)
+									.addClass('is-hold');
 
-				return false;
+								// Add form
+								_form = $(json.form);
+								_this
+									.trigger('init_form')
+									.trigger('timer_start',  json.time_left);
+
+								// Init player
+								if ( json.file )
+									_player
+										.jsplayer({ url: json.file })
+										.on('finish', function() {
+											_form
+												.find(':submit')
+												.removeClass('is-disabled');
+										})
+										.trigger('do_init');
+							},
+							error: function() {
+								// @todo
+								blocked = false;
+							}
+						});
+					})
+					.on('req_cancel', function() {
+						blocked = true;
+						$.ajax(urlForm, {
+							success: function(json) {
+								_all
+									.removeClass(classActive)
+									.removeClass('is-hold');
+
+								_form
+									.on('closeend', function() { blocked = false; })
+									.trigger('close');
+							},
+							error: function() {
+								// @todo
+								blocked = false;
+							}
+						});
+					})
+					.on('click', function(e) {
+						// AJAX request or animation in progress
+						if ( blocked || _this.hasClass('is-hold') )
+							return false;
+
+						// Click by opened block
+						var	isCancel = $(e.target).closest('.js-button-cancel').length;
+						if ( !isCancel && _this.hasClass(classActive) )
+							return false;
+
+						_this.trigger(isCancel ? 'req_cancel' : 'req_form');
+						return false;
+					});
 			});
-		});
+		};
 
-		_win.trigger('sm2init');
+		// Auto init for detected blocks
+		$('.js-audit-row').auditWrap();
 	})();
 	/*
 	 * Evaluation component
 	 */
 	(function() {
-		if ( !$('.js-evaluation').length )
-			return;
+		/**
+		 * evaluationWrap - jQuery wrapper for evaluation view
+		 * @class evaluationWrap
+		 * @memberOf jQuery.fn
+		 * @fires auditWrap#event:next Toggle next speech
+		 * @fires auditWrap#event:init_speech Init new speech
+		 * @fires auditWrap#event:init_dialogs Init new dialog
+		 * @fires auditWrap#event:add_player Init jsplayer instance
+		 */
+		$.fn.evaluationWrap = function() {
+			var	_all = $(this),
+				tplInfo = _.template($('#tpl_evaluation_info').html()),
+				tplPlayer = _.template($('#tpl_evaluation_player').html());
 
-		// Templates for info block and player block
-		var	tplInfo = _.template($('#tpl_evaluation_info').html()),
-			tplPlayer = _.template($('#tpl_evaluation_player').html());
+			_win.trigger('sm2_init');
 
-		var	_all = $('.js-evaluation');
+			return _all.each(function() {
+				var	_this = $(this),
+					_info, _steps, _buttons,
+					_player, _playerWrap,
+					dialogIndex = 0,
+					speechIndex = -1,
+					data = _this.data(),
+					blocked = false,
+					json;
 
-		// Init evaluation rows
-		_all.each(function() {
-			var	_this = $(this),
-				_info, _steps, _buttons,
-				_player, _playerWrap,
-				dialogIndex = 0,
-				speechIndex = -1,
-				data = _this.data(),
-				blocked = false,
-				json;
-
-			function initDialogs(response) {
-				json = response;
-				_info = $(tplInfo({ dialogs: json }));
-				_playerWrap = $('.js-player-wrap', _info);
-				_buttons = $('.js-evaluation-button', _info);
-				_steps = $('.js-steps li', _info);
-				_info
-					.insertAfter(_this)
-					.slideDown();
 				_this
-					.addClass('is-active')
-					.trigger('next');
-				_all
-					.not('.is-active')
-					.addClass('is-hold');
-			}
+					.on('next', function() {
+						speechIndex++;
 
-			_this
-				.on('toggle_button', function(e, enable) {
-					_buttons
-						.toggleClass('is-disabled', !enable)
-						.click(function() { return false; });
-				})
-				.on('next', function() {
-					speechIndex++;
-
-					if ( !json[dialogIndex] ) {
-						_this
-							.add(_buttons)
-							.add(_player)
-							.off();
-						_info.slideUp(function() {
-							_info.remove();
-							_this.remove();
-						});
-						_all
-							.removeClass('is-hold');
-						return;
-					}
-
-					if ( !json[dialogIndex].speeches[speechIndex] ) {
-						dialogIndex++;
-						speechIndex = -1;
-						return _this.trigger('next');
-					}
-
-					_steps.each(function(index) {
-						$(this).addClass(index < dialogIndex ? 'is-done' : (dialogIndex === index ? 'is-active' : ''));
-					});
-
-					_this
-						.trigger('toggle_button', false)
-						.trigger('init_speech');
-				})
-				.on('init_speech', function() {
-					var	speech = json[dialogIndex].speeches[speechIndex],
-						origin = speech.origin,
-						translated = speech.translated;
-
-					_this.trigger('add_player', origin);
-					_player.on('finish', function() {
-						_this.trigger('add_player', translated);
-						_player
-							.trigger('init')
-							.on('finish', function() {
-								_this.trigger('toggle_button', true);
-								_buttons
-									.off()
-									.one('click.ajax', function() {
-										_buttons.off('.ajax');
-										$.ajax(data.post, {
-											type: 'POST',
-											data: {
-												state: $(this).data('value'),
-												id: speech.id
-											},
-											error: function() {
-												// @todo
-											},
-											complete: function() {
-												_this.trigger('next');
-											}
-										});
-										return false;
-									})
-									.click(function() {
-										return false;
-									});
+						if ( !json[dialogIndex] ) {
+							_this
+								.add(_buttons)
+								.add(_player)
+								.off();
+							_info.slideUp(function() {
+								_info.remove();
+								_this.remove();
 							});
-					});
-				})
-				.on('add_player', function(e, url) {
-					if ( _player )
-						_player
-							.off()
-							.remove();
-
-					_player = $(tplPlayer({ url: url }));
-					_player
-						.appendTo(_playerWrap)
-						.jsplayer()
-						.trigger('init');
-				})
-				.click(function() {
-					if ( blocked || _this.hasClass('is-hold') )
-						return;
-
-					// @tofix
-					if ( _info ) {
-						var active = !_info.is(':visible');
-						_this.toggleClass('is-active', active);
-						_all.not('.is-active').toggleClass('is-hold', active);
-						if ( active )
-							_player.trigger('init');
-						else
-							_player.data('sound').stop();
-						
-						return _info.slideToggle();
-					}
-
-					blocked = true;
-					$.ajax(data.url, {
-						success: initDialogs,
-						complete: function() {
-							blocked = false;
-						},
-						error: function() {
-							// @todo
+							return _all.removeClass('is-hold');
 						}
-					});
-				});
-		});
 
-		// Init soundManager lib
-		_win.trigger('sm2init');
+						if ( !json[dialogIndex].speeches[speechIndex] ) {
+							dialogIndex++;
+							speechIndex = -1;
+							return _this.trigger('next');
+						}
+
+						_steps.each(function(index) {
+							$(this).addClass(index < dialogIndex ? 'is-done' : (dialogIndex === index ? 'is-active' : ''));
+						});
+
+						_this
+							.trigger('toggle_button', false)
+							.trigger('init_speech');
+					})
+					.on('init_speech', function() {
+						var	speech = json[dialogIndex].speeches[speechIndex],
+							origin = speech.origin,
+							translated = speech.translated;
+	
+						_this.trigger('add_player', origin);
+						_player.on('finish', function() {
+							_this.trigger('add_player', translated);
+							_player
+								.trigger('do_init')
+								.on('finish', function() {
+									_this.trigger('toggle_button', true);
+									_buttons
+										.off()
+										.one('click.ajax', function() {
+											_buttons.off('.ajax');
+											$.ajax(data.post, {
+												type: 'POST',
+												data: {
+													state: $(this).data('value'),
+													id: speech.id
+												},
+												error: function() {
+													// @todo
+												},
+												complete: function() {
+													_this.trigger('next');
+												}
+											});
+											return false;
+										})
+										.click(function() {
+											return false;
+										});
+								});
+						});
+					})
+					.on('init_dialogs', function() {
+						_info = $(tplInfo({ dialogs: json }));
+						_playerWrap = $('.js-player-wrap', _info);
+						_buttons = $('.js-evaluation-button', _info);
+						_steps = $('.js-steps li', _info);
+						_info
+							.insertAfter(_this)
+							.slideDown();
+						_this
+							.addClass('is-active')
+							.trigger('next');
+						_all
+							.not('.is-active')
+							.addClass('is-hold');
+					})
+					.on('add_player', function(e, url) {
+						if ( _player )
+							_player
+								.off()
+								.remove();
+
+						_player = $(tplPlayer({ url: url }));
+						_player
+							.appendTo(_playerWrap)
+							.jsplayer()
+							.trigger('do_init');
+					})
+					.on('toggle_button', function(e, enable) {
+						_buttons
+							.toggleClass('is-disabled', !enable)
+							.click(function() { return false; });
+					})
+					.click(function() {
+						if ( blocked || _this.hasClass('is-hold') )
+							return;
+
+						if ( _info ) {
+							var active = !_info.is(':visible');
+							_this.toggleClass('is-active', active);
+							_all.not('.is-active').toggleClass('is-hold', active);
+							_player.trigger(active ? 'do_init' : 'do_stop');
+
+							return _info.slideToggle();
+						}
+
+						blocked = true;
+						$.ajax(data.url, {
+							success: function(response) {
+								json = response;
+								_this.trigger('init_dialogs');
+							},
+							complete: function() {
+								blocked = false;
+							},
+							error: function() {
+								// @todo
+							}
+						});
+					});
+			});
+		};
+
+		// Auto init for detected blocks
+		$('.js-evaluation').evaluationWrap();
 	})();
 	$('.js-auth').click(function() {
 		var	_this = $(this),

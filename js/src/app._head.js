@@ -1,6 +1,11 @@
 jQuery(function($) {
 	'use strict';
 
+	/**
+	 * Global events emitter
+	 * @fires #event:sm2_init Setup SM2 options
+	 * @fires #event:sm2_ready SM2 ready to use
+	 */
 	var	_win = $(window);
 
 	/*

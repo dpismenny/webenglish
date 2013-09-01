@@ -2,152 +2,163 @@
 	 * Audit component
 	 */
 	(function() {
+		/**
+		 * auditWrap - jQuery wrapper for audit view
+		 * @class auditWrap
+		 * @memberOf jQuery.fn
+		 * @fires auditWrap#event:init_form
+		 * @fires auditWrap#event:timer_start
+		 * @fires auditWrap#event:req_form
+		 * @fires auditWrap#event:req_cancel
+		 */
+		$.fn.auditWrap = function() {
+			_win.trigger('sm2_init');
 
-		// start audit timer 
-		function timerStart(_form, time) {
-			var	timer = null,
-				_time = $('.js-audit-time', _form),
-				callback = function() {
-					time--;
-					_time.text(timeFormatter(time));
-					if ( time <= 0 )
-						_form.trigger('timerdone');
-				};
+			var	_all = $(this);
+			return _all.each(function() {
+				var	_this = $(this),
+					_player = $('.js-player-empty', _this),
+					_form = null,
+					data = _this.data(),
+					classActive = data.active,
+					urlForm = data.form,
+					urlCancel = data.cancel,
+					blocked = false;
 
-			_form.on('closeend timerdone', function() {
-				clearInterval(timer);
-				timer = null;
-			});
-			timer = setInterval(callback, 1000);
-			callback();
-		}
+				if ( !urlForm || !urlCancel || !classActive )
+					throw new Error('Missing required data-attribites for audit element');
 
-		var	_all = $('.js-audit-row');
+				_this
+					.on('timer_start', function(e, time) {
+						var	timer = null,
+							_time = $('.js-audit-time', _form),
+							callback = function() {
+								time--;
+								_time.text(timeFormatter(time));
+								if ( time <= 0 )
+									_form.trigger('timerdone');
+							};
 
-		_all.each(function() {
-			var	_row = $(this),
-				_player = $('.js-player-empty', _row),
-				_form = null,
-				data = _row.data(),
-				blocked = false;
+						_form.on('closeend timerdone', function() {
+							clearInterval(timer);
+							timer = null;
+						});
+						timer = setInterval(callback, 1000);
+						callback();
+					})
+					.on('init_form', function() {
+						var	_buttons = $(':submit', _form),
+							_accepted = $('[name="mvt_opinion[accepted]"]', _form);
 
-			function submitHandler(e, data) {
-				data = data || {};
-				if ( !data.name )
-					return false;
-				$('[name="mvt_opinion[accepted]"]', _form).attr('checked', data.name == 'yes');
-				$.ajax(_form.attr('action'), {
-					type: _form.attr('method'),
-					data: _form.serialize(),
-					complete: function() {
 						_form
-							.on('closeend', function() { _row.off().remove(); })
-							.trigger('close');
-					}
-				});
-				return false;
-			}
-
-			_row.on('click', function(e) {
-				// ajax request or animation in progress
-				if ( blocked || _row.hasClass('is-hold') )
-					return false;
-
-				var	_button = $(this),
-					isCancel = $(e.target).closest('.js-button-cancel').length,
-					isActive,
-					url;
-
-				if ( !isCancel && _row.hasClass(data.active) )
-					return false;
-
-				// detect button type
-				if ( data.form && !isCancel ) {
-					isActive = true;
-					url = data.form;
-				} else if ( data.cancel && isCancel ) { 
-					isActive = false;
-					url = data.cancel;
-				} else
-					return false;
-
-				// ajax request
-				blocked = true;
-				$.ajax(url, {
-					success: function(json) {
-						// toggle row state
-						if ( data.active ) {
-							_row.toggleClass(data.active, isActive);
-							_all
-								.not('.' + data.active)
-								.toggleClass('is-hold', isActive);
-						}
-
-						// form show
-						if ( json.form ) {
-							_form = $(json.form);
-							_form
-								.on('timerdone', function() {
-									_row.removeClass(data.active);
-									_form.trigger('close');
-									// @todo: notification
-								})
-								.on('close', function() {
-									_form.slideUp(function() {
-										_form
-											.trigger('closeend')
-											.off()
-											.remove();
-									});
-									_player.data('sound').stop();
-									_all.removeClass('is-hold');
-								})
-								.submit(submitHandler)
-								.appendTo(_row)
-								.slideDown(function() {
-									blocked = false;
-								})
-								.find(':submit')
-								.click(function() {
-									var	_button = $(this);
-									if ( _button.hasClass('is-disabled') )
-										return false;
-									_form.trigger('submit', { name: _button.attr('name') });
+							.off()
+							.on('timerdone', function() {
+								_this.removeClass(classActive);
+								_form.trigger('close');
+								// @todo: notification
+							})
+							.on('close', function() {
+								_form.slideUp(function() {
+									_form
+										.trigger('closeend')
+										.off()
+										.remove();
 								});
-
-							if ( json.time_left )
-								timerStart(_form, json.time_left);
-
-							if ( !_player.data('url') && json.file )
-								_player
-									.data('url', json.file)
-									.jsplayer()
-									.on('finish', function() {
+								_player.trigger('do_stop');
+								_all.removeClass('is-hold');
+							})
+							.on('submit', function(e, data) {
+								_accepted.attr('checked', data.name === 'yes');
+								$.ajax(_form.attr('action'), {
+									type: _form.attr('method'),
+									data: _form.serialize(),
+									complete: function() {
 										_form
-											.find(':submit')
-											.removeClass('is-disabled');
-									});
-							_player.trigger('init');
+											.on('closeend', function() { _this.off().remove(); })
+											.trigger('close');
+									}
+								});
+								return false;
+							})
+							.appendTo(_this)
+							.slideDown(function() {
+								blocked = false;
+							});
 
-						// form hide
-						} else if ( _form && _form.length ) {
-							_form
-								.on('closeend', function() { blocked = false; })
-								.trigger('close');
-						} else {
-							// @todo
-							blocked = false;
-						}
-					},
-					error: function() {
-						// @todo
-						blocked = false;
-					}
-				});
+						_buttons.click(function() {
+							var	_button = $(this);
+							if ( _button.hasClass('is-disabled') )
+								return false;
+							_form.trigger('submit', { name: _button.attr('name') });
+						});
+					})
+					.on('req_form', function() {
+						blocked = true;
+						$.ajax(urlForm, {
+							success: function(json) {
+								// Set view for opened block
+								_this.addClass(classActive);
+								_all
+									.not('.' + classActive)
+									.addClass('is-hold');
 
-				return false;
+								// Add form
+								_form = $(json.form);
+								_this
+									.trigger('init_form')
+									.trigger('timer_start',  json.time_left);
+
+								// Init player
+								if ( json.file )
+									_player
+										.jsplayer({ url: json.file })
+										.on('finish', function() {
+											_form
+												.find(':submit')
+												.removeClass('is-disabled');
+										})
+										.trigger('do_init');
+							},
+							error: function() {
+								// @todo
+								blocked = false;
+							}
+						});
+					})
+					.on('req_cancel', function() {
+						blocked = true;
+						$.ajax(urlForm, {
+							success: function(json) {
+								_all
+									.removeClass(classActive)
+									.removeClass('is-hold');
+
+								_form
+									.on('closeend', function() { blocked = false; })
+									.trigger('close');
+							},
+							error: function() {
+								// @todo
+								blocked = false;
+							}
+						});
+					})
+					.on('click', function(e) {
+						// AJAX request or animation in progress
+						if ( blocked || _this.hasClass('is-hold') )
+							return false;
+
+						// Click by opened block
+						var	isCancel = $(e.target).closest('.js-button-cancel').length;
+						if ( !isCancel && _this.hasClass(classActive) )
+							return false;
+
+						_this.trigger(isCancel ? 'req_cancel' : 'req_form');
+						return false;
+					});
 			});
-		});
+		};
 
-		_win.trigger('sm2init');
+		// Auto init for detected blocks
+		$('.js-audit-row').auditWrap();
 	})();
