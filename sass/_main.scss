@@ -2078,6 +2078,7 @@
   		  @include sized-sprite($icons, ico_pause);
   		}
 		.audit__track{
+		  position: relative;
 		  cursor: pointer;
 			float: left;
 			width: 378px; // was 346px
@@ -2093,6 +2094,15 @@
 			height: 100%;
 			@include border-radius(2px);
 		}
+		.audit__notch {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 2px;
+      height: 4px;
+      background-color: #49C7F1;
+    }
 		.audit__timeleft{
 			position: absolute;
 			top: 0;
@@ -2286,6 +2296,15 @@
 		@include background-clip(padding-box);
 		background-color: #0987b1;
 		height: 4px;
+	}
+	.splayer__notch {
+	  display: none;
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  width: 2px;
+	  height: 4px;
+	  background-color: #49C7F1;
 	}
 	.splayer__playpause{
 		position: absolute;

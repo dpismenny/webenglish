@@ -627,9 +627,11 @@ a { color: #00919e; }
 
 .audit__playpause_pause { background: url('../img/icons-s2b5b06d5b7.png') 0 -2291px no-repeat; width: 12px; height: 18px; }
 
-.audit__track { cursor: pointer; float: left; width: 378px; height: 4px; overflow: hidden; background: #273c50; -webkit-border-radius: 2px; -moz-border-radius: 2px; -ms-border-radius: 2px; -o-border-radius: 2px; border-radius: 2px; margin-top: 23px; }
+.audit__track { position: relative; cursor: pointer; float: left; width: 378px; height: 4px; overflow: hidden; background: #273c50; -webkit-border-radius: 2px; -moz-border-radius: 2px; -ms-border-radius: 2px; -o-border-radius: 2px; border-radius: 2px; margin-top: 23px; }
 
 .audit__bar { float: left; background: #0a88b1; height: 100%; -webkit-border-radius: 2px; -moz-border-radius: 2px; -ms-border-radius: 2px; -o-border-radius: 2px; border-radius: 2px; }
+
+.audit__notch { display: none; position: absolute; top: 0; left: 0; width: 2px; height: 4px; background-color: #49C7F1; }
 
 .audit__timeleft { position: absolute; top: 0; right: 0; text-align: right; width: 40px; }
 
@@ -680,6 +682,8 @@ a { color: #00919e; }
 .splayer__track { cursor: pointer; position: absolute; right: 60px; left: 45px; height: 4px; top: 50%; margin-top: -2px; -webkit-border-radius: 2px; -moz-border-radius: 2px; -ms-border-radius: 2px; -o-border-radius: 2px; border-radius: 2px; -webkit-background-clip: padding; -moz-background-clip: padding; background-clip: padding-box; background-color: #273c50; }
 
 .splayer__bar { float: left; -webkit-border-radius: 2px; -moz-border-radius: 2px; -ms-border-radius: 2px; -o-border-radius: 2px; border-radius: 2px; -webkit-background-clip: padding; -moz-background-clip: padding; background-clip: padding-box; background-color: #0987b1; height: 4px; }
+
+.splayer__notch { display: none; position: absolute; top: 0; left: 0; width: 2px; height: 4px; background-color: #49C7F1; }
 
 .splayer__playpause { position: absolute; cursor: pointer; content: ""; }
 .splayer__playpause.splayer__play { top: 50%; margin-top: -9px; left: 17px; background: url('../img/icons-s2b5b06d5b7.png') 0 -2115px no-repeat; width: 12px; height: 19px; }

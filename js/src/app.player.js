@@ -20,7 +20,7 @@
 		});
 
 		/**
-		 * jsplayer - jQuery-plugin for SM2 player view 
+		 * jsplayer - jQuery-plugin for SM2 player
 		 * @class jsplayer
 		 * @memberOf jQuery.fn
 		 * @param {Object} [opts] Player options
@@ -28,6 +28,7 @@
 		 * @param {Number} [opts.volume] Sound volume [0..100], default - 100 
 		 * @param {Boolean} [opts.autoplay] Auto play mode, default - false
 		 * @param {Boolean} [opts.autoload] Auto load sound file, default - false
+		 * @param {Boolean} [opts.onlyback] Only backward set position, default - false
 		 * @param {String} [opts.classPause] Class for pause-mode of control
 		 * @param {String} [opts.classPlay] Class for play-mode of control
 		 * @fires jsplayer#event:do_init
@@ -46,11 +47,13 @@
 					_time = $('.js-player-time', _this),
 					_playpause = $('.js-playpause', _this),
 					_bar = $('.js-bar', _this),
+					_notch = $('.js-notch', _this),
 					_track = _bar.parent(),
 					url = _this.data('url') || opts.url,
 					volume = _this.data('volume') || opts.volume || 100,
-					autoPlay = !!_this.data('autoplay') || opts.autoplay,
-					autoLoad = !!_this.data('autoload') || opts.autoload,
+					autoplay = !!_this.data('autoplay') || opts.autoplay,
+					autoload = !!_this.data('autoload') || opts.autoload,
+					onlyback = !!_this.data('onlyback') || opts.onlyback,
 					classPause = _playpause.data('pause') || opts.classPause,
 					classPlay = _playpause.data('play') || opts.classPlay;
 
@@ -71,6 +74,7 @@
 					// Call sound.stop()
 					.on('do_stop', function() {
 						sound.stop();
+						_notch.hide();
 					})
 					// File load error
 					.on('error', function() {
@@ -85,6 +89,23 @@
 						var	width = (sound.position / sound.duration) * 100;
 						width = width.toFixed(2);
 						_bar.width(width + '%');
+					})
+					.on('notch', function() {
+						var left = sound.maxPosition / sound.duration;
+						if ( left === 1 )
+							return;
+						left *= 100;
+						left = left.toFixed(2);
+						_notch
+							.show()
+							.css('left', left + '%');
+						_this.
+							on('bar.notch', function() {
+								if ( sound.position < sound.maxPosition )
+									return;
+								_notch.hide();
+								_this.off('.notch');
+							});
 					})
 					// Set play state for player control
 					.on('play_state', function() {
@@ -103,21 +124,33 @@
 				// Bar click handler, change track current position
 				_track
 					.click(function(e) {
-						if ( sound.loaded && sound.duration ) {
-							var	position = (e.offsetX || e.originalEvent.layerX || 0) / _track.width();
-							position *= sound.duration;
-							sound.setPosition(position);
-							_this
-								.trigger('time', sound.duration - sound.position)
-								.trigger('bar');
+						if ( $(e.target).closest('.js-notch').length )
+							return;
+
+						if ( !sound.loaded || !sound.duration )
+							return;
+
+						var	position = (e.offsetX || e.originalEvent.layerX || 0) / _track.width();
+						position *= sound.duration;
+
+						if ( onlyback ) {
+							if ( position > sound.maxPosition )
+								return;
+							else
+								_this.trigger('notch');
 						}
+
+						sound.setPosition(position);
+						_this
+							.trigger('time', sound.duration - sound.position)
+							.trigger('bar');
 					});
 
 				// Sound instance
 				var sound = soundManager.createSound({
 					url: url,
-					autoLoad: autoLoad,
-					autoPlay: autoPlay,
+					autoLoad: autoload,
+					autoPlay: autoplay,
 					onload: function() {
 						if ( !this.loaded )
 							return _this.trigger('error');
@@ -157,6 +190,7 @@
 							.trigger('bar');
 					},
 					whileplaying: function() {
+						this.maxPosition = Math.max(this.maxPosition || 0, this.position);
 						_this
 							.trigger('time', this.duration - this.position)
 							.trigger('bar');
