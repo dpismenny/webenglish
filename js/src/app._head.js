@@ -5,6 +5,8 @@ jQuery(function($) {
 	 * Global events emitter
 	 * @fires #event:sm2_init Setup SM2 options
 	 * @fires #event:sm2_ready SM2 ready to use
+	 * @fires #event:create_popup Open notification popup
+	 * @fires #event:create_error Open notification error
 	 */
 	var	_win = $(window);
 

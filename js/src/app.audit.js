@@ -55,7 +55,7 @@
 							.on('timerdone', function() {
 								_this.removeClass(classActive);
 								_form.trigger('close');
-								// @todo: notification
+								_win.trigger('create_popup', { message: 'Audit timeout' });
 							})
 							.on('close', function() {
 								_form.slideUp(function() {
@@ -76,6 +76,9 @@
 										_form
 											.on('closeend', function() { _this.off().remove(); })
 											.trigger('close');
+									},
+									error: function() {
+										// @todo
 									}
 								});
 								return false;

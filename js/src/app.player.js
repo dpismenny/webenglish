@@ -79,6 +79,7 @@
 					// File load error
 					.on('error', function() {
 						_this.addClass('is-hold');
+						_win.trigger('create_popup', { message: 'Audio file not found' });
 					})
 					// Set remaining time
 					.on('time', function(e, ms) {

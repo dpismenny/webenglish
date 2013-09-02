@@ -106,8 +106,10 @@
 							callback = function() {
 								time--;
 								_time.text(timeFormatter(time));
-								if ( time <= 0 )
+								if ( time <= 0 ) {
 									_this.trigger('remove');
+									_win.trigger('create_popup', { message: 'Evaluation timeout' });
+								}
 							};
 
 						_this.on('close remove', function() {

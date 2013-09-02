@@ -175,5 +175,20 @@
 </div>
 <!-- /.page -->
 
+<script type="text/template" id="tpl_notification_popup">
+<article class="popup-notification">
+  <p class="popup-notification__message"><%= message %></p>
+  <a href="#" class="popup-notification__close js-close">Close</a>
+</article>
+</script>
+
+<script type="text/template" id="tpl_notification_error">
+<article class="error-notification">
+  <% if ( title ) { %><h2 class="error-notification__title"><%= title %></h2><% } %>
+  <p class="error-notification__message"><%= message %></p>
+  <a href="#" class="error-notification__close js-close">Close</a>
+</article>
+</script>
+
 </body>
 </html>
