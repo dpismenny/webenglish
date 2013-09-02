@@ -396,6 +396,10 @@ jQuery(function($) {
 		 * @fires auditWrap#event:init_speech Init new speech
 		 * @fires auditWrap#event:init_dialogs Init new dialog
 		 * @fires auditWrap#event:add_player Init jsplayer instance
+		 * @fires auditWrap#event:init_timer Init timer for remaining time
+		 * @fires auditWrap#event:open Open info-block
+		 * @fires auditWrap#event:close Close info-block
+		 * @fires auditWrap#event:remove Remove test and info-block
 		 */
 		$.fn.evaluationWrap = function() {
 			var	_all = $(this),
@@ -406,7 +410,7 @@ jQuery(function($) {
 
 			return _all.each(function() {
 				var	_this = $(this),
-					_info, _steps, _buttons,
+					_info, _steps, _buttons, _time,
 					_player, _playerWrap,
 					dialogIndex = 0,
 					speechIndex = -1,
@@ -418,19 +422,10 @@ jQuery(function($) {
 					.on('next', function() {
 						speechIndex++;
 
-						if ( !json[dialogIndex] ) {
-							_this
-								.add(_buttons)
-								.add(_player)
-								.off();
-							_info.slideUp(function() {
-								_info.remove();
-								_this.remove();
-							});
-							return _all.removeClass('is-hold');
-						}
+						if ( !json.dialogs[dialogIndex] )
+							return _this.trigger('remove');
 
-						if ( !json[dialogIndex].speeches[speechIndex] ) {
+						if ( !json.dialogs[dialogIndex].speeches[speechIndex] ) {
 							dialogIndex++;
 							speechIndex = -1;
 							return _this.trigger('next');
@@ -445,10 +440,10 @@ jQuery(function($) {
 							.trigger('init_speech');
 					})
 					.on('init_speech', function() {
-						var	speech = json[dialogIndex].speeches[speechIndex],
+						var	speech = json.dialogs[dialogIndex].speeches[speechIndex],
 							origin = speech.origin,
 							translated = speech.translated;
-	
+
 						_this.trigger('add_player', origin);
 						_player.on('finish', function() {
 							_this.trigger('add_player', translated);
@@ -482,19 +477,31 @@ jQuery(function($) {
 						});
 					})
 					.on('init_dialogs', function() {
-						_info = $(tplInfo({ dialogs: json }));
+						_info = $(tplInfo(json));
 						_playerWrap = $('.js-player-wrap', _info);
 						_buttons = $('.js-evaluation-button', _info);
+						_time = $('.js-evaluation-time', _info);
 						_steps = $('.js-steps li', _info);
-						_info
-							.insertAfter(_this)
-							.slideDown();
+						_info.insertAfter(_this);
 						_this
-							.addClass('is-active')
-							.trigger('next');
-						_all
-							.not('.is-active')
-							.addClass('is-hold');
+							.trigger('next')
+							.trigger('open');
+					})
+					.on('init_timer', function(e, time) {
+						var	timer = null,
+							callback = function() {
+								time--;
+								_time.text(timeFormatter(time));
+								if ( time <= 0 )
+									_this.trigger('remove');
+							};
+
+						_this.on('close remove', function() {
+							clearInterval(timer);
+							timer = null;
+						});
+						timer = setInterval(callback, 1000);
+						callback();
 					})
 					.on('add_player', function(e, url) {
 						if ( _player )
@@ -513,18 +520,42 @@ jQuery(function($) {
 							.toggleClass('is-disabled', !enable)
 							.click(function() { return false; });
 					})
+					.on('open', function() {
+						_this
+							.addClass('is-active')
+							.trigger('init_timer', json.left_time);
+						_all
+							.not('.is-active')
+							.addClass('is-hold');
+						_player.trigger('do_init');
+						_info.slideDown();
+					})
+					.on('close', function() {
+						_this.removeClass('is-active');
+						_all.removeClass('is-hold');
+						_player.trigger('do_stop');
+						_info.slideUp();
+					})
+					.on('remove', function() {
+						_player.trigger('do_stop');
+
+						_this
+							.add(_buttons)
+							.add(_player)
+							.off();
+
+						_info.slideUp(function() {
+							_info.remove();
+							_this.remove();
+							_all.removeClass('is-hold');
+						});
+					})
 					.click(function() {
 						if ( blocked || _this.hasClass('is-hold') )
-							return;
+							return false;
 
-						if ( _info ) {
-							var active = !_info.is(':visible');
-							_this.toggleClass('is-active', active);
-							_all.not('.is-active').toggleClass('is-hold', active);
-							_player.trigger(active ? 'do_init' : 'do_stop');
-
-							return _info.slideToggle();
-						}
+						if ( _info )
+							return _this.trigger(_info.is(':visible') ? 'close' : 'open'), false;
 
 						blocked = true;
 						$.ajax(data.url, {
@@ -539,6 +570,8 @@ jQuery(function($) {
 								// @todo
 							}
 						});
+
+						return false;
 					});
 			});
 		};

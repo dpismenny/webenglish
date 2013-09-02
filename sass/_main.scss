@@ -1500,10 +1500,35 @@
 			text-overflow: ellipsis;
 		}
 		.evaluation__lang{
-			width: 130px;
+			width: 180px;
 			text-align: center;
 			text-transform: uppercase;
 		}
+		.evaluation__time{
+      float: left;
+      width: 170px;
+      text-align: center;
+    }
+    .evaluation__decision{
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: 15px 20px;
+      color: #fdaeae;
+      font-size: 18px;
+    }
+		.evaluation__button{
+      width: 135px;
+      float: right;
+      .btn{
+        padding: 4px 0;
+        width: 128px;
+        font-size: 16px;
+      }
+    }
+      .evaluation__button_cancel{
+        display: none;
+      }
 		.evaluation__level{
 			float: right;
 			width: 130px;
@@ -1535,6 +1560,12 @@
 						@include rotate(90);
 					}
 				}
+				.evaluation__button_cancel{
+          display: block;
+        }
+        .evaluation__button_audit{
+          display: none;
+        }
 			}
 			&.is-hold {
 			  opacity: 0.5;
@@ -1542,6 +1573,7 @@
 			}
 		}
 		.evaluation__info{
+		  position: relative;
 			cursor: default;
 			display: none;
 			clear: both;

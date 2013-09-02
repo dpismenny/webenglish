@@ -1,26 +1,29 @@
-[
-	{
-		"id":1,
-		"name":"#1",
-		"speeches":[
-			{"id":1,"origin":"/sound/1.mp3","translated":"/sound/2.mp3"},
-			{"id":2,"origin":"/sound/1.mp3","translated":"/sound/2.mp3"}
-		]
-	},
-	{
-		"id":2,
-		"name":"#2",
-		"speeches":[
-			{"id":3,"origin":"/sound/1.mp3","translated":"/sound/2.mp3"},
-			{"id":4,"origin":"/sound/1.mp3","translated":"/sound/2.mp3"}
-		]
-	},
-	{
-		"id":3,
-		"name":"#3",
-		"speeches":[
-			{"id":5,"origin":"/sound/1.mp3","translated":"/sound/2.mp3"},
-			{"id":6,"origin":"/sound/1.mp3","translated":"/sound/2.mp3"}
-		]
-	}
-]
+{
+	"left_time": 20,
+	"dialogs": [
+		{
+			"id":1,
+			"name":"#1",
+			"speeches":[
+				{"id":1,"origin":"/sound/1.mp3","translated":"/sound/2.mp3"},
+				{"id":2,"origin":"/sound/1.mp3","translated":"/sound/2.mp3"}
+			]
+		},
+		{
+			"id":2,
+			"name":"#2",
+			"speeches":[
+				{"id":3,"origin":"/sound/1.mp3","translated":"/sound/2.mp3"},
+				{"id":4,"origin":"/sound/1.mp3","translated":"/sound/2.mp3"}
+			]
+		},
+		{
+			"id":3,
+			"name":"#3",
+			"speeches":[
+				{"id":5,"origin":"/sound/1.mp3","translated":"/sound/2.mp3"},
+				{"id":6,"origin":"/sound/1.mp3","translated":"/sound/2.mp3"}
+			]
+		}
+	]
+}

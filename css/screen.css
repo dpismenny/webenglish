@@ -502,7 +502,16 @@ a { color: #00919e; }
 
 .evaluation__name { width: 220px; margin-right: 20px; text-transform: capitalize; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-.evaluation__lang { width: 130px; text-align: center; text-transform: uppercase; }
+.evaluation__lang { width: 180px; text-align: center; text-transform: uppercase; }
+
+.evaluation__time { float: left; width: 170px; text-align: center; }
+
+.evaluation__decision { position: absolute; top: 0; right: 0; margin: 15px 20px; color: #fdaeae; font-size: 18px; }
+
+.evaluation__button { width: 135px; float: right; }
+.evaluation__button .btn { padding: 4px 0; width: 128px; font-size: 16px; }
+
+.evaluation__button_cancel { display: none; }
 
 .evaluation__level { float: right; width: 130px; margin-right: 20px; text-align: center; }
 .evaluation__level .label { display: inline-block; position: relative; }
@@ -510,9 +519,11 @@ a { color: #00919e; }
 
 .evaluation__wrap { overflow: hidden; }
 .evaluation__wrap.is-active .label:after { -moz-transform: rotate(90deg); -o-transform: rotate(90deg); -webkit-transform: rotate(90deg); -ms-transform: rotate(90deg); transform: rotate(90deg); filter: progid:DXImageTransform.Microsoft.Matrix(M11=$m11, M12=$m12,M21=$m21, M22=$m22, sizingMethod='auto expand'); zoom: 1; }
+.evaluation__wrap.is-active .evaluation__button_cancel { display: block; }
+.evaluation__wrap.is-active .evaluation__button_audit { display: none; }
 .evaluation__wrap.is-hold { opacity: 0.5; cursor: default; }
 
-.evaluation__info { cursor: default; display: none; clear: both; width: 800px; margin-left: -20px; border-top: 1px solid #263646; -webkit-border-radius: 0 0 4px 4px; -moz-border-radius: 0 0 4px 4px; -ms-border-radius: 0 0 4px 4px; -o-border-radius: 0 0 4px 4px; border-radius: 0 0 4px 4px; line-height: 1; padding: 45px 10px 30px; }
+.evaluation__info { position: relative; cursor: default; display: none; clear: both; width: 800px; margin-left: -20px; border-top: 1px solid #263646; -webkit-border-radius: 0 0 4px 4px; -moz-border-radius: 0 0 4px 4px; -ms-border-radius: 0 0 4px 4px; -o-border-radius: 0 0 4px 4px; border-radius: 0 0 4px 4px; line-height: 1; padding: 45px 10px 30px; }
 .evaluation__info .test { margin: 0 auto; }
 
 .evaluation__buttons { width: 335px; margin: 0 auto; }
