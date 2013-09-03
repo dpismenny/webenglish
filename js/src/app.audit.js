@@ -58,7 +58,7 @@
 								_win.trigger('create_popup', { message: 'Audit timeout' });
 							})
 							.on('close', function() {
-								_form.slideUp(function() {
+								_form.slideUp(slideDuration, function() {
 									_form
 										.trigger('closeend')
 										.off()
@@ -84,7 +84,7 @@
 								return false;
 							})
 							.appendTo(_this)
-							.slideDown(function() {
+							.slideDown(slideDuration, function() {
 								blocked = false;
 							});
 
@@ -130,7 +130,7 @@
 					})
 					.on('req_cancel', function() {
 						blocked = true;
-						$.ajax(urlForm, {
+						$.ajax(urlCancel, {
 							success: function(json) {
 								_all
 									.removeClass(classActive)

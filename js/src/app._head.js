@@ -17,6 +17,7 @@ jQuery(function($) {
 		cache: false,
 		dataType: 'json'
 	});
+	var slideDuration = 200;
 
 	/*
 	 * Utils

@@ -144,13 +144,13 @@
 							.not('.is-active')
 							.addClass('is-hold');
 						_player.trigger('do_init');
-						_info.slideDown();
+						_info.slideDown(slideDuration);
 					})
 					.on('close', function() {
 						_this.removeClass('is-active');
 						_all.removeClass('is-hold');
 						_player.trigger('do_stop');
-						_info.slideUp();
+						_info.slideUp(slideDuration);
 					})
 					.on('remove', function() {
 						_player.trigger('do_stop');
@@ -160,7 +160,7 @@
 							.add(_player)
 							.off();
 
-						_info.slideUp(function() {
+						_info.slideUp(slideDuration, function() {
 							_info.remove();
 							_this.remove();
 							_all.removeClass('is-hold');

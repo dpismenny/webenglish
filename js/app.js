@@ -17,6 +17,7 @@ jQuery(function($) {
 		cache: false,
 		dataType: 'json'
 	});
+	var slideDuration = 200;
 
 	/*
 	 * Utils
@@ -373,7 +374,7 @@ jQuery(function($) {
 								_win.trigger('create_popup', { message: 'Audit timeout' });
 							})
 							.on('close', function() {
-								_form.slideUp(function() {
+								_form.slideUp(slideDuration, function() {
 									_form
 										.trigger('closeend')
 										.off()
@@ -399,7 +400,7 @@ jQuery(function($) {
 								return false;
 							})
 							.appendTo(_this)
-							.slideDown(function() {
+							.slideDown(slideDuration, function() {
 								blocked = false;
 							});
 
@@ -445,7 +446,7 @@ jQuery(function($) {
 					})
 					.on('req_cancel', function() {
 						blocked = true;
-						$.ajax(urlForm, {
+						$.ajax(urlCancel, {
 							success: function(json) {
 								_all
 									.removeClass(classActive)
@@ -626,13 +627,13 @@ jQuery(function($) {
 							.not('.is-active')
 							.addClass('is-hold');
 						_player.trigger('do_init');
-						_info.slideDown();
+						_info.slideDown(slideDuration);
 					})
 					.on('close', function() {
 						_this.removeClass('is-active');
 						_all.removeClass('is-hold');
 						_player.trigger('do_stop');
-						_info.slideUp();
+						_info.slideUp(slideDuration);
 					})
 					.on('remove', function() {
 						_player.trigger('do_stop');
@@ -642,7 +643,7 @@ jQuery(function($) {
 							.add(_player)
 							.off();
 
-						_info.slideUp(function() {
+						_info.slideUp(slideDuration, function() {
 							_info.remove();
 							_this.remove();
 							_all.removeClass('is-hold');
@@ -676,6 +677,31 @@ jQuery(function($) {
 
 		// Auto init for detected blocks
 		$('.js-evaluation').evaluationWrap();
+	})();
+	/*
+	 * Feedback component
+	 */
+	(function() {
+		$.fn.feedbackWrap = function() {
+			return $(this).each(function() {
+				var	_this = $(this),
+					_playerWrap = $('.js-player-wrap', _this),
+					_player = $('.js-player', _playerWrap),
+					opened = false;
+				
+				_this.click(function(e) {
+					if ( $(e.target).closest('.js-player-wrap').length )
+						return false;
+					opened = !opened;
+					_playerWrap[opened ? 'slideDown' : 'slideUp'](slideDuration, function() {
+						_player.trigger(opened ? 'do_init' : 'do_stop');
+					});
+				});
+			});
+		};
+
+		// Auto init for detected blocks
+		$('.js-feedback-row').feedbackWrap();
 	})();
 	$('.js-auth').click(function() {
 		var	_this = $(this),
