@@ -979,6 +979,9 @@
 		@include cb;
 		color: #9da8b4;
 	}
+	 .feedback__row_caption{
+	   cursor: default;
+	 }
 	.feedback__col1{
 		display: inline-block;
 		vertical-align: middle;

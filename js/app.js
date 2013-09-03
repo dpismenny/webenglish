@@ -181,8 +181,8 @@ jQuery(function($) {
 						_win.trigger('create_popup', { message: 'Audio file not found' });
 					})
 					// Set remaining time
-					.on('time', function(e, ms) {
-						_time.html('-' + timeFormatter(ms, true));
+					.on('time', function(e, opts) {
+						_time.html((opts.positive ? '' : '-') + timeFormatter(opts.ms, true));
 					})
 					// Set bar position
 					.on('bar', function() {
@@ -242,7 +242,7 @@ jQuery(function($) {
 
 						sound.setPosition(position);
 						_this
-							.trigger('time', sound.duration - sound.position)
+							.trigger('time', { ms: sound.duration - sound.position })
 							.trigger('bar');
 					});
 
@@ -255,7 +255,7 @@ jQuery(function($) {
 						if ( !this.loaded )
 							return _this.trigger('error');
 
-						_this.trigger('time', this.duration);
+						_this.trigger('time', { ms: this.duration });
 						_playpause
 							.off()
 							.click($.proxy(function() {
@@ -279,20 +279,20 @@ jQuery(function($) {
 						this.setPosition(0);
 						_this
 							.trigger('pause_state')
-							.trigger('time', this.duration)
+							.trigger('time', { ms: this.duration, positive: true })
 							.trigger('bar');
 					},
 					onfinish: function() {
 						_this
 							.trigger('finish')
 							.trigger('pause_state')
-							.trigger('time', this.duration)
+							.trigger('time', { ms: this.duration, positive: true })
 							.trigger('bar');
 					},
 					whileplaying: function() {
 						this.maxPosition = Math.max(this.maxPosition || 0, this.position);
 						_this
-							.trigger('time', this.duration - this.position)
+							.trigger('time', { ms: this.duration - this.position })
 							.trigger('bar');
 					},
 					volume: 100
@@ -683,20 +683,29 @@ jQuery(function($) {
 	 */
 	(function() {
 		$.fn.feedbackWrap = function() {
-			return $(this).each(function() {
+			var	_all = $(this);
+			return _all.each(function() {
 				var	_this = $(this),
 					_playerWrap = $('.js-player-wrap', _this),
 					_player = $('.js-player', _playerWrap),
 					opened = false;
-				
-				_this.click(function(e) {
-					if ( $(e.target).closest('.js-player-wrap').length )
-						return false;
-					opened = !opened;
-					_playerWrap[opened ? 'slideDown' : 'slideUp'](slideDuration, function() {
-						_player.trigger(opened ? 'do_init' : 'do_stop');
+
+				_this
+					.on('close', function() {
+						opened = false;
+						_playerWrap.hide();
+						_player.trigger('do_stop');
+					})
+					.on('click', function(e) {
+						if ( $(e.target).closest('.js-player-wrap').length )
+							return false;
+						opened = !opened;
+						_playerWrap[opened ? 'slideDown' : 'slideUp'](slideDuration, function() {
+							_player.trigger(opened ? 'do_init' : 'do_stop');
+							if ( opened )
+								_all.not(_this).trigger('close');
+						});
 					});
-				});
 			});
 		};
 

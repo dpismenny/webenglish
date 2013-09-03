@@ -366,6 +366,8 @@ a { color: #00919e; }
 
 .feedback__row { cursor: pointer; padding: 20px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -ms-border-radius: 4px; -o-border-radius: 4px; border-radius: 4px; -webkit-background-clip: padding; -moz-background-clip: padding; background-clip: padding-box; background: rgba(20, 33, 46, 0.6); margin-bottom: 11px; font-size: 14px; font-weight: normal; font-style: normal; font-family: 'cuprumbold'; color: #9da8b4; }
 
+.feedback__row_caption { cursor: default; }
+
 .feedback__col1 { display: inline-block; vertical-align: middle; width: 430px; }
 
 .feedback__total { text-shadow: 0 -1px 0 #222222; font-weight: normal; font-style: normal; font-family: 'cuprumbold'; color: #fff; font-size: 24px; text-align: center; }

@@ -82,8 +82,8 @@
 						_win.trigger('create_popup', { message: 'Audio file not found' });
 					})
 					// Set remaining time
-					.on('time', function(e, ms) {
-						_time.html('-' + timeFormatter(ms, true));
+					.on('time', function(e, opts) {
+						_time.html((opts.positive ? '' : '-') + timeFormatter(opts.ms, true));
 					})
 					// Set bar position
 					.on('bar', function() {
@@ -143,7 +143,7 @@
 
 						sound.setPosition(position);
 						_this
-							.trigger('time', sound.duration - sound.position)
+							.trigger('time', { ms: sound.duration - sound.position })
 							.trigger('bar');
 					});
 
@@ -156,7 +156,7 @@
 						if ( !this.loaded )
 							return _this.trigger('error');
 
-						_this.trigger('time', this.duration);
+						_this.trigger('time', { ms: this.duration });
 						_playpause
 							.off()
 							.click($.proxy(function() {
@@ -180,20 +180,20 @@
 						this.setPosition(0);
 						_this
 							.trigger('pause_state')
-							.trigger('time', this.duration)
+							.trigger('time', { ms: this.duration, positive: true })
 							.trigger('bar');
 					},
 					onfinish: function() {
 						_this
 							.trigger('finish')
 							.trigger('pause_state')
-							.trigger('time', this.duration)
+							.trigger('time', { ms: this.duration, positive: true })
 							.trigger('bar');
 					},
 					whileplaying: function() {
 						this.maxPosition = Math.max(this.maxPosition || 0, this.position);
 						_this
-							.trigger('time', this.duration - this.position)
+							.trigger('time', { ms: this.duration - this.position })
 							.trigger('bar');
 					},
 					volume: 100
