@@ -389,7 +389,7 @@ a { color: #00919e; }
 .feedback__duration { width: 60px; text-align: right; }
 .feedback__duration .icon_timer { margin-right: 3px; margin-top: -3px; }
 
-.test { margin: 120px auto 0; width: 490px; color: #d6dee6; font-size: 18px; font-weight: normal; font-style: normal; font-family: 'cuprumregular'; }
+.test { margin: 60px auto 0; width: 490px; color: #d6dee6; font-size: 18px; font-weight: normal; font-style: normal; font-family: 'cuprumregular'; }
 .test.test_mod { width: 600px; }
 .test.test_mod2 { width: 430px; }
 
