@@ -187,7 +187,7 @@ jQuery(function($) {
 					// File load error
 					.on('error', function() {
 						_this.addClass('is-hold');
-						_win.trigger('create_popup', { message: 'Audio file not found' });
+						_win.trigger('create_popup', { message: 'Error – audio file was not loaded' });
 					})
 					// Set remaining time
 					.on('time', function(e, opts) {
@@ -380,7 +380,7 @@ jQuery(function($) {
 							.on('timerdone', function() {
 								_this.removeClass(classActive);
 								_form.trigger('close');
-								_win.trigger('create_popup', { message: 'Audit timeout' });
+								_win.trigger('create_popup', { message: 'Your complain review session has timed out' });
 							})
 							.on('close', function() {
 								_form.slideUp(SLIDE_DURATION, function() {
@@ -393,17 +393,20 @@ jQuery(function($) {
 								_all.removeClass('is-hold');
 							})
 							.on('submit', function(e, data) {
-								_accepted.attr('checked', data.name === 'yes');
+								var justified = data.name === 'yes';
+								_accepted.attr('checked', justified);
 								$.ajax(_form.attr('action'), {
 									type: _form.attr('method'),
 									data: _form.serialize(),
-									complete: function() {
+									success: function() {
 										_form
 											.on('closeend', function() { _this.off().remove(); })
 											.trigger('close');
 									},
 									error: function() {
-										// @todo
+										_win.trigger('create_error', {
+											message: justified ? 'Server failed – could not complete the refund claim' : 'Server failed – could not cancel the refund claim'
+										});
 									}
 								});
 								return false;
@@ -448,7 +451,7 @@ jQuery(function($) {
 										.trigger('do_init');
 							},
 							error: function() {
-								// @todo
+								_win.trigger('create_error', { message: 'Server failure – the claim form could not be loaded' });
 								blocked = false;
 							}
 						});
@@ -466,7 +469,7 @@ jQuery(function($) {
 									.trigger('close');
 							},
 							error: function() {
-								// @todo
+								_win.trigger('create_error', { message: 'Server failed – the refund claim could not be cancelled' });
 								blocked = false;
 							}
 						});
@@ -568,9 +571,9 @@ jQuery(function($) {
 													id: speech.id
 												},
 												error: function() {
-													// @todo
+													_win.trigger('create_error', { message: 'Server failure – could not assess speech in tests' });
 												},
-												complete: function() {
+												success: function() {
 													_this.trigger('next');
 												}
 											});
@@ -600,7 +603,7 @@ jQuery(function($) {
 								_time.text(timeFormatter(time));
 								if ( time <= 0 ) {
 									_this.trigger('remove');
-									_win.trigger('create_popup', { message: 'Evaluation timeout' });
+									_win.trigger('create_popup', { message: 'Your test has timed out' });
 								}
 							};
 
@@ -675,7 +678,7 @@ jQuery(function($) {
 								blocked = false;
 							},
 							error: function() {
-								// @todo
+								_win.trigger('create_error', { message: 'Server failure – could not retrieve the list of dialogues' });
 							}
 						});
 
@@ -766,7 +769,7 @@ jQuery(function($) {
 			return false;
 		});
 
-		_value.on('update', function(e, fade) {
+		_value.on('update', function(e) {
 			_value.html( format(cost, true) );
 
 			$.ajax(url, {
@@ -776,33 +779,6 @@ jQuery(function($) {
 					// Do nothing
 				}
 			});
-
-			if ( fade ) { // ugly animation
-				var	minValue = 0,
-					maxValue = 100,
-					halfValue = maxValue / 2,
-					amplitude = 0.1,
-					scale;
-
-				_value
-					.css('top', minValue)
-					.animate({ top: maxValue }, {
-						step: function(i) {
-							if ( i < halfValue  )
-								scale = amplitude * (i / halfValue);
-							else
-								scale = amplitude - amplitude * ((i - halfValue) / halfValue);
-							scale += 1; 
-							_value
-								.css('-webkit-transform','scale(' + scale + ')')
-								.css('-moz-transform','scale(' + scale + ')')
-								.css('-ms-transform','scale(' + scale + ')')
-								.css('-o-transform','scale(' + scale + ')')
-								.css('transform','scale(' + scale + ')');
-						},
-						duration: 100
-					}, 'swing');
-			}
 		});
 
 		_slider
@@ -822,7 +798,7 @@ jQuery(function($) {
 							})
 							.on('mouseup.slider', function(e) {
 								_doc.off('.slider');
-								_value.trigger('update', true);
+								_value.trigger('update');
 							});
 					});
 			})

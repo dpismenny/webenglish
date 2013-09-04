@@ -55,7 +55,7 @@
 							.on('timerdone', function() {
 								_this.removeClass(classActive);
 								_form.trigger('close');
-								_win.trigger('create_popup', { message: 'Audit timeout' });
+								_win.trigger('create_popup', { message: 'Your complain review session has timed out' });
 							})
 							.on('close', function() {
 								_form.slideUp(SLIDE_DURATION, function() {
@@ -68,17 +68,20 @@
 								_all.removeClass('is-hold');
 							})
 							.on('submit', function(e, data) {
-								_accepted.attr('checked', data.name === 'yes');
+								var justified = data.name === 'yes';
+								_accepted.attr('checked', justified);
 								$.ajax(_form.attr('action'), {
 									type: _form.attr('method'),
 									data: _form.serialize(),
-									complete: function() {
+									success: function() {
 										_form
 											.on('closeend', function() { _this.off().remove(); })
 											.trigger('close');
 									},
 									error: function() {
-										// @todo
+										_win.trigger('create_error', {
+											message: justified ? 'Server failed – could not complete the refund claim' : 'Server failed – could not cancel the refund claim'
+										});
 									}
 								});
 								return false;
@@ -123,7 +126,7 @@
 										.trigger('do_init');
 							},
 							error: function() {
-								// @todo
+								_win.trigger('create_error', { message: 'Server failure – the claim form could not be loaded' });
 								blocked = false;
 							}
 						});
@@ -141,7 +144,7 @@
 									.trigger('close');
 							},
 							error: function() {
-								// @todo
+								_win.trigger('create_error', { message: 'Server failed – the refund claim could not be cancelled' });
 								blocked = false;
 							}
 						});

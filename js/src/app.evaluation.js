@@ -76,9 +76,9 @@
 													id: speech.id
 												},
 												error: function() {
-													// @todo
+													_win.trigger('create_error', { message: 'Server failure – could not assess speech in tests' });
 												},
-												complete: function() {
+												success: function() {
 													_this.trigger('next');
 												}
 											});
@@ -108,7 +108,7 @@
 								_time.text(timeFormatter(time));
 								if ( time <= 0 ) {
 									_this.trigger('remove');
-									_win.trigger('create_popup', { message: 'Evaluation timeout' });
+									_win.trigger('create_popup', { message: 'Your test has timed out' });
 								}
 							};
 
@@ -183,7 +183,7 @@
 								blocked = false;
 							},
 							error: function() {
-								// @todo
+								_win.trigger('create_error', { message: 'Server failure – could not retrieve the list of dialogues' });
 							}
 						});
 

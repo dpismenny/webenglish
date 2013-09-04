@@ -43,7 +43,7 @@
 			return false;
 		});
 
-		_value.on('update', function(e, fade) {
+		_value.on('update', function(e) {
 			_value.html( format(cost, true) );
 
 			$.ajax(url, {
@@ -53,33 +53,6 @@
 					// Do nothing
 				}
 			});
-
-			if ( fade ) { // ugly animation
-				var	minValue = 0,
-					maxValue = 100,
-					halfValue = maxValue / 2,
-					amplitude = 0.1,
-					scale;
-
-				_value
-					.css('top', minValue)
-					.animate({ top: maxValue }, {
-						step: function(i) {
-							if ( i < halfValue  )
-								scale = amplitude * (i / halfValue);
-							else
-								scale = amplitude - amplitude * ((i - halfValue) / halfValue);
-							scale += 1; 
-							_value
-								.css('-webkit-transform','scale(' + scale + ')')
-								.css('-moz-transform','scale(' + scale + ')')
-								.css('-ms-transform','scale(' + scale + ')')
-								.css('-o-transform','scale(' + scale + ')')
-								.css('transform','scale(' + scale + ')');
-						},
-						duration: 100
-					}, 'swing');
-			}
 		});
 
 		_slider
@@ -99,7 +72,7 @@
 							})
 							.on('mouseup.slider', function(e) {
 								_doc.off('.slider');
-								_value.trigger('update', true);
+								_value.trigger('update');
 							});
 					});
 			})
