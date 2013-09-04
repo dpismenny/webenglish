@@ -8,7 +8,8 @@ jQuery(function($) {
 	 * @fires #event:create_popup Open notification popup
 	 * @fires #event:create_error Open notification error
 	 */
-	var	_win = $(window);
+	var	_win = $(window),
+		_doc = $(document);
 
 	/*
 	 * Settings
@@ -17,11 +18,19 @@ jQuery(function($) {
 		cache: false,
 		dataType: 'json'
 	});
-	var slideDuration = 200;
+
+	var SLIDE_DURATION = 200,
+		QUEUE_DELAY = 3000;
 
 	/*
 	 * Utils
 	 */
+	$.fn.unselectable = function() {
+		return $(this)
+			.attr('unselectable', 'on')
+			.css('user-select', 'none')
+			.on('selectstart', false);
+	};
 
 	// Adds zero for digits: 9 -> '09'
 	function zeroFormatter(value) {

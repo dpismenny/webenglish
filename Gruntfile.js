@@ -32,6 +32,7 @@ module.exports = function(grunt) {
 					'js/src/app.audit.js',
 					'js/src/app.evaluation.js',
 					'js/src/app.feedback.js',
+					'js/src/app.dashboard.js',
 					'js/src/app.user.js', // from common.js
 					'js/src/app.rating.js', // from common.js
 					'js/src/app._foot.js'

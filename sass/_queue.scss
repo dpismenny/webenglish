@@ -14,10 +14,10 @@
   text-align: center;
   &.show{
     .queue__summary{
-      display: none;
+      display: block;
       }
     .queue__details{
-      display: block;
+      display: none;
       }
     }
   .queue__details{

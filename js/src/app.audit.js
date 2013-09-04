@@ -58,7 +58,7 @@
 								_win.trigger('create_popup', { message: 'Audit timeout' });
 							})
 							.on('close', function() {
-								_form.slideUp(slideDuration, function() {
+								_form.slideUp(SLIDE_DURATION, function() {
 									_form
 										.trigger('closeend')
 										.off()
@@ -84,7 +84,7 @@
 								return false;
 							})
 							.appendTo(_this)
-							.slideDown(slideDuration, function() {
+							.slideDown(SLIDE_DURATION, function() {
 								blocked = false;
 							});
 

@@ -1,0 +1,12 @@
+{
+	"price": 1.4,
+	"favorites": {
+		"all": 15,
+		"online": 5
+	},
+	"position": 2,
+	"translators": [
+		{"name": "Patrick Ivanov", "price": 1.1, "position": 1, "current": false},
+		{"name": "Vitaly Gridasov", "price": 1.2, "position": 2, "current": true}
+	]
+}

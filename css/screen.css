@@ -118,8 +118,8 @@ a { color: #00919e; }
 .cost p { font-size: 16px; font-weight: normal; font-style: normal; font-family: 'cuprumbold'; color: #9da9b4; margin-top: .25em; }
 
 .queue { margin-left: 18px; width: 360px; padding: 20px 20px 30px; display: inline-block; vertical-align: top; list-style-type: none; background: rgba(20, 33, 46, 0.6); border-radius: 4px; margin-bottom: 20px; min-height: 360px; text-align: center; }
-.queue.show .queue__summary { display: none; }
-.queue.show .queue__details { display: block; }
+.queue.show .queue__summary { display: block; }
+.queue.show .queue__details { display: none; }
 .queue .queue__details { display: none; padding: 0 25px; }
 .queue .queue__details__cost { text-align: left; }
 .queue .queue__details__cost ul { list-style: none; }
@@ -646,6 +646,7 @@ a { color: #00919e; }
 
 .audit__button_cancel { display: none; }
 
+.audit__row_long { cursor: default; }
 .audit__row_long .audit__track { width: 500px; }
 .audit__row_long .audit__controls { width: 580px; margin-right: 0; }
 .audit__row_long .audit__button { margin-left: 0; }

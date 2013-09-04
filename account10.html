@@ -85,15 +85,15 @@
       <!-- BEGIN .panel-wrapper -->
       <section class="panel-wrapper">
         <!-- BEGIN .cost -->
-        <article class="cost">
+        <article class="cost js-cost" data-url="/push/cost" data-cost="1.2" data-maxcost="5" data-mincost="0.8">
           <h2 class="cost__title">COST</h2>
           <p>Set the cost of your services:</p>
-          <div class="cost__cost">€1,2</div>
+          <div class="cost__cost js-cost-value">€1,2</div>
 
-          <div class="cost__slider">
+          <div class="cost__slider js-slider">
             <div class="cost__slider__min">€0,80</div>
-            <div class="cost__slider__bar-wrapper">
-              <div class="cost__slider__bar-wrapper__holder btn btn_lightblue">
+            <div class="cost__slider__bar-wrapper js-slider-bar">
+              <div class="cost__slider__bar-wrapper__holder btn btn_lightblue js-slider-button">
                 1,2
               </div>
               <div class="cost__slider__bar-wrapper__bar"></div>
@@ -102,22 +102,40 @@
           </div>
 
           <nav>
-            <a href="#" class="cost__increase">Increase</a>
-            <a href="#" class="cost__decrease">Decrease</a>
+            <a href="#" class="cost__increase js-plus">Increase</a>
+            <a href="#" class="cost__decrease js-minus">Decrease</a>
           </nav>
         </article>
         <!-- /.cost -->
         <!-- BEGIN .queue -->
-        <article class="queue show">
-          <div class="queue__summary">
+        <article class="queue show js-queue">
+          <div class="queue__summary js-queue-summary" data-url="/restfake/dashboard.json">
             <h2 class="queue__summary__title">Queue</h2>
             <p class="queue__summary__abstract">You are in the queue:</p>
-            <div class="queue__summary__position">36</div>
-            <a href="#" class="queue__summary__show btn btn_primary">Show queue</a>
+            <div class="queue__summary__position js-position">36</div>
+            <a href="#" class="queue__summary__show btn btn_primary js-toggle">Show queue</a>
           </div>
-          <div class="queue__details">
-            <a href="#" class="queue__details__hide btn btn_primary">Hide queue</a>
-            <article class="queue__details__cost">
+          
+          <script id="tpl_queue" type="text/template">
+          <% _.each(translators, function(translator) { %>
+          <% if ( translator.newprice ) { %>
+          	<article class="queue__details__cost js-queue-block">
+              <h2 class="queue__details__cost__title">€<%= translator.price %></h2>
+              <ul>
+          <% } %>
+                <li<% if ( translator.current ) { %> class="queue__details__cost__special"<% } %>>
+                  <span class="queue__details__cost__number"><%= translator.position %></span>
+                  <span class="queue__details__cost__name"><%= translator.name %></span>
+                </li>
+          <% if ( translator.newprice ) { %>
+              </ul>
+            </article>
+          <% } %>
+          <% }) %>
+          </script>
+          <div class="queue__details js-queue-details" data-url="/restfake/dashboard.json">
+            <a href="#" class="queue__details__hide btn btn_primary js-toggle">Hide queue</a>
+            <article class="queue__details__cost js-queue-block">
               <h2 class="queue__details__cost__title">€0,80</h2>
               <ul>
                 <li>
@@ -142,7 +160,7 @@
                 </li>
               </ul>
             </article>
-            <article class="queue__details__cost">
+            <article class="queue__details__cost js-queue-block">
               <h2 class="queue__details__cost__title">€1,2</h2>
               <ul>
                 <li class="queue__details__cost__special">
@@ -194,12 +212,12 @@
     <!-- /.call -->
 
     <!-- BEGIN .favorites -->
-    <section class="favorites">
-      <div class="favorites__count">10</div>
+    <section class="favorites js-favorites">
+      <div class="favorites__count js-favorites-all">10</div>
       <p class="favorites__abstract">Сustomers have added you to favorites</p>
       <div class="favorites__online">
         <h2 class="favorites__online__title">Of these online:</h2>
-        <span class="favorites__online__count">3</span>
+        <span class="favorites__online__count js-favorites-online">3</span>
       </div>
     </section>
     <!-- /.favorites -->
