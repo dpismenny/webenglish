@@ -19,7 +19,8 @@ jQuery(function($) {
 		dataType: 'json'
 	});
 
-	var SLIDE_DURATION = 200,
+	var FADE_DURATION = 200,
+		SLIDE_DURATION = 200,
 		QUEUE_DELAY = 3000;
 
 	/*

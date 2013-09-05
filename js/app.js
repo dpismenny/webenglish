@@ -19,7 +19,8 @@ jQuery(function($) {
 		dataType: 'json'
 	});
 
-	var SLIDE_DURATION = 200,
+	var FADE_DURATION = 200,
+		SLIDE_DURATION = 200,
 		QUEUE_DELAY = 3000;
 
 	/*
@@ -105,6 +106,12 @@ jQuery(function($) {
 				}, opts || {});
 				_win.trigger('create_notification', opts);
 			});
+		
+		// Static notifications
+		$('.js-noty').on('click', '.js-close', function() {
+			$(this).closest('.js-noty').fadeOut(FADE_DURATION);
+			return false;
+		});
 	})();
 	/*
 	 * Player component

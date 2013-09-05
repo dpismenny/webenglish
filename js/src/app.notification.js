@@ -53,4 +53,10 @@
 				}, opts || {});
 				_win.trigger('create_notification', opts);
 			});
+		
+		// Static notifications
+		$('.js-noty').on('click', '.js-close', function() {
+			$(this).closest('.js-noty').fadeOut(FADE_DURATION);
+			return false;
+		});
 	})();
