@@ -894,7 +894,7 @@ jQuery(function($) {
 						_favorites.trigger('update', data);
 				},
 				error: function() {
-					// @todo
+					// Do nothing
 				},
 				complete: function() {
 					blocked = false;

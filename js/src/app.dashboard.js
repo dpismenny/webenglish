@@ -161,7 +161,7 @@
 						_favorites.trigger('update', data);
 				},
 				error: function() {
-					// @todo
+					// Do nothing
 				},
 				complete: function() {
 					blocked = false;

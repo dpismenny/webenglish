@@ -117,7 +117,7 @@
           </div>
           
           <script id="tpl_queue" type="text/template">
-          <% _.each(translators, function(translator) { %>
+          <% _.each(translators, function(translator, i) { %>
           <% if ( translator.newprice ) { %>
           	<article class="queue__details__cost js-queue-block">
               <h2 class="queue__details__cost__title">€<%= translator.price %></h2>
@@ -127,7 +127,7 @@
                   <span class="queue__details__cost__number"><%= translator.position %></span>
                   <span class="queue__details__cost__name"><%= translator.name %></span>
                 </li>
-          <% if ( translator.newprice ) { %>
+          <% if ( (translator.newprice && i > 0) || i === translators.length - 1 ) { %>
               </ul>
             </article>
           <% } %>

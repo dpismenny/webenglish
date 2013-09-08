@@ -82,7 +82,7 @@ a { color: #00919e; }
 
 .favorites__count { margin: 0 auto 20px; height: 95px; background: url('../img/icons-sca21e29f07.png') 0 -425px no-repeat; width: 99px; height: 95px; text-align: center; line-height: 112px; color: #283c4f; font-size: 36px; font-weight: normal; font-style: normal; font-family: 'cuprumbold'; }
 
-.favorites__abstract { color: #fff; font-size: 14px; line-height: 24px; text-align: center; padding: 0 40px; font-weight: normal; font-style: normal; font-family: 'cuprumbold'; margin: 0 auto 20px; }
+.favorites__abstract { color: #fff; font-size: 14px; line-height: 24px; text-align: center; padding: 0 40px 20px; font-weight: normal; font-style: normal; font-family: 'cuprumbold'; margin: 0 auto; }
 
 .favorites__online { background-color: #3b536a; border-radius: 0 0 4px 4px; padding: 0 15px 0 20px; height: 50px; }
 .favorites__online:after { content: "."; font-size: 0; line-height: 0; height: 0; overflow: hidden; text-indent: -9999px; display: block; clear: both; }

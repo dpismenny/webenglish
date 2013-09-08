@@ -1,12 +1,40 @@
+
 {
-	"price": 1.4,
-	"favorites": {
-		"all": 15,
-		"online": 5
-	},
-	"position": 2,
-	"translators": [
-		{"name": "Patrick Ivanov", "price": 1.1, "position": 1, "current": false},
-		{"name": "Vitaly Gridasov", "price": 1.2, "position": 2, "current": true}
-	]
+    "price": 2.1,
+    "favorites": {
+        "all": 1,
+        "online": 0
+    },
+    "position": 4,
+    "translators": [{
+        "name": "Timofey Zotov",
+        "price": 0.5,
+        "position": 1,
+        "current": false
+    }, {
+        "name": "Don Kot",
+        "price": 0.5,
+        "position": 2,
+        "current": false
+    }, {
+        "name": "Redhead Girl",
+        "price": 1.5,
+        "position": 3,
+        "current": false
+    }, {
+        "name": "Patrick Ivanov",
+        "price": 2.1,
+        "position": 4,
+        "current": true
+    }, {
+        "name": "Mark Black",
+        "price": 8.48,
+        "position": 5,
+        "current": false
+    }, {
+        "name": "Vitaly Gridasov",
+        "price": 11.45,
+        "position": 6,
+        "current": false
+    }]
 }
