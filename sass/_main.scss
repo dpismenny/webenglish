@@ -647,6 +647,21 @@
 		height: 100px;
 	}
 	.call__button{
+	  &.is-pickup {
+	    .btn_pickup {
+	      display: block;
+	    }
+	  }
+	  &.is-hangup {
+      .btn_hangup {
+        display: block;
+      }
+    }
+    &.is-standby {
+      .btn_standby {
+        display: block;
+      }
+    }
 		text-transform: uppercase;
 		.btn{
 			width: 180px;
@@ -677,7 +692,8 @@
 					);
 			}
 		}
-		.btn_pickup {
+		.btn_pickup, .btn_hangup{
+		  display: none;
 			color: #fff;
 			@include text-shadow(0 -1px 0 #108101);
 			background-color: #129b00;
@@ -694,6 +710,7 @@
 			}
 		}
 		.btn_standby{
+		  display: none;
 			padding: 5px 0;
 			color: #0e5485;
 			background-color: #a9d2df;
@@ -704,13 +721,11 @@
 			&:hover,
 			&:focus{
 				color: #0e5485;
-				background-color: #afdbe9;
-				background-position: 0;
+				background-color: #a9d2df;
 			}
 			&:active{
 				color: #0e5485;
-				background-color: #b8e9f8;
-				box-shadow: none;
+				background-color: #a9d2df;
 			}
 		}
 	}

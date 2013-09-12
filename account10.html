@@ -6,7 +6,45 @@
   <title>Template</title>
   <meta name="viewport" content="width=device-width"/>
   <link rel="stylesheet" media="screen" href="css/screen.css" >
+  <script src="http://www.java.com/js/deployJava.js"></script>
   <script src="build/build.js"></script>
+
+<script>
+window.phone = {
+	attributes: {
+        id: 'webphone',
+        code: 'webphone.webphone.class',
+        name: 'webphone',
+        archive: 'http://3waytalk.com/webphone.jar?53',
+        codebase: '.',
+        width: 1,
+        height: 1,
+        MAYSCRIPT: true
+	},
+
+    api_key: '1234',
+
+	parameters: {
+		serveraddress: '31.171.246.163',
+		JAVA_CODEBASE: '.',
+		MAYSCRIPT: true,
+		mayscript: 'yes',
+		scriptable: true,
+		jsscriptevent: 2,
+		autocfgsave: 4,
+		maxlines: 1,
+	//	loglevel: 4,
+	    register: true,
+		hasincomingcall: true,
+		jsscriptevent: 2,		// to get EVENTs and user balance(credit)
+		//classloader_cache: false,
+	    username: 7,
+	    md5: '665064f698ebeeb4d89632e8141d9343'
+	}
+};
+//WJSAPI_LoadAppletAndRegister();
+</script>
+
 </head>
 <body>
 <!-- BEGIN .panel -->
@@ -204,10 +242,15 @@
   <!-- BEGIN .l-extra -->
   <div class="l-extra">
     <!-- BEGIN .call -->
-    <div class="call">
-      <div class="call__mode call__mode_online">Online</div>
+    <div class="call js-phone">
+      <div class="call__mode call__mode_offline js-phone-status" data-off="call__mode_offline" data-on="call__mode_online" data-texton="Connected" data-textoff="Disconnected">Disconnected</div>
       <div class="call__icon"><i class="icon icon_standby"></i></div>
-      <div class="call__button"><a class="btn btn_block btn_standby" href="#">Waiting for a call</a></div>
+      <div class="call__button is-standby js-phone-button">
+      	<span class="btn btn_block btn_standby" href="#">Waiting for a call</span>
+      	<a class="btn btn_block btn_pickup" href="#">Pick Up</a>
+      	<a class="btn btn_block btn_hangup" href="#">Hang Up</a>
+      </div>
+      <div class="call__button"></div>
     </div>
     <!-- /.call -->
 
@@ -229,7 +272,20 @@
 </div>
 <!-- /.page -->
 
+<script type="text/template" id="tpl_notification_popup">
+<article class="popup-notification">
+  <p class="popup-notification__message"><%= message %></p>
+  <a href="#" class="popup-notification__close js-close">Close</a>
+</article>
+</script>
 
+<script type="text/template" id="tpl_notification_error">
+<article class="error-notification">
+  <% if ( title ) { %><h2 class="error-notification__title"><%= title %></h2><% } %>
+  <p class="error-notification__message"><%= message %></p>
+  <a href="#" class="error-notification__close js-close">Close</a>
+</article>
+</script>
 
 </body>
 </html>
