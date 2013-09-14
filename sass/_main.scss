@@ -640,6 +640,18 @@
 				content: "";
 			}
 		}
+		&.call__mode_wait{
+      &:before{
+        width: 8px;
+        height: 8px;
+        background: #ffff00;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        @include border-radius(50%);
+        content: "";
+      }
+    }
 	}
 	.call__icon{
 		text-align: center;
@@ -692,7 +704,7 @@
 					);
 			}
 		}
-		.btn_pickup, .btn_hangup{
+		.btn_pickup{
 		  display: none;
 			color: #fff;
 			@include text-shadow(0 -1px 0 #108101);
@@ -709,6 +721,39 @@
 				background-color: #129b00;
 			}
 		}
+		.btn_hangup{
+		  display: none;
+		  color: #fff;
+		  @include text-shadow(0 -1px 0 #108101);
+		  background-color: #7a0101;
+		  @include background-image(linear-gradient(#cb0000, #7a0101));
+		  background-repeat: repeat-x;
+		  border-color:  #cb0000  #cb0000 #7a0101;
+		  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+		  @include box-shadow(0 1px 1px #0a131d, inset 0 1px 0 rgba(220,255,191,.42));
+		  &:hover,
+      &:focus,
+      &:active{
+        color: #fff;
+        background-color: #7a0101;
+      }
+		}
+		/*
+		 * .btn_red {
+    color: #fff;
+    background-color: #7a0101;
+    @include background-image(linear-gradient(#cb0000, #7a0101));
+    background-repeat: repeat-x;
+    border-color:  #cb0000  #cb0000 #7a0101;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    &:hover,
+    &:focus,
+    &:active{
+      color: #fff;
+      background-color: #7a0101;
+    }
+  }
+		 */
 		.btn_standby{
 		  display: none;
 			padding: 5px 0;

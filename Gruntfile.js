@@ -46,6 +46,7 @@ module.exports = function(grunt) {
 					'bower_components/jquery/jquery.min.js',
 					'bower_components/lodash/dist/lodash.min.js',
 					'js/chosen/chosen.jquery.min.js',
+					'js/jquery.transform2d.js',
 					'js/soundmanager2/soundmanager2-nodebug-jsmin.js',
 					'js/app.min.js'
 				],
