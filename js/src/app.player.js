@@ -9,6 +9,7 @@
 		_win.one('sm2_init', function() {
 			soundManager.setup({
 				url: '/js/soundmanager2/swf/',
+				// flashVersion: 9,
 				preferFlash: false,
 				onready: function() {
 					_win.trigger('sm2_ready');

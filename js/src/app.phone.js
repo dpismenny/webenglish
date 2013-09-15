@@ -5,6 +5,16 @@
 		if ( !window.phone )
 			return;
 
+		// Detect Java
+		if ( window.deployJava ) {
+			var JREs = deployJava.getJREs();
+			if ( !JREs || !JREs.length )
+				_win.trigger('create_popup', { message: 'You need to <a target="_blank" href="http://www.java.com/getjava">install Java</a>, to be able to take calls from customers', timeout: 0 });
+		}
+
+		// Hide embed#deployJavaPlugin (FF fix)
+		$('#deployJavaPlugin').hide();
+
 		var	GET_STATUS_DELAY = 200,
 			ANIMATE_DURATION = 500;
 
@@ -141,10 +151,13 @@
 			if ( !applethandle )
 				return initcheck();
 
-			//if ( !applethandle.API_GetStatus )
-			//	return initcheck();
+			var	phoneStatus;
+			try {
+				phoneStatus = applethandle.API_GetStatus(-2);
+			} catch(e) {
+				return initcheck();
+			}
 
-			var	phoneStatus = applethandle.API_GetStatus(-2);
 			phoneStatus = $.trim(phoneStatus);
 			_phoneStatus.trigger('status', phoneStatus);
 			_phone.trigger('inited');
