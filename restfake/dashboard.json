@@ -1,6 +1,12 @@
 
 {
     "price": 2.1,
+    "menu": {
+		"warnings": 2,
+		"feedback": 1,
+		"audit": 10,
+		"tests": 1
+	},
     "favorites": {
         "all": 1,
         "online": 0

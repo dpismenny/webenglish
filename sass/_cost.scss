@@ -93,13 +93,19 @@
     margin: -16px 0 0;
     text-indent: -9999px;
     @include sized-sprite($icons, decrease-default);
-    &:hover{
-      @include sized-sprite($icons, decrease-hover);
+      &:hover{
+        @include sized-sprite($icons, decrease-hover);
       }
-    &:active{
-      @include sized-sprite($icons, decrease-active);
+      &:active{
+        @include sized-sprite($icons, decrease-active);
       }
     }
+  &.is-disabled .cost__decrease {
+    cursor: default;
+    &:hover{
+      @include sized-sprite($icons, decrease-default);
+    }
+  }
   .cost__increase{
     position: absolute;
     right: 40px;
@@ -107,13 +113,19 @@
     margin: -16px 0 0;
     text-indent: -9999px;
     @include sized-sprite($icons, increase-default);
-    &:hover{
-      @include sized-sprite($icons, increase-hover);
+      &:hover{
+        @include sized-sprite($icons, increase-hover);
       }
-    &:active{
-      @include sized-sprite($icons, increase-active);
+      &:active{
+        @include sized-sprite($icons, increase-active);
       }
     }
+  &.is-disabled .cost__increase {
+    cursor: default;
+    &:hover{
+      @include sized-sprite($icons, increase-default);
+    }
+  }
   .cost__cost{
     width: 200px;
     height: 200px; 

@@ -28,6 +28,9 @@
 		}
 
 		_plus.click(function() {
+			if ( _cost.hasClass('is-disabled') )
+				return false;
+
 			cost = Math.min(maxCost, cost + step);
 			_value
 				.add(_slider)
@@ -36,11 +39,18 @@
 		});
 
 		_minus.click(function() {
+			if ( _cost.hasClass('is-disabled') )
+				return false;
+
 			cost = Math.max(minCost, cost - step);
 			_value
 				.add(_slider)
 				.trigger('update');
 			return false;
+		});
+
+		_win.on('phone_status', function(e, status) {
+			_cost.toggleClass('is-disabled', status === 'pickup' || status === 'hangup');
 		});
 
 		_value.on('update', function(e) {
@@ -60,6 +70,8 @@
 				var	startX, startLeft;
 				_sliderButton
 					.mousedown(function(e) {
+						if ( _cost.hasClass('is-disabled') )
+							return false;
 						startX = e.clientX;
 						startLeft = left;
 						_doc
@@ -90,6 +102,56 @@
 			})
 			.trigger('update')
 			.trigger('init');
+	})();
+
+	/*
+	 * Dashboard menu component
+	 */
+	(function() {
+		if ( !$('.js-menu').length )
+			return;
+
+		var	_block = $('.js-menu'),
+			soundUrl = _block.data('sound'),
+			sound;
+
+		if ( soundUrl )
+			_win
+				.trigger('sm2_init')
+				.on('sm2_ready', function() {
+					sound = soundManager.createSound({
+						url: soundUrl,
+						autoLoad: true,
+						autoPlay: false,
+						volume: 100
+					});
+				});
+
+		_win.on('menu_update', function(e, data) {
+			var menuUpdate = false;
+			$.each(data, function(key, value) {
+				var	_item = $('.js-menu-' + key, _block),
+					_link, oldValue;
+
+				if ( _item.length ) {
+					oldValue = parseInt(_item.text(), 10);
+					_item.html(value);
+					if ( oldValue !== value ) {
+						menuUpdate = true;
+
+						_link = _item.parent().prev();
+						_link.animate({ color: '#CC0000' }, 700, function() {
+							_link.animate({ color: '#FFF' }, 500, function() {
+								_link.css({ color: 'inherit' });
+							});
+						});
+					}
+				}
+			});
+
+			if ( menuUpdate && sound )
+				sound.play();
+		});
 	})();
 
 	/*
@@ -159,6 +221,8 @@
 						_summary.trigger('update', data);
 					if ( data.favorites )
 						_favorites.trigger('update', data);
+					if ( data.menu )
+						_win.trigger('menu_update', data.menu);
 				},
 				error: function() {
 					// Do nothing

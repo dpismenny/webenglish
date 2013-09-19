@@ -94,9 +94,15 @@
 			textWait = _phoneStatus.data('textwait'),
 			waitList = ['Ready', 'Register…', 'Registering…'],
 			offList = ['Register Failed'],
-			pickupAnimate = true;
+			pickupAnimate = true,
+			globalStatus = '';
 
 		_phoneButton.on('status', function(e, status) {
+			if ( status != globalStatus ) {
+				globalStatus = status;
+				_win.trigger('phone_status', globalStatus);
+			}
+
 			_phoneButton
 				.toggleClass('is-standby', status == 'standby')
 				.toggleClass('is-pickup', status == 'pickup')

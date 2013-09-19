@@ -110,9 +110,13 @@ a { color: #00919e; }
 .cost .cost__decrease { position: absolute; left: 40px; top: 50%; margin: -16px 0 0; text-indent: -9999px; background: url('../img/icons-sca21e29f07.png') 0 -1608px no-repeat; width: 32px; height: 32px; }
 .cost .cost__decrease:hover { background: url('../img/icons-sca21e29f07.png') 0 -1566px no-repeat; width: 32px; height: 32px; }
 .cost .cost__decrease:active { background: url('../img/icons-sca21e29f07.png') 0 -1650px no-repeat; width: 32px; height: 32px; }
+.cost.is-disabled .cost__decrease { cursor: default; }
+.cost.is-disabled .cost__decrease:hover { background: url('../img/icons-sca21e29f07.png') 0 -1608px no-repeat; width: 32px; height: 32px; }
 .cost .cost__increase { position: absolute; right: 40px; top: 50%; margin: -16px 0 0; text-indent: -9999px; background: url('../img/icons-sca21e29f07.png') 0 -1482px no-repeat; width: 32px; height: 32px; }
 .cost .cost__increase:hover { background: url('../img/icons-sca21e29f07.png') 0 -1440px no-repeat; width: 32px; height: 32px; }
 .cost .cost__increase:active { background: url('../img/icons-sca21e29f07.png') 0 -1524px no-repeat; width: 32px; height: 32px; }
+.cost.is-disabled .cost__increase { cursor: default; }
+.cost.is-disabled .cost__increase:hover { background: url('../img/icons-sca21e29f07.png') 0 -1482px no-repeat; width: 32px; height: 32px; }
 .cost .cost__cost { width: 200px; height: 200px; border-radius: 200px; line-height: 200px; text-align: center; background-color: #00ace6; color: #152331; font-size: 90px; margin: 20px auto; }
 .cost .cost__title { font-size: 30px; font-weight: normal; font-style: normal; font-family: 'cuprumbold'; text-transform: uppercase; }
 .cost p { font-size: 16px; font-weight: normal; font-style: normal; font-family: 'cuprumbold'; color: #9da9b4; margin-top: .25em; }
