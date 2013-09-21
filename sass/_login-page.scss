@@ -1,0 +1,83 @@
+@charset "utf-8";
+.login-page{
+  width: 460px;
+  margin: 0 auto;
+  padding: 0 30px 20px;
+  .h1{
+    white-space: nowrap;
+    margin-bottom: 60px;
+    }
+  nav{
+    position: relative;
+    margin: 20px 0 0;
+    font-size: 18px;
+    font-family: cuprumbold;
+    white-space: nowrap;
+    button{
+      margin: 0 5px 0 0;
+      }
+    p{
+      margin: 10px 0 0;
+      }
+    a{
+      font-family: cuprumbold;
+      margin: 0 0 0 5px;
+      color: #7f8891;
+      text-decoration: underline;
+      font-size: 18px;
+      display: inline-block;
+      vertical-align: middle;
+      &:hover{
+        text-decoration: none;
+        }
+      }
+    }
+  fieldset{
+    position: relative;
+    margin: 20px 0 0;
+    font-size: 0;
+    .column{
+      width: 217px;
+      margin: 0 0 0 20px;
+      display: inline-block;
+      position: relative;
+      &.error{
+        .icon_error{
+          display: block;
+          }
+        .error__help{
+          display: block;
+          }
+        input{
+          border-color: #f2415a;
+          }
+        }
+      &:first-child{
+        margin: 0;
+        }
+      label{
+        font-size: 24px;
+        line-height: 30px;
+        color: #FFF;
+        }
+      input{
+        color:#000;
+        width: 160px;
+        display: block;
+        margin: 0;
+        }
+      .icon_error{
+        display: none;
+        position: absolute;
+        left: 100%;
+        top: 50%;
+        margin-left: 5px;
+        margin-top: 8px;
+        }
+      .error__help{
+        display: none;
+        top: 10px;
+        }
+      }
+    }
+  }

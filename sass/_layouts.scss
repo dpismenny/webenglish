@@ -4,25 +4,36 @@
 .l{
 	width: 100%;
 	// display: inline-block;
+	min-height:1px;
 }
 
 	.l-sidebar{
 		float:left;
 		width: 170px;
+		min-height:1px;
 	}
 
 	.l-main{
 		float:left;
 		width: 820px;
 		margin: 0 20px;
+		min-height:1px;
 	}
 
 	.l-extra{
 		float:right;
 		width: 220px;
+		min-height:1px;
 	}
 
 	.l-solo{
 		width: 600px;
 		margin: 0 auto;
+		min-height:1px;
+	}
+
+	.l-solo-wide{
+		width: 820px;
+		margin: 0 auto;
+		min-height:1px;
 	}
