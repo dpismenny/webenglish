@@ -1,0 +1,185 @@
+<!doctype html>
+<!--[if lte IE 8]><html class="lteie8"><![endif]-->
+<!--[if gt IE 8]><!--><html><!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<title>Template</title>
+	<meta name="viewport" content="width=device-width"/>
+	<link rel="stylesheet" media="screen" href="css/screen.css" >
+	<script src="js/app.js"></script>
+</head>
+<body>
+<!-- BEGIN .panel -->
+<div class="panel">
+	<div class="panel__holder">
+		<!-- BEGIN .logo -->
+		<h1 class="logo">
+			<a href="#" title="3waytalk">3waytalk</a>
+		</h1>
+		<!-- /.logo -->
+		<!-- BEGIN .profile -->
+		<div class="profile">
+			<span class="profile__user"><a href="#">Ivan Klymenko</a></span>
+			<i class="icon"></i>
+		</div>
+		<!-- /.profile -->
+	</div>
+</div>
+<!-- /.panel -->
+
+<!-- BEGIN .page -->
+<div class="page l">
+
+	<!-- BEGIN .l-sidebar -->
+	<div class="l-sidebar">
+		<div class="nav">
+			<ul>
+				<li>
+					<a href="#">Account</a>
+				</li>
+				<li>
+					<a href="#">Warnings</a>
+					<span class="nav__number">0/3</span>
+				</li>
+				<li class="is-active">
+					<a href="#">Customer feedback</a>
+					<span class="nav__number">16</span>
+				</li>
+				<li>
+					<a href="#">Complaints audit</a>
+					<span class="nav__number">7</span>
+				</li>
+				<li>
+					<a href="#">Test's evaluation</a>
+					<span class="nav__number">36</span>
+				</li>
+				<li><a href="#">Rules</a></li>
+			</ul>
+		</div>
+		<!-- BEGIN .cash -->
+		<div class="cash">
+			<h1 class="cash__title">Your balance:</h1>
+			<a href="#" class="amount">€156,18</a>
+		</div>
+		<!-- /.cash -->
+	</div>
+	<!-- /.l-sidebar -->
+
+	<!-- BEGIN .l-main -->
+	<div class="l-main">
+
+		<!-- BEGIN .payments -->
+		<form class="payments-page">
+			<h1 class="h1">Withdrawal</h1>
+			<fieldset>
+				<div class="abstract">
+					<h2 class="title">Preparation for the Test</h2>
+
+					<p>Now we offer you to pass a short test to check your interpreting skills.</p>
+
+					<p>The system will select at random 10 dialogues for you to simultaneously translate. Each dialogue consists of several parts in the languages selected by you. After playing each part of the dialogue, the system will turn on automatically the recording function, without stopping, and prompt you to translate the part. You will be given an equal amount of time to translate as the taken by the original plus 5 seconds. Your test will be reviewed within one day. After reviewing your test we will contact you for further instructions.</p>
+
+					<p>If you are approved, you will get access to your personal account and start earning money.</p>
+				</div>
+				<div class="payments-page__row">
+					<label for="amount">Amount of withdrawal:</label>
+					<div class="input-wrapper error">
+						<input class="input" type="text" id="amount" name="amount" required="required" placeholder="100.00">
+						<i class="icon icon_error"></i>
+						<div class="error__help">
+							<div class="error__wrap">
+								Amount.
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="payments-page__row">
+					<label for="paypal-email">Email connected with paypal:</label>
+					<div class="input-wrapper">
+						<input class="input" type="text" id="paypal-email" name="email" required="required" placeholder="some@mail.com">
+						<i class="icon icon_error"></i>
+						<div class="error__help">
+							<div class="error__wrap">
+								Your email address could not be validated. Please check and try again.
+							</div>
+						</div>
+					</div>
+				</div>
+				<p>
+					<input type="checkbox" name="ok" id="ok">
+					<label for="ok" class="ok">My data entered right and I understand, that service isn't responcible for this</label>
+				</p>
+				<nav>
+					<button class="btn btn_primary" type="submit">Ok</button>
+				</nav>
+			</fieldset>
+		</form>
+		<!-- /.payments -->
+
+	</div>
+	<!-- /.l-main -->
+
+	<!-- BEGIN .l-extra -->
+	<div class="l-extra">
+
+		<!-- BEGIN .call -->
+		<div class="call">
+			<div class="call__mode call__mode_online">Connected</div>
+			<div class="call__icon"><i class="icon icon_standby"></i></div>
+			<div class="call__button"><a class="btn btn_block btn_standby" href="#">Stand by</a></div>
+		</div>
+		<!-- /.call -->
+
+		<!-- BEGIN .level -->
+		<div class="level">
+			<div class="level__title">Your Level:</div>
+			<div class="level__skill level__silver">Silver</div>
+			<div class="level__content">
+				<ul>
+					<li>
+						<div class="level__col level__col1">
+							<h1 class="h1">Level</h1></div>
+						<div class="level__col level__col2">
+							<h1 class="h1">Complaints</h1></div>
+						<div class="level__col level__col3">
+							<h1 class="h1">Calls</h1></div>
+					</li>
+					<li>
+						<div class="level__col level__col1">
+							<div class="level__status level__standart"></div>
+						</div>
+						<div class="level__col level__col2">5-7%</div>
+						<div class="level__col level__col3">0-100</div>
+					</li>
+					<li>
+						<div class="level__col level__col1">
+							<div class="level__status level__silver"></div>
+						</div>
+						<div class="level__col level__col2">3-5%</div>
+						<div class="level__col level__col3">100-250</div>
+					</li>
+					<li>
+						<div class="level__col level__col1">
+							<div class="level__status level__gold"></div>
+						</div>
+						<div class="level__col level__col2">0-3%</div>
+						<div class="level__col level__col3">250+</div>
+					</li>
+					<li>
+						<div class="level__col level__col1">You:</div>
+						<div class="level__col level__col2">3,4%</div>
+						<div class="level__col level__col3">323</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- /.level -->
+
+	</div>
+	<!-- /.l-extra -->
+
+</div>
+<!-- /.page -->
+
+</body>
+</html>

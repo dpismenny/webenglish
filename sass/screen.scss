@@ -13,6 +13,15 @@
 @import "ie";
 @import "chosen";
 
+//aditional pages
+@import "payments-page";
+@import "restore-page";
+@import "settings-page";
+@import "login-page";
+
+//additional widgets
+@import "error-widget";
+
 // this is just example of  how commenting css should be done in big projects
 @import "styledocco";
 

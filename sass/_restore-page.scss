@@ -1,0 +1,69 @@
+@charset "utf-8";
+.restore-page{
+  width: 733px;
+  margin: 0 auto;
+  padding: 0 30px 20px;
+  .h1{
+    white-space: nowrap;
+    margin-bottom: 60px;
+    }
+  .info{
+    font-size: 20px;
+    line-height: 30px;
+    text-align: center;
+    margin-bottom: 0.5em;
+    }
+  button{
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 20px;
+    }
+  fieldset{
+    text-align: center;
+    position: relative;
+    margin: 20px 0 0;
+    font-size: 0;
+    .input-wrapper{
+      &.error{
+        .icon_error{
+          display: block;
+          }
+        .error__help{
+          display: block;
+          }
+        input{
+          border-color: #f2415a;
+          }
+        }
+      display: inline-block;
+      position: relative;
+      .icon_error{
+        display: none;
+        position: absolute;
+        left: 100%;
+        top: 50%;
+        margin-left: 5px;
+        margin-top: -5px;
+        }
+      .error__help{
+        display: none;
+        }
+      }
+    label{
+      vertical-align: middle;
+      width: 217px;
+      display: inline-block;
+      font-size: 20px;
+      vertical-align: middle;
+      line-height: 30px;
+      color: #FFF;
+      }
+    input{
+      color:#000;
+      vertical-align: middle;
+      width: 193px;
+      display: inline-block;
+      margin: 0;
+      }
+    }
+  }

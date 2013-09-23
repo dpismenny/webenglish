@@ -1,0 +1,136 @@
+<!doctype html>
+<!--[if lte IE 8]><html class="lteie8"><![endif]-->
+<!--[if gt IE 8]><!--><html><!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<title>Settings page</title>
+	<meta name="viewport" content="width=device-width"/>
+	<link rel="stylesheet" media="screen" href="css/screen.css" >
+	<script src="js/app.js"></script>
+</head>
+<body>
+<!-- BEGIN .panel -->
+<div class="panel">
+	<div class="panel__holder">
+		<!-- BEGIN .logo -->
+		<h1 class="logo">
+			<a href="#" title="3waytalk">3waytalk</a>
+		</h1>
+		<!-- /.logo -->
+		<!-- BEGIN .profile -->
+		<div class="profile">
+			<span class="profile__user"><a href="#">Ivan Klymenko</a></span>
+			<i class="icon"></i>
+		</div>
+		<!-- /.profile -->
+	</div>
+</div>
+<!-- /.panel -->
+
+<!-- BEGIN .page -->
+<div class="page">
+	<div class="l">
+		<div class="l-solo l-solo-wide">
+			<form class="settings-page" action="/login" method="post">
+				<h1 class="h1">Settings</h1>
+				<fieldset>
+					<div class="settings-page__row">
+						<label class="required" for="firstname">First Name</label>
+						<div class="input-wrapper">
+							<input class="input" type="text" id="firstname" name="firstname" required="required" placeholder="">
+							<i class="icon icon_error"></i>
+							<div class="error__help">
+								<div class="error__wrap">
+									Amount.
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="settings-page__row">
+						<label class="required" for="familyname">Family Name</label>
+						<div class="input-wrapper error">
+							<input class="input" type="text" id="familyname" name="familyname" required="required" placeholder="">
+							<i class="icon icon_error"></i>
+							<div class="error__help">
+								<div class="error__wrap">
+									Amount.
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="settings-page__row">
+						<label for="skype">Skype</label>
+						<div class="input-wrapper">
+							<input class="input" type="text" id="skype" name="skype" placeholder="">
+							<i class="icon icon_error"></i>
+							<div class="error__help">
+								<div class="error__wrap">
+									Amount.
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="settings-page__row">
+						<label class="required" for="email">Email</label>
+						<div class="input-wrapper">
+							<input class="input" type="text" id="email" name="email" required="required" placeholder="some@mail.com">
+							<i class="icon icon_error"></i>
+							<div class="error__help">
+								<div class="error__wrap">
+									Amount.
+								</div>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset>
+					<div class="settings-page__row">
+						<label class="required" for="current">Current Password</label>
+						<div class="input-wrapper">
+							<input class="input" type="password" id="current" name="current" required="required">
+							<i class="icon icon_error"></i>
+							<div class="error__help">
+								<div class="error__wrap">
+									Amount.
+								</div>
+							</div>
+						</div>
+						<a class="settings-page__restore" href="restore.html">Forgot Password?</a>
+					</div>
+					<div class="settings-page__row">
+						<label class="required" for="new">New Password</label>
+						<div class="input-wrapper error">
+							<input class="input" type="password" id="new" name="new" required="required">
+							<i class="icon icon_error"></i>
+							<div class="error__help">
+								<div class="error__wrap">
+									Amount.
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="settings-page__row">
+						<label class="required" for="confirm">Confirm Password</label>
+						<div class="input-wrapper error">
+							<input class="input" type="password" id="confirm" name="confirm" required="required">
+							<i class="icon icon_error"></i>
+							<div class="error__help">
+								<div class="error__wrap">
+									Amount.
+								</div>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+				<nav>
+					<button class="btn btn_primary" type="submit">Save Changes</button>
+					<a class="settings-page__cancel" href="cancel.html">Cancel</a>
+				</nav>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- /.page -->
+
+</body>
+</html>
