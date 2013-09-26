@@ -55,6 +55,8 @@
 	vertical-align: middle;
 }
 	.icon_standby{@include sized-sprite($icons, ico_standby);}
+	.icon_customer{@include sized-sprite($icons, ico_customer);}
+	.icon_favorites{@include sized-sprite($icons, ico_favorites);}
 	.icon_pickup{@include sized-sprite($icons, ico_pickup);}
 	.icon_timer{@include sized-sprite($icons, ico_timer);}
 	.icon_micro{@include sized-sprite($icons, micro);}

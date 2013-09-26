@@ -131,20 +131,15 @@
 			var menuUpdate = false;
 			$.each(data, function(key, value) {
 				var	_item = $('.js-menu-' + key, _block),
-					_link, oldValue;
+					_parent = _item.parent(),
+					oldValue;
 
 				if ( _item.length ) {
 					oldValue = parseInt(_item.text(), 10);
 					_item.html(value);
-					if ( oldValue !== value ) {
+					if ( oldValue !== value && value > oldValue ) {
 						menuUpdate = true;
-
-						_link = _item.parent().prev();
-						_link.animate({ color: '#CC0000' }, 700, function() {
-							_link.animate({ color: '#FFF' }, 500, function() {
-								_link.css({ color: 'inherit' });
-							});
-						});
+						_parent.animate({ color: '#00adef' }, 700);
 					}
 				}
 			});

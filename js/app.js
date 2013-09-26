@@ -865,20 +865,15 @@ jQuery(function($) {
 			var menuUpdate = false;
 			$.each(data, function(key, value) {
 				var	_item = $('.js-menu-' + key, _block),
-					_link, oldValue;
+					_parent = _item.parent(),
+					oldValue;
 
 				if ( _item.length ) {
 					oldValue = parseInt(_item.text(), 10);
 					_item.html(value);
-					if ( oldValue !== value ) {
+					if ( oldValue !== value && value > oldValue ) {
 						menuUpdate = true;
-
-						_link = _item.parent().prev();
-						_link.animate({ color: '#CC0000' }, 700, function() {
-							_link.animate({ color: '#FFF' }, 500, function() {
-								_link.css({ color: 'inherit' });
-							});
-						});
+						_parent.animate({ color: '#00adef' }, 700);
 					}
 				}
 			});
@@ -1066,45 +1061,46 @@ jQuery(function($) {
 			pickupAnimate = true,
 			globalStatus = '';
 
-		_phoneButton.on('status', function(e, status) {
-			if ( status != globalStatus ) {
-				globalStatus = status;
-				_win.trigger('phone_status', globalStatus);
-			}
+		_phoneButton
+			.on('growup', function() {
+				_phoneButton.animate({
+					transform: 'scale(1.1)'
+				}, ANIMATE_DURATION, 'swing', function() {
+					_phoneButton.trigger('growdown');
+				});
+			})
+			.on('growdown', function() {
+				_phoneButton.stop().animate({
+					transform: 'scale(0.9)'
+				}, ANIMATE_DURATION, function() {
+					_phoneButton.trigger('growup');
+				});
+			})
+			.on('status', function(e, status) {
+				if ( status != globalStatus ) {
+					globalStatus = status;
+					_win.trigger('phone_status', globalStatus);
+				}
 
-			_phoneButton
-				.toggleClass('is-standby', status == 'standby')
-				.toggleClass('is-pickup', status == 'pickup')
-				.toggleClass('is-hangup', status == 'hangup');
-
-			if ( status == 'pickup' ) { // pick up animation, required jquery.transform.js
-				if ( !pickupAnimate )
-					return;
-				pickupAnimate = false;
 				_phoneButton
-					.stop()
-					.on('growup', function() {
-						_phoneButton.animate({
-							transform: 'scale(1.1)'
-						}, ANIMATE_DURATION, 'swing', function() {
-							_phoneButton.trigger('growdown');
-						});
-					})
-					.on('growdown', function() {
-						_phoneButton.stop().animate({
-							transform: 'scale(0.9)'
-						}, ANIMATE_DURATION, function() {
-							_phoneButton.trigger('growup');
-						});
-					})
-					.trigger('growup');
-			} else {
-				pickupAnimate = true;
-				_phoneButton
-					.stop()
-					.css('transform', 'scale(1)');
-			}
-		});
+					.toggleClass('is-standby', status == 'standby')
+					.toggleClass('is-pickup', status == 'pickup')
+					.toggleClass('is-hangup', status == 'hangup');
+	
+				if ( status == 'pickup' ) { // pick up animation, required jquery.transform.js
+					if ( !pickupAnimate )
+						return;
+					pickupAnimate = false;
+					_phoneButton
+						.stop()
+						.trigger('growup');
+				} else {
+					pickupAnimate = true;
+					_phoneButton
+						.stop()
+						.css('transform', 'scale(1)');
+				}
+			});
 
 		_phoneStatus.on('status', function(e, status) {
 			var isOff, isOn, isWait;
