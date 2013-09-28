@@ -296,7 +296,7 @@
 			background-color: #00759b;
 		}
 	}
-	.btn_green, .btn_red {
+	.btn_green, .btn_red, .btn_lightblue {
 	  &.is-disabled {
       border: 1px solid #747474;
       background-color: #b2b3b4;
@@ -304,8 +304,9 @@
       background-repeat: repeat-x;
       border-color:  #a1a1a1  #a1a1a1 #b2b3b4;
       border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-      &:hover {
+      &:hover, &:active, &:focus {
         background-position: 0 0;
+        @include box-shadow(0 1px 1px #0a131d, inset 0 1px 0 rgba(255,255,255,.5));
       }
     }
 	}
@@ -776,11 +777,15 @@
 				color: #0e5485;
 				background-color: #a9d2df;
 			}
+			a {
+			  text-decoration: none;
+			}
 		}
 	}
 
 //infotable
 .infotable{
+  position: relative;
 	width: 170px;
 	padding: 15px 15px 5px;
 	@include border-radius(4px);
@@ -806,10 +811,31 @@
 		color: #9da9b4;
 		margin-bottom: 0.5em;
 	}
+	&.is-hidden {
+	  display: none;
+	}
 	&.infotable_warning{
 		color: #fff;
 		background: rgba(87,46,46,.8);
 		font-size: 16px;
+	}
+	.infotable__note {
+	  display: block;
+	  margin: 10px 0 0;
+	}
+	.infotable__close {
+	  position: absolute;
+    top: 10px;
+    right: 10px;
+    @include sized-sprite($icons, close-default);
+    overflow: hidden;
+    text-indent: -9999px;
+    &:hover{
+      @include sized-sprite($icons, close-hover);
+      }
+    &:active{
+      @include sized-sprite($icons, close-active);
+      }
 	}
 }
 

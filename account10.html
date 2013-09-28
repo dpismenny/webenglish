@@ -242,11 +242,17 @@ window.phone = {
   <!-- BEGIN .l-extra -->
   <div class="l-extra">
     <!-- BEGIN .call -->
+    <div class="infotable infotable_warning is-hidden js-noty js-phonefail" data-delay="10">
+    	<a href="#" class="infotable__close js-close">Close</a>
+    	<p>If your webphone is disconnected, please test your java <a target="_blank" href="http://www.java.com/ru/download/testjava.jsp">here</a>.<br/>
+    	<span class="infotable__note">* You may need to restart you web browser afterwards.</span></p>
+	</div>
+    
     <div class="call js-phone">
       <div class="call__mode call__mode_offline js-phone-status" data-wait="call__mode_wait" data-off="call__mode_offline" data-on="call__mode_online" data-texton="Connected" data-textwait="Connecting" data-textoff="Disconnected">Disconnected</div>
       <div class="call__icon"><i class="icon icon_standby"></i></div>
       <div class="call__button is-standby js-phone-button">
-      	<span class="btn btn_block btn_standby" href="#">Waiting for a call</span>
+      	<span class="btn btn_block btn_standby" data-stanby="Waiting for a call" href="#"><a target="_blank" href="http://www.java.com/ru/download/testjava.jsp">No connection</a></span>
       	<a class="btn btn_block btn_pickup" href="#">Pick Up</a>
       	<a class="btn btn_block btn_hangup" href="#">Hang Up</a>
       </div>

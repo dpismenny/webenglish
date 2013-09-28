@@ -50,7 +50,9 @@
 		});
 
 		_win.on('phone_status', function(e, status) {
-			_cost.toggleClass('is-disabled', status === 'pickup' || status === 'hangup');
+			_cost
+				.add(_sliderButton)
+				.toggleClass('is-disabled', status === 'pickup' || status === 'hangup'); 
 		});
 
 		_value.on('update', function(e) {

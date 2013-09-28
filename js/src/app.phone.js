@@ -16,7 +16,8 @@
 		$('#deployJavaPlugin').hide();
 
 		var	GET_STATUS_DELAY = 200,
-			ANIMATE_DURATION = 500;
+			ANIMATE_DURATION = 500,
+			DEFAULT_FAIL_DELAY =10 * 1000;
 
 		var applethandle = null;
 
@@ -85,7 +86,11 @@
 
 		var	_phone = $('.js-phone'),
 			_phoneButton = $('.js-phone-button'),
+			_phoneButtonStanby = $('[data-stanby]', _phoneButton),
 			_phoneStatus = $('.js-phone-status'),
+			_phoneFail =$('.js-phonefail'),
+			failTimer = null,
+			failDelay = _phoneFail.data('delay'),
 			classOn = _phoneStatus.data('on'),
 			classOff = _phoneStatus.data('off'),
 			classWait = _phoneStatus.data('wait'),
@@ -96,6 +101,9 @@
 			offList = ['Register Failed'],
 			pickupAnimate = true,
 			globalStatus = '';
+
+		failDelay = parseInt(failDelay, 10);
+		failDelay = failDelay ? failDelay * 1000 : DEFAULT_FAIL_DELAY;
 
 		_phoneButton
 			.on('growup', function() {
@@ -153,6 +161,10 @@
 				.toggleClass(classWait, !!isWait)
 				.text(isOff ? textOff : (isWait ? textWait : textOn));
 		});
+
+		failTimer = setTimeout(function() {
+			_phoneFail.removeClass('is-hidden');
+		}, failDelay);
 
 		setInterval(function() {
 			if ( !applethandle )
@@ -220,10 +232,17 @@
 
 		}, GET_STATUS_DELAY);
 
-		// Stay on this page popup
+		// Stay on this page popup && cancel fail timer
 		_phone.one('inited', function() {
+			clearTimeout(failTimer);
+			failTimer = null;
+
+			if ( _phoneButtonStanby.length )
+				_phoneButtonStanby.text( _phoneButtonStanby.data('stanby') );
+
 			_win.on('beforeunload', function() {
 				return 'If you leave this page now, you will not be able to take calls, and you will lose your place in the queue.';
 			});
 		});
+			
 	})();

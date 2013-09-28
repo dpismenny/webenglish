@@ -86,6 +86,43 @@
   min-height: 360px;
   text-align: center;
   position: relative;
+  
+  &.is-disabled {
+    .cost__decrease {
+      cursor: default;
+      &:hover{
+        @include sized-sprite($icons, decrease-default);
+      }
+    }
+    .cost__increase {
+      cursor: default;
+      &:hover{
+        @include sized-sprite($icons, increase-default);
+      }
+    }
+    .cost__slider__bar-wrapper__bar{
+      background-color: #4f4f4f;
+    }
+    .cost__slider__bar-wrapper__holder{
+      cursor: default;
+      &:after{
+        @include sized-sprite($icons, holder-arrows-dis);
+      } 
+    }
+    .cost__decrease{
+      @include sized-sprite($icons, grey_03);
+      &:hover, &:active {
+        @include sized-sprite($icons, grey_03);
+      }
+    }
+    .cost__increase{
+      @include sized-sprite($icons, grey_05);
+      &:hover, &:active {
+        @include sized-sprite($icons, grey_05);
+      }
+    }
+  }
+
   .cost__decrease{
     position: absolute;
     left: 40px;
@@ -100,12 +137,7 @@
         @include sized-sprite($icons, decrease-active);
       }
     }
-  &.is-disabled .cost__decrease {
-    cursor: default;
-    &:hover{
-      @include sized-sprite($icons, decrease-default);
-    }
-  }
+
   .cost__increase{
     position: absolute;
     right: 40px;
@@ -120,12 +152,7 @@
         @include sized-sprite($icons, increase-active);
       }
     }
-  &.is-disabled .cost__increase {
-    cursor: default;
-    &:hover{
-      @include sized-sprite($icons, increase-default);
-    }
-  }
+
   .cost__cost{
     width: 200px;
     height: 200px; 
