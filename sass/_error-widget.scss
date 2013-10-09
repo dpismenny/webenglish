@@ -4,7 +4,7 @@
 .error__help{
   position: absolute;
   top: -20px;
-  left: -315px;
+  right: -330px;
   border: 1px solid #9c0021;
   @include border-radius(4px);
   @include background-clip(padding-box);
@@ -23,23 +23,23 @@
   &:before{
     position: absolute;
     top: 35px;
-    right: -11px;
+    left: -12px;
     content: "";
     width: 0px;
     height: 0px;
     border-style: solid;
-    border-width: 10px 0 10px 11px;
-    border-color: transparent transparent transparent #9a1230;
+    border-width: 10px 11px 10px 0;
+    border-color: transparent #9a1230 transparent transparent;
     }
   &:after{
     position: absolute;
     top: 35px;
-    right: -10px;
+    left: -10px;
     content: "";
     width: 0px;
     height: 0px;
     border-style: solid;
-    border-width: 10px 0 10px 11px;
-    border-color: transparent transparent transparent #f24158;
+    border-width: 10px 11px 10px 0;
+    border-color: transparent #f24158 transparent transparent;
     }
   }
