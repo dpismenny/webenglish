@@ -47,8 +47,9 @@
 						callback();
 					})
 					.on('init_form', function() {
-						var	_buttons = $(':submit', _form),
-							_accepted = $('[name="mvt_opinion[accepted]"]', _form);
+						var	_buttonsBlock = $('.js-audit-buttons', _form),
+							_buttons = $(':submit', _buttonsBlock), 
+							_more = $('.js-audit-more', _form);
 
 						_form
 							.off()
@@ -67,11 +68,15 @@
 								_player.trigger('do_stop');
 								_all.removeClass('is-hold');
 							})
-							.on('submit', function(e, data) {
-								var justified = data.name === 'yes';
-								_accepted.attr('checked', justified);
-								$.ajax(_form.attr('action'), {
-									type: _form.attr('method'),
+							.appendTo(_this)
+							.slideDown(SLIDE_DURATION, function() {
+								blocked = false;
+							});
+
+						if ( _more.length ) {
+							_more.submit(function() {
+								$.ajax(_more.data('submit'), {
+									type: _more.attr('method'),
 									data: _form.serialize(),
 									success: function() {
 										_form
@@ -80,22 +85,58 @@
 									},
 									error: function() {
 										_win.trigger('create_error', {
-											message: justified ? 'Server failed – could not complete the refund claim' : 'Server failed – could not cancel the refund claim'
+											message: 'Server failed – could not complete the refund claim'
 										});
 									}
 								});
+
 								return false;
-							})
-							.appendTo(_this)
-							.slideDown(SLIDE_DURATION, function() {
-								blocked = false;
 							});
+							var _checkboxes = _more.find(':checkbox');
+							_checkboxes
+								.click(function() {
+									if ( this.checked )
+										_checkboxes
+											.not(this)
+											.prop('checked', false);
+
+									_checkboxes.each(function() {
+										$(this)
+											.parent()
+											.next()
+											.toggle(this.checked)
+											.find('textarea')
+											.prop('disabled', !this.checked);
+									});
+								});
+						}
 
 						_buttons.click(function() {
-							var	_button = $(this);
+							var	_button = $(this),
+								state = _button.attr('name');
+
 							if ( _button.hasClass('is-disabled') )
 								return false;
-							_form.trigger('submit', { name: _button.attr('name') });
+
+							if ( _more.length && state === 'correct' ) {
+								_more.slideDown(SLIDE_DURATION);
+								_buttonsBlock.hide();
+							} else {
+								$.ajax(_form.data('evaluate'), {
+									type: 'POST',
+									data: { state: state },
+									success: function() {
+										_form
+											.on('closeend', function() { _this.off().remove(); })
+											.trigger('close');
+									},
+									error: function() {
+										_win.trigger('create_error', {
+											message: state === 'correct' ? 'Server failed – could not complete the refund claim' : 'Server failed – could not cancel the refund claim'
+										});
+									}
+								});
+							}
 						});
 					})
 					.on('req_form', function() {
@@ -109,7 +150,7 @@
 									.addClass('is-hold');
 
 								// Add form
-								_form = $(json.form);
+								_form = $(json.html);
 								_this
 									.trigger('init_form')
 									.trigger('timer_start',  json.time_left);
@@ -152,15 +193,17 @@
 					.on('click', function(e) {
 						// AJAX request or animation in progress
 						if ( blocked || _this.hasClass('is-hold') )
-							return false;
+							return true;
 
+						var _target = $(e.target);
 						// Click by opened block
-						var	isCancel = $(e.target).closest('.js-button-cancel').length;
+						var	isCancel = _target.closest('.js-button-cancel').length;
 						if ( !isCancel && _this.hasClass(classActive) )
-							return false;
+							return true;
 
 						_this.trigger(isCancel ? 'req_cancel' : 'req_form');
-						return false;
+						if ( _target.is('a') )
+							return false;
 					});
 			});
 		};

@@ -2226,6 +2226,9 @@
     .audit__button_cancel{
       display: none;
     }
+    .audit__button_feedback{
+      float: none;
+    }
 	.audit__row_long{
 	  cursor: default;
 		.audit__track{
@@ -2236,6 +2239,7 @@
 			margin-right: 0;
 		}
 		.audit__button{
+		  display: none;
 			margin-left: 0;
 		}
 		.audit__time{
@@ -2244,10 +2248,7 @@
 		.audit__playpause{
 		  display: block;
 		}
-		.audit__button{
-       display: none;
-    }
-      .audit__button_cancel{
+      .audit__button_cancel, .audit__button_feedback{
         display: block;
       }
 	}
@@ -2345,12 +2346,12 @@
 			margin-top: 20px;
 		}
 	}
-	// .audit__feedback{
-	// 	display: none;
-	// }
-
-
-
+	.audit__feedback{
+	 	display: none;
+	}
+	.audit__more{
+	  display: none;
+	}
 
 
 .splayer{

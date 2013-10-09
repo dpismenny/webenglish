@@ -677,14 +677,15 @@ a { color: #00919e; }
 
 .audit__button_cancel { display: none; }
 
+.audit__button_feedback { float: none; }
+
 .audit__row_long { cursor: default; }
 .audit__row_long .audit__track { width: 500px; }
 .audit__row_long .audit__controls { width: 580px; margin-right: 0; }
-.audit__row_long .audit__button { margin-left: 0; }
+.audit__row_long .audit__button { display: none; margin-left: 0; }
 .audit__row_long .audit__time { display: none; }
 .audit__row_long .audit__playpause { display: block; }
-.audit__row_long .audit__button { display: none; }
-.audit__row_long .audit__button_cancel { display: block; }
+.audit__row_long .audit__button_cancel, .audit__row_long .audit__button_feedback { display: block; }
 
 .audit__claim { float: left; width: 390px; }
 .audit__claim .textarea { resize: vertical; border: 1px solid #162739; -webkit-border-radius: 4px; -moz-border-radius: 4px; -ms-border-radius: 4px; -o-border-radius: 4px; border-radius: 4px; -webkit-background-clip: padding; -moz-background-clip: padding; background-clip: padding-box; background-color: #0f1d2b; height: 70px; width: 360px; padding: 15px; color: #9da8b4; font-size: 16px; font-weight: normal; font-style: normal; font-family: 'cuprumregular'; outline: 0; }
@@ -707,6 +708,10 @@ a { color: #00919e; }
 .audit__label input:checked + i { background: url('../img/icons-s569c3637fe.png') 0 -2099px no-repeat; width: 16px; height: 16px; }
 .audit__label i { position: absolute; background: url('../img/icons-s569c3637fe.png') 0 -2215px no-repeat; width: 16px; height: 16px; left: -30px; top: 1px; line-height: 16px; }
 .audit__label .textarea { resize: vertical; border: 1px solid #162739; -webkit-border-radius: 4px; -moz-border-radius: 4px; -ms-border-radius: 4px; -o-border-radius: 4px; border-radius: 4px; -webkit-background-clip: padding; -moz-background-clip: padding; background-clip: padding-box; background-color: #0f1d2b; height: 100px; width: 290px; padding: 15px; color: #9da8b4; font-size: 16px; font-weight: normal; font-style: normal; font-family: 'cuprumregular'; outline: 0; margin-left: -30px; margin-top: 20px; }
+
+.audit__feedback { display: none; }
+
+.audit__more { display: none; }
 
 .splayer { border: 1px solid #0987b1; -webkit-border-radius: 4px; -moz-border-radius: 4px; -ms-border-radius: 4px; -o-border-radius: 4px; border-radius: 4px; -webkit-background-clip: padding; -moz-background-clip: padding; background-clip: padding-box; height: 50px; line-height: 50px; width: 100%; position: relative; }
 .splayer.is-hold { background-color: #162533; border: 1px solid #1d2c3c; }

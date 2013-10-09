@@ -11,36 +11,41 @@
 
 <script>
 window.phone = {
-	attributes: {
+    attributes: {
         id: 'webphone',
         code: 'webphone.webphone.class',
         name: 'webphone',
-        archive: 'http://3waytalk.com/webphone.jar?53',
+        archive: 'http://3waytalk.com/webphone.jar?66',
         codebase: '.',
         width: 1,
         height: 1,
         MAYSCRIPT: true
-	},
+    },
 
     api_key: '1234',
 
-	parameters: {
-		serveraddress: '31.171.246.163',
-		JAVA_CODEBASE: '.',
-		MAYSCRIPT: true,
-		mayscript: 'yes',
-		scriptable: true,
-		jsscriptevent: 2,
-		autocfgsave: 4,
-		maxlines: 1,
-	//	loglevel: 4,
-	    register: true,
-		hasincomingcall: true,
-		jsscriptevent: 2,		// to get EVENTs and user balance(credit)
-		//classloader_cache: false,
-	    username: 7,
-	    md5: '665064f698ebeeb4d89632e8141d9343'
-	}
+    parameters: {
+        serveraddress: '31.171.246.163',
+        JAVA_CODEBASE: '.',
+        MAYSCRIPT: true,
+        mayscript: 'yes',
+        scriptable: true,
+        autocfgsave: 4,
+        maxlines: 1,
+        //	loglevel: 4,
+        loglevel: 5,
+        ringtone: 'http://3waytalk.com/bell.wav',
+        register: true,
+        hasincomingcall: true,
+        calleriddisplay: 1,
+        accepttext: 'Pick up',
+        rejecttext: 'Mute',
+        rejectaction: 1,
+        jsscriptevent: 2,		// to get EVENTs and user balance(credit)
+        //classloader_cache: false,
+        username: 7,
+        md5: '665064f698ebeeb4d89632e8141d9343'
+    }
 };
 //WJSAPI_LoadAppletAndRegister();
 </script>
@@ -252,7 +257,7 @@ window.phone = {
       <div class="call__mode call__mode_offline js-phone-status" data-wait="call__mode_wait" data-off="call__mode_offline" data-on="call__mode_online" data-texton="Connected" data-textwait="Connecting" data-textoff="Disconnected">Disconnected</div>
       <div class="call__icon"><i class="icon icon_standby"></i></div>
       <div class="call__button is-standby js-phone-button">
-      	<span class="btn btn_block btn_standby" data-stanby="Waiting for a call" href="#"><a target="_blank" href="http://www.java.com/ru/download/testjava.jsp">No connection</a></span>
+      	<span class="btn btn_block btn_standby" data-stanby="Waiting for a call" href="#"><a target="_blank" href="http://www.java.com/ru/download/testjava.jsp">Not connected</a></span>
       	<a class="btn btn_block btn_pickup" href="#">Pick Up</a>
       	<a class="btn btn_block btn_hangup" href="#">Hang Up</a>
       </div>
