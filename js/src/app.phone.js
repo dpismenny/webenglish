@@ -15,9 +15,9 @@
 		// Hide embed#deployJavaPlugin (FF fix)
 		$('#deployJavaPlugin').hide();
 
-		var	GET_STATUS_DELAY = 200,
+		var	GET_STATUS_DELAY = 1000,
 			ANIMATE_DURATION = 500,
-			DEFAULT_FAIL_DELAY =10 * 1000;
+			DEFAULT_FAIL_DELAY = 10 * 1000;
 
 		var applethandle = null;
 
@@ -85,10 +85,11 @@
 		initcheck();
 
 		var	_phone = $('.js-phone'),
-			_phoneButton = $('.js-phone-button'),
+			_phoneIcon = $('.js-phone-icon', _phone),
+			_phoneButton = $('.js-phone-button', _phone),
 			_phoneButtonStanby = $('[data-stanby]', _phoneButton),
-			_phoneStatus = $('.js-phone-status'),
-			_phoneFail =$('.js-phonefail'),
+			_phoneStatus = $('.js-phone-status', _phone),
+			_phoneFail =$('.js-phonefail', _phone),
 			failTimer = null,
 			failDelay = _phoneFail.data('delay'),
 			classOn = _phoneStatus.data('on'),
@@ -100,7 +101,8 @@
 			waitList = ['Ready', 'Register…', 'Registering…'],
 			offList = ['Register Failed'],
 			pickupAnimate = true,
-			globalStatus = '';
+			globalStatus = '',
+			callerID;
 
 		failDelay = parseInt(failDelay, 10);
 		failDelay = failDelay ? failDelay * 1000 : DEFAULT_FAIL_DELAY;
@@ -120,6 +122,12 @@
 					_phoneButton.trigger('growup');
 				});
 			})
+			.on('icon', function(e, iconType) {
+				_phoneIcon
+					.toggleClass('icon_standby', iconType == 'standby')
+					.toggleClass('icon_customer', iconType == 'customer')
+					.toggleClass('icon_favorites', iconType == 'favorites');
+			})
 			.on('status', function(e, status) {
 				if ( status != globalStatus ) {
 					globalStatus = status;
@@ -130,7 +138,21 @@
 					.toggleClass('is-standby', status == 'standby')
 					.toggleClass('is-pickup', status == 'pickup')
 					.toggleClass('is-hangup', status == 'hangup');
-	
+
+				if ( status == 'pickup' ) { // caller language
+					var	lang = callerID.match(/\(\w+\)/),
+						_button = $('[data-pickup]', _phoneButton);
+					lang = lang ? lang[0] : '';
+					_button.text( _button.data('pickup') + ' ' + lang );
+				}
+
+				if ( status == 'pickup' || status == 'hangup' ) { // caller in favorires
+					var favorites = callerID.indexOf('favorites') !== -1;
+					_phoneButton.trigger('icon', favorites ? 'favorites' : 'customer');
+				} else {
+					_phoneButton.trigger('icon', 'standby');
+				}
+
 				if ( status == 'pickup' ) { // pick up animation, required jquery.transform.js
 					if ( !pickupAnimate )
 						return;
@@ -177,6 +199,10 @@
 				return initcheck();
 			}
 
+			var line = applethandle.API_GetLine(),
+				type = window.phone.parameters.calleriddisplay;
+
+			callerID = applethandle.API_GetCallerID(line, type);
 			phoneStatus = $.trim(phoneStatus);
 			_phoneStatus.trigger('status', phoneStatus);
 			_phone.trigger('inited');
