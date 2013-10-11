@@ -382,7 +382,7 @@ jQuery(function($) {
 					.on('init_form', function() {
 						var	_buttonsBlock = $('.js-audit-buttons', _form),
 							_buttons = $(':submit', _buttonsBlock), 
-							_more = $('.js-audit-more', _form);
+							_feedback = $('.js-audit-more', _form);
 
 						_form
 							.off()
@@ -406,11 +406,13 @@ jQuery(function($) {
 								blocked = false;
 							});
 
-						if ( _more.length ) {
-							_more.submit(function() {
-								$.ajax(_more.data('submit'), {
-									type: _more.attr('method'),
-									data: _form.serialize(),
+						// Feedback form behaviour
+						if ( _feedback.length ) {
+							
+							_feedback.submit(function() {
+								$.ajax(_feedback.data('submit'), {
+									type: _feedback.attr('method'),
+									data: _feedback.serialize(),
 									success: function() {
 										_form
 											.on('closeend', function() { _this.off().remove(); })
@@ -425,7 +427,7 @@ jQuery(function($) {
 
 								return false;
 							});
-							var _checkboxes = _more.find(':checkbox');
+							var _checkboxes = _feedback.find(':checkbox');
 							_checkboxes
 								.click(function() {
 									if ( this.checked )
@@ -446,30 +448,34 @@ jQuery(function($) {
 
 						_buttons.click(function() {
 							var	_button = $(this),
-								state = _button.attr('name');
+								state = _button.attr('name'),
+								isCorrect = state === 'correct';
 
 							if ( _button.hasClass('is-disabled') )
 								return false;
 
-							if ( _more.length && state === 'correct' ) {
-								_more.slideDown(SLIDE_DURATION);
+							// Show feedback form
+							if ( _feedback.length && isCorrect ) {
+								_feedback.slideDown(SLIDE_DURATION);
 								_buttonsBlock.hide();
-							} else {
-								$.ajax(_form.data('evaluate'), {
-									type: 'POST',
-									data: { state: state },
-									success: function() {
+							}
+
+							// Send click button event
+							$.ajax(_form.data('evaluate'), {
+								type: 'POST',
+								data: { state: state },
+								success: function() {
+									if ( !isCorrect )
 										_form
 											.on('closeend', function() { _this.off().remove(); })
 											.trigger('close');
-									},
-									error: function() {
-										_win.trigger('create_error', {
-											message: state === 'correct' ? 'Server failed – could not complete the refund claim' : 'Server failed – could not cancel the refund claim'
-										});
-									}
-								});
-							}
+								},
+								error: function() {
+									_win.trigger('create_error', {
+										message: state === 'correct' ? 'Server failed – could not complete the refund claim' : 'Server failed – could not cancel the refund claim'
+									});
+								}
+							});
 						});
 					})
 					.on('req_form', function() {
@@ -1024,7 +1030,7 @@ jQuery(function($) {
 		// Hide embed#deployJavaPlugin (FF fix)
 		$('#deployJavaPlugin').hide();
 
-		var	GET_STATUS_DELAY = 1000,
+		var	GET_STATUS_DELAY = 200,
 			ANIMATE_DURATION = 500,
 			DEFAULT_FAIL_DELAY = 10 * 1000;
 

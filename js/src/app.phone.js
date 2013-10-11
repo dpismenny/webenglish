@@ -15,7 +15,7 @@
 		// Hide embed#deployJavaPlugin (FF fix)
 		$('#deployJavaPlugin').hide();
 
-		var	GET_STATUS_DELAY = 1000,
+		var	GET_STATUS_DELAY = 200,
 			ANIMATE_DURATION = 500,
 			DEFAULT_FAIL_DELAY = 10 * 1000;
 
