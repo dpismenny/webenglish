@@ -465,7 +465,7 @@ jQuery(function($) {
 								type: 'POST',
 								data: { state: state },
 								success: function() {
-									if ( !isCorrect )
+									if ( !(isCorrect && _feedback.length) )
 										_form
 											.on('closeend', function() { _this.off().remove(); })
 											.trigger('close');
