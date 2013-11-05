@@ -408,8 +408,20 @@ jQuery(function($) {
 
 						// Feedback form behaviour
 						if ( _feedback.length ) {
-							
 							_feedback.submit(function() {
+								var	status = $('[name="status"]', _feedback).filter(':checked').val(),
+									feedback = $('[name="feedback"]', _feedback).not(':disabled').val();
+
+								if ( status === 'warning' && !feedback ) {
+									_win.trigger('create_error', { message: 'Please, state a reason for giving the notice to the interpreter' });
+									return false;
+								}
+
+								if ( status === 'ban' && !feedback ) {
+									_win.trigger('create_error', { message: 'Please, state a reason to the interpreter for terminating the account' });
+									return false;
+								}
+
 								$.ajax(_feedback.data('submit'), {
 									type: _feedback.attr('method'),
 									data: _feedback.serialize(),
@@ -427,15 +439,10 @@ jQuery(function($) {
 
 								return false;
 							});
-							var _checkboxes = _feedback.find(':checkbox');
-							_checkboxes
+							var _radio = _feedback.find(':radio');
+							_radio
 								.click(function() {
-									if ( this.checked )
-										_checkboxes
-											.not(this)
-											.prop('checked', false);
-
-									_checkboxes.each(function() {
+									_radio.each(function() {
 										$(this)
 											.parent()
 											.next()
@@ -490,6 +497,7 @@ jQuery(function($) {
 
 								// Add form
 								_form = $(json.html);
+								//_form = $('.js-audit-form', _this);
 								_this
 									.trigger('init_form')
 									.trigger('timer_start',  json.time_left);

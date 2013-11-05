@@ -136,22 +136,29 @@
 							<div class="audit__decision-title">You may:</div>
 							<div class="audit__label is-active">
 								<label>
-									<input name="one" class="input" type="checkbox">
+									<input name="status" class="input" type="radio" value="none" checked="checked">
 									<i></i>
-									Give Your Feedback
+									No further action, close the review
+								</label>
+							</div>
+							<div class="audit__label is-active">
+								<label>
+									<input name="status" class="input" type="radio" value="warning">
+									<i></i>
+									Give a notice to the interpreter
 								</label>
 								<div class="audit__feedback">
-									<textarea name="feedback" class="textarea">Your Feedback</textarea>
+									<textarea name="feedback" class="textarea" placeholder="Please, give a reason"></textarea>
 								</div>
 							</div>
 							<div class="audit__label is-active">
 								<label>
-									<input name="two" class="input" type="checkbox">
+									<input name="status" class="input" type="radio" value="ban">
 									<i></i>
-									Ban the Interpreter
+									Terminate the interpreter's account
 								</label>
 								<div class="audit__feedback">
-									<textarea name="feedback" class="textarea">Your Feedback</textarea>
+									<textarea name="feedback" class="textarea" placeholder="Please, give a reason"></textarea>
 								</div>
 							</div>
 							<div class="audit__button audit__button_feedback"><button type="submit" class="btn btn_primary">OK</button></div>
