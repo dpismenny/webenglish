@@ -592,20 +592,21 @@ a { color: #00919e; }
 .mobile .wrapper { background: none; margin: auto; max-width: 720px; padding: 0; width: 100%; }
 .mobile .mobile-section { font-weight: normal; font-style: normal; font-family: 'cantoraoneregular'; }
 .mobile .mobile-section--main { background: #203e60 url("../img/mobile/slide_main.jpg") center bottom no-repeat; min-height: 580px; }
-.mobile .mobile-section--main .logo { float: none; padding: 0 80px; }
-.mobile .mobile-section--first .logo { margin: 0 0 80px; padding-top: 40px; }
-.mobile .mobile-section--first .logo a { display: block; background: url("../img/icons-s79b216aae8.png") 0 -76px no-repeat; width: 215px; height: 51px; }
-.mobile .mobile-section--second { padding-top: 95px; }
-.mobile .mobile-section--third { padding-bottom: 40px; padding-top: 95px; }
-.mobile .mobile-section--third .btn { display: block; margin: 60px auto 0; }
-.mobile .mobile-section--third .logo { margin: 60px 0 0; }
+.mobile .mobile-section--main .logo { float: none; text-align: center; }
+.mobile .mobile-section--main .logo a { display: inline-block; }
+.mobile .mobile-section--first .logo { margin: 0 0 20px; padding-top: 20px; }
+.mobile .mobile-section--first .logo a { background: url("../img/icons-s79b216aae8.png") 0 -76px no-repeat; width: 215px; height: 51px; }
+.mobile .mobile-section--second { padding-top: 65px; }
+.mobile .mobile-section--third { padding-bottom: 40px; padding-top: 65px; }
+.mobile .mobile-section--third .btn { display: block; margin: 40px auto 0; }
+.mobile .mobile-section--third .logo { margin: 40px 0 0; }
 .mobile .mobile-section__image { display: block; max-width: 100%; }
 .mobile .mobile-section__text { color: #fff; line-height: 1.6em; text-align: center; }
 .mobile .mobile-section__text--size-1 { font-size: 32px; }
 .mobile .mobile-section__text--size-2 { font-size: 22px; }
 .mobile .mobile-section__text--size-3 { font-size: 52px; }
 .mobile .mobile-section__text--size-4 { font-size: 28px; }
-.mobile .promo__buttons { margin-top: 80px; padding-bottom: 80px; text-align: center; }
+.mobile .promo__buttons { margin-top: 40px; padding-bottom: 40px; text-align: center; }
 .mobile .promo__buttons a { display: inline-block; margin: 0 12.5px; vertical-align: top; -webkit-transition: all 0.2s linear; -moz-transition: all 0.2s linear; -o-transition: all 0.2s linear; transition: all 0.2s linear; }
 .mobile .promo__buttons a:hover { opacity: .6; }
 .mobile .promo__buttons a:first-child { margin-bottom: 15px; }
