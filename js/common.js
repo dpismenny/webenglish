@@ -65,21 +65,35 @@ $(document).ready(function() {
 	    });
 
 	// ----------------  -------------------- //
-	    $('.js-auth').click(function() {
-	     if ($(this).hasClass('is-open')) {
-	      $(".js-auth").removeClass('is-open');
-	      $(".js-popups").fadeOut();
-	     }
-	     else {
-	      $(".js-auth").removeClass('is-open');
-	      $(this).addClass('is-open');
-	      $(".js-popups").fadeOut();
-	      $(this).next().fadeIn();
-	     }
-	     return false;
-	    });
+	$(".chzn-select").chosen({disable_search_threshold: 100});
+
 
 	// ----------------  -------------------- //
-	$(".chzn-select").chosen({disable_search_threshold: 100});
+	$('.js-auth, .js-contacts').click(function() {
+
+		function closePopups() {
+			$(".is-open").removeClass('is-open');
+			$(".js-popups").fadeOut();
+		}
+
+		var btn = $(this),
+				isOpen = btn.hasClass('is-open');
+
+
+		if( !isOpen ) {
+
+			closePopups();
+
+			btn
+			.addClass('is-open')
+			.next().fadeIn();
+		}
+		else {
+
+			closePopups();
+		}   	
+
+		return false;
+	});
 
 });

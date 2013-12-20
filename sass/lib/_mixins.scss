@@ -9,6 +9,11 @@
     font-style: normal;
     font-family: 'cuprumbold';
 }
+@mixin co {
+	font-weight: normal;
+	font-style: normal;
+	font-family: 'cantoraoneregular';
+}
 
 // responsive example, edit or remove
 $break-small: 500px;
@@ -48,6 +53,11 @@ $break-large: 1180px;
 // 	-ms-transition:     %what;
 // 	transition:         %what;
 // }
+@mixin bs {
+	-webkit-box-sizing: border-box;
+		 -moz-box-sizing: border-box;
+					box-sizing: border-box;
+}
 %hide-text{
 	font: 0/0 a;
 	text-shadow: none;
