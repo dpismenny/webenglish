@@ -1,4 +1,4 @@
-.logo a, .test__steps li.is-done, .landing .logo a, .landing .promo__buttons { font: 0/0 a; text-shadow: none; color: transparent; }
+.logo a, .test__steps li.is-done, .landing .logo a, .landing .promo__buttons, .mobile .promo__buttons { font: 0/0 a; text-shadow: none; color: transparent; }
 
 .panel__holder, .page, .buttons, .level__content li, .warnings, .balance__row, .feedback__row, .test__buttons, .test__steps ul, .account, .account__list li li, .evaluation__row, .evaluation__buttons, .landing .topper, .landing .user, .landing .user__buttons, .landing .promo, .landing .promo__content, .popup__info, .popup__label, .audit__row { *zoom: 1; }
 .panel__holder:before, .page:before, .buttons:before, .level__content li:before, .warnings:before, .balance__row:before, .feedback__row:before, .test__buttons:before, .test__steps ul:before, .account:before, .account__list li li:before, .evaluation__row:before, .evaluation__buttons:before, .landing .topper:before, .landing .user:before, .landing .user__buttons:before, .landing .promo:before, .landing .promo__content:before, .popup__info:before, .popup__label:before, .audit__row:before, .panel__holder:after, .page:after, .buttons:after, .level__content li:after, .warnings:after, .balance__row:after, .feedback__row:after, .test__buttons:after, .test__steps ul:after, .account:after, .account__list li li:after, .evaluation__row:after, .evaluation__buttons:after, .landing .topper:after, .landing .user:after, .landing .user__buttons:after, .landing .promo:after, .landing .promo__content:after, .popup__info:after, .popup__label:after, .audit__row:after { content: " "; display: table; }
@@ -25,7 +25,7 @@ a { color: #00919e; }
 
 @font-face { font-family: 'cantoraoneregular'; src: url("../fonts/cantoraone-regular-webfont.eot"); src: url("../fonts/cantoraone-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/cantoraone-regular-webfont.woff") format("woff"), url("../fonts/cantoraone-regular-webfont.ttf") format("truetype"), url("../fonts/cantoraone-regular-webfont.svg#cantoraoneregular") format("svg"); font-weight: normal; font-style: normal; }
 
-.logo a, .test__steps li.is-done, .landing .logo a, .landing .promo__buttons { font: 0/0 a; text-shadow: none; color: transparent; }
+.logo a, .test__steps li.is-done, .landing .logo a, .landing .promo__buttons, .mobile .promo__buttons { font: 0/0 a; text-shadow: none; color: transparent; }
 
 .panel__holder, .page, .buttons, .level__content li, .warnings, .balance__row, .feedback__row, .test__buttons, .test__steps ul, .account, .account__list li li, .evaluation__row, .evaluation__buttons, .landing .topper, .landing .user, .landing .user__buttons, .landing .promo, .landing .promo__content, .popup__info, .popup__label, .audit__row { *zoom: 1; }
 .panel__holder:before, .page:before, .buttons:before, .level__content li:before, .warnings:before, .balance__row:before, .feedback__row:before, .test__buttons:before, .test__steps ul:before, .account:before, .account__list li li:before, .evaluation__row:before, .evaluation__buttons:before, .landing .topper:before, .landing .user:before, .landing .user__buttons:before, .landing .promo:before, .landing .promo__content:before, .popup__info:before, .popup__label:before, .audit__row:before, .panel__holder:after, .page:after, .buttons:after, .level__content li:after, .warnings:after, .balance__row:after, .feedback__row:after, .test__buttons:after, .test__steps ul:after, .account:after, .account__list li li:after, .evaluation__row:after, .evaluation__buttons:after, .landing .topper:after, .landing .user:after, .landing .user__buttons:after, .landing .promo:after, .landing .promo__content:after, .popup__info:after, .popup__label:after, .audit__row:after { content: " "; display: table; }
@@ -44,7 +44,7 @@ a { color: #00919e; }
 
 .l-half { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; float: left; width: 50%; }
 
-.logo a, .test__steps li.is-done, .landing .logo a, .landing .promo__buttons { font: 0/0 a; text-shadow: none; color: transparent; }
+.logo a, .test__steps li.is-done, .landing .logo a, .landing .promo__buttons, .mobile .promo__buttons { font: 0/0 a; text-shadow: none; color: transparent; }
 
 .panel__holder, .page, .buttons, .level__content li, .warnings, .balance__row, .feedback__row, .test__buttons, .test__steps ul, .account, .account__list li li, .evaluation__row, .evaluation__buttons, .landing .topper, .landing .user, .landing .user__buttons, .landing .promo, .landing .promo__content, .popup__info, .popup__label, .audit__row { *zoom: 1; }
 .panel__holder:before, .page:before, .buttons:before, .level__content li:before, .warnings:before, .balance__row:before, .feedback__row:before, .test__buttons:before, .test__steps ul:before, .account:before, .account__list li li:before, .evaluation__row:before, .evaluation__buttons:before, .landing .topper:before, .landing .user:before, .landing .user__buttons:before, .landing .promo:before, .landing .promo__content:before, .popup__info:before, .popup__label:before, .audit__row:before, .panel__holder:after, .page:after, .buttons:after, .level__content li:after, .warnings:after, .balance__row:after, .feedback__row:after, .test__buttons:after, .test__steps ul:after, .account:after, .account__list li li:after, .evaluation__row:after, .evaluation__buttons:after, .landing .topper:after, .landing .user:after, .landing .user__buttons:after, .landing .promo:after, .landing .promo__content:after, .popup__info:after, .popup__label:after, .audit__row:after { content: " "; display: table; }
@@ -588,7 +588,31 @@ a { color: #00919e; }
 .smicro .smicro__bar { width: 100%; bottom: 0; position: absolute; content: ""; overflow: hidden; }
 .smicro .splayer__level { position: absolute; bottom: 0; background: url('../img/icons-s79b216aae8.png') 0 -935px no-repeat; width: 68px; height: 91px; }
 
-.logo a, .test__steps li.is-done, .landing .logo a, .landing .promo__buttons { font: 0/0 a; text-shadow: none; color: transparent; }
+.mobile { min-width: 0; }
+.mobile .wrapper { background: none; margin: auto; max-width: 720px; padding: 0; width: 100%; }
+.mobile .mobile-section { font-weight: normal; font-style: normal; font-family: 'cantoraoneregular'; }
+.mobile .mobile-section--main { background: #203e60 url("../img/mobile/slide_main.jpg") center bottom no-repeat; min-height: 580px; }
+.mobile .mobile-section--main .logo { float: none; padding: 0 80px; }
+.mobile .mobile-section--first .logo { margin: 0 0 80px; padding-top: 40px; }
+.mobile .mobile-section--first .logo a { display: block; background: url("../img/icons-s79b216aae8.png") 0 -76px no-repeat; width: 215px; height: 51px; }
+.mobile .mobile-section--second { padding-top: 95px; }
+.mobile .mobile-section--third { padding-bottom: 40px; padding-top: 95px; }
+.mobile .mobile-section--third .btn { display: block; margin: 60px auto 0; }
+.mobile .mobile-section--third .logo { margin: 60px 0 0; }
+.mobile .mobile-section__image { display: block; max-width: 100%; }
+.mobile .mobile-section__text { color: #fff; line-height: 1.6em; text-align: center; }
+.mobile .mobile-section__text--size-1 { font-size: 32px; }
+.mobile .mobile-section__text--size-2 { font-size: 22px; }
+.mobile .mobile-section__text--size-3 { font-size: 52px; }
+.mobile .mobile-section__text--size-4 { font-size: 28px; }
+.mobile .promo__buttons { margin-top: 80px; padding-bottom: 80px; text-align: center; }
+.mobile .promo__buttons a { display: inline-block; margin: 0 12.5px; vertical-align: top; -webkit-transition: all 0.2s linear; -moz-transition: all 0.2s linear; -o-transition: all 0.2s linear; transition: all 0.2s linear; }
+.mobile .promo__buttons a:hover { opacity: .6; }
+.mobile .promo__buttons a:first-child { margin-bottom: 15px; }
+.mobile .btn_appstore { background: url('../img/icons-s79b216aae8.png') 0 -137px no-repeat; width: 219px; height: 64px; }
+.mobile .btn_gplay { background: url('../img/icons-s79b216aae8.png') 0 0 no-repeat; width: 219px; height: 66px; }
+
+.logo a, .test__steps li.is-done, .landing .logo a, .landing .promo__buttons, .mobile .promo__buttons { font: 0/0 a; text-shadow: none; color: transparent; }
 
 .panel__holder, .page, .buttons, .level__content li, .warnings, .balance__row, .feedback__row, .test__buttons, .test__steps ul, .account, .account__list li li, .evaluation__row, .evaluation__buttons, .landing .topper, .landing .user, .landing .user__buttons, .landing .promo, .landing .promo__content, .popup__info, .popup__label, .audit__row { *zoom: 1; }
 .panel__holder:before, .page:before, .buttons:before, .level__content li:before, .warnings:before, .balance__row:before, .feedback__row:before, .test__buttons:before, .test__steps ul:before, .account:before, .account__list li li:before, .evaluation__row:before, .evaluation__buttons:before, .landing .topper:before, .landing .user:before, .landing .user__buttons:before, .landing .promo:before, .landing .promo__content:before, .popup__info:before, .popup__label:before, .audit__row:before, .panel__holder:after, .page:after, .buttons:after, .level__content li:after, .warnings:after, .balance__row:after, .feedback__row:after, .test__buttons:after, .test__steps ul:after, .account:after, .account__list li li:after, .evaluation__row:after, .evaluation__buttons:after, .landing .topper:after, .landing .user:after, .landing .user__buttons:after, .landing .promo:after, .landing .promo__content:after, .popup__info:after, .popup__label:after, .audit__row:after { content: " "; display: table; }
@@ -603,7 +627,7 @@ a { color: #00919e; }
 .lteie8 .splayer.is-hold .splayer__playpause.splayer__pause { background: url('../img/icons-s79b216aae8.png') 0 -1849px no-repeat; width: 12px; height: 18px; }
 .lteie8 .splayer.is-hold .splayer__playpause.splayer__rec { background: url('../img/icons-s79b216aae8.png') 0 -1755px no-repeat; width: 16px; height: 16px; }
 
-.logo a, .test__steps li.is-done, .landing .logo a, .landing .promo__buttons { font: 0/0 a; text-shadow: none; color: transparent; }
+.logo a, .test__steps li.is-done, .landing .logo a, .landing .promo__buttons, .mobile .promo__buttons { font: 0/0 a; text-shadow: none; color: transparent; }
 
 .panel__holder, .page, .buttons, .level__content li, .warnings, .balance__row, .feedback__row, .test__buttons, .test__steps ul, .account, .account__list li li, .evaluation__row, .evaluation__buttons, .landing .topper, .landing .user, .landing .user__buttons, .landing .promo, .landing .promo__content, .popup__info, .popup__label, .audit__row { *zoom: 1; }
 .panel__holder:before, .page:before, .buttons:before, .level__content li:before, .warnings:before, .balance__row:before, .feedback__row:before, .test__buttons:before, .test__steps ul:before, .account:before, .account__list li li:before, .evaluation__row:before, .evaluation__buttons:before, .landing .topper:before, .landing .user:before, .landing .user__buttons:before, .landing .promo:before, .landing .promo__content:before, .popup__info:before, .popup__label:before, .audit__row:before, .panel__holder:after, .page:after, .buttons:after, .level__content li:after, .warnings:after, .balance__row:after, .feedback__row:after, .test__buttons:after, .test__steps ul:after, .account:after, .account__list li li:after, .evaluation__row:after, .evaluation__buttons:after, .landing .topper:after, .landing .user:after, .landing .user__buttons:after, .landing .promo:after, .landing .promo__content:after, .popup__info:after, .popup__label:after, .audit__row:after { content: " "; display: table; }
@@ -759,7 +783,7 @@ a { color: #00919e; }
 /* @group Retina compatibility */
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-resolution: 144dpi) { .chzn-rtl .chzn-search input, .chzn-container-single .chzn-single abbr, .chzn-container-single .chzn-single div b, .chzn-container-single .chzn-search input, .chzn-container-multi .chzn-choices .search-choice .search-choice-close, .chzn-container .chzn-results-scroll-down span, .chzn-container .chzn-results-scroll-up span { background-image: url("chosen-sprite@2x.png") !important; background-repeat: no-repeat !important; background-size: 52px 37px !important; } }
 /* @end */
-.logo a, .test__steps li.is-done, .landing .logo a, .landing .promo__buttons { font: 0/0 a; text-shadow: none; color: transparent; }
+.logo a, .test__steps li.is-done, .landing .logo a, .landing .promo__buttons, .mobile .promo__buttons { font: 0/0 a; text-shadow: none; color: transparent; }
 
 .panel__holder, .page, .buttons, .level__content li, .warnings, .balance__row, .feedback__row, .test__buttons, .test__steps ul, .account, .account__list li li, .evaluation__row, .evaluation__buttons, .landing .topper, .landing .user, .landing .user__buttons, .landing .promo, .landing .promo__content, .popup__info, .popup__label, .audit__row { *zoom: 1; }
 .panel__holder:before, .page:before, .buttons:before, .level__content li:before, .warnings:before, .balance__row:before, .feedback__row:before, .test__buttons:before, .test__steps ul:before, .account:before, .account__list li li:before, .evaluation__row:before, .evaluation__buttons:before, .landing .topper:before, .landing .user:before, .landing .user__buttons:before, .landing .promo:before, .landing .promo__content:before, .popup__info:before, .popup__label:before, .audit__row:before, .panel__holder:after, .page:after, .buttons:after, .level__content li:after, .warnings:after, .balance__row:after, .feedback__row:after, .test__buttons:after, .test__steps ul:after, .account:after, .account__list li li:after, .evaluation__row:after, .evaluation__buttons:after, .landing .topper:after, .landing .user:after, .landing .user__buttons:after, .landing .promo:after, .landing .promo__content:after, .popup__info:after, .popup__label:after, .audit__row:after { content: " "; display: table; }

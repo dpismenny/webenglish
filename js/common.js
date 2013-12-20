@@ -79,9 +79,7 @@ $(document).ready(function() {
 		var btn = $(this),
 				isOpen = btn.hasClass('is-open');
 
-
 		if( !isOpen ) {
-
 			closePopups();
 
 			btn
@@ -89,7 +87,6 @@ $(document).ready(function() {
 			.next().fadeIn();
 		}
 		else {
-
 			closePopups();
 		}   	
 
