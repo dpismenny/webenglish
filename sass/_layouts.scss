@@ -25,3 +25,9 @@
 		width: 600px;
 		margin: 0 auto;
 	}
+
+	.l-half{
+		@include bs;
+		float:left;
+		width: 50%;
+	}
