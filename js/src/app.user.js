@@ -1,17 +1,27 @@
-	$('.js-auth').click(function() {
-		var	_this = $(this),
-			_popup = $('.js-popups');
+	$('.js-auth, .js-contacts').click(function() {
 
-		if ( _this.hasClass('is-open') ) {
-			_this.removeClass('is-open');
-			_popup.fadeOut();
-		} else {
-			_popup.fadeOut();
-			_this
-				.addClass('is-open')
-				.next()
-				.fadeIn();
+		var _isOpened = $(".is-open"),
+			_popups = $(".js-popups");
+		
+		function closePopups() {
+			_isOpened.removeClass('is-open');
+			_popups.fadeOut();
 		}
+
+		var btn = $(this),
+			isOpen = btn.hasClass('is-open');
+
+		if( !isOpen ) {
+			closePopups();
+
+			btn
+			.addClass('is-open')
+			.next().fadeIn();
+		}
+		else {
+			closePopups();
+		}   	
+
 		return false;
 	});
 

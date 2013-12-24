@@ -190,7 +190,9 @@
 		outline: 5px auto -webkit-focus-ring-color;
 		outline-offset: -2px;
 	}
-	&:active{
+	&:active,
+	&.is-active,
+	&.is-open{
 		background-image: none;
 		outline: 0;
 		@include box-shadow(
@@ -1706,9 +1708,19 @@
 		}
 
 .landing{
-	background: url(../img/bg_landing.png) 50% 0% no-repeat;
 	background-color:  #1a2b3b;
 	min-width: 1020px;
+	
+	.wrapper {
+		@include bs;
+		background: url(../img/bg_landing_new.jpg) center no-repeat;
+		background-size: cover;
+		min-height: 100%;
+		height: auto;
+		margin: 0 auto -65px;
+		padding: 0 0 65px;
+   }
+	
 	.topper{
 		@extend %main;
 		@extend %clr;
@@ -1730,10 +1742,7 @@
 		@extend %clr;
 		margin-top: 20px;
 		color: #fff;
-		@include border-radius(6px);
-		@include background-clip(padding-box);
-		background-color: rgba(57,81,103,.4);
-		width: 610px;
+		width: 535px;
 		height: 85px;
 		line-height: 85px;
 	}
@@ -1742,14 +1751,7 @@
 			margin-left: 20px;
 			float: left;
 			@include cb;
-			font-size: 22px;
-			&:after{
-				position: absolute;;
-				right: -40px;
-				top: 38px;
-				content: "";
-				@include sized-sprite($icons, arr2);
-			}
+			font-size: 18px;
 		}
 		.user__buttons{
 			@extend %clr;
@@ -1758,34 +1760,55 @@
 			margin-right: 15px;
 			.user__registration{
 				float: left;
-				width: 182px;
+				width: 150px;
 			}
 			.user__login{
 				float: right;
-				width: 112px;
+				width: 150px;
 			}
 			.btn{
 				@include text-shadow(0 -1px 0 #063b6f);
-				font-size: 18px;
+				font-size: 16px;
 				@include cb;
 				color: #f1f9ff;
 				width: 100%;
+				padding: 8px 0;
 				display: inline-block;
 			}
 		}
 	.main{
-		height: 500px;
-		line-height: 500px;
-		overflow: hidden;
-		background: url(../img/bg_img.jpg) 50% 0% no-repeat;
+		margin-bottom: 50px;
 	}
 		.main__holder{
 			@extend %main;
+			overflow: hidden;
+	    }
+	    .l-half--main-left {
+	       padding-right: 25px;
+	    }
+	    .l-half--main-right {
+	       padding-left: 25px;
+	 
+	       img {
+	         width: 100%;
+	       }
 		}
 	.video{
-		margin-top: 40px;
+		position: relative;
+		padding-bottom: 75%;
+		height: 0;
+		overflow: hidden;
 
-	}
+		iframe,
+		object,
+		embed {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+		}
+    }
 	.promo{
 		@extend %main;
 		@extend %clr;
@@ -1802,34 +1825,55 @@
 			height: 320px;
 		}
 	}
-		.promo__content{
-			width: 620px;
-			float: right;
-			@extend %clr;
-			margin-right: 5px;
+		//.promo__content{
+		//	width: 620px;
+		//	float: right;
+		//	@extend %clr;
+		//	margin-right: 5px;
+		//	color: #fff;
+		//}
+		//.promo__heading{
+		//	font-size: 49px;
+		//	text-transform: uppercase;
+		//	@include cb;
+		//	margin-bottom: 25px;
+		//}
+		//.promo__info{
+		//	@extend %clr;
+		//}
+		//.promo__text{
+		//	float: left;
+		//	width: 315px;
+		//	@include cr;
+		//	font-size: 26px;
+		//	line-height: 1.6;
+		//}
+		 .promo-text {
 			color: #fff;
 		}
-		.promo__heading{
-			font-size: 49px;
-			text-transform: uppercase;
-			@include cb;
-			margin-bottom: 25px;
+		.promo-text--first {
+		   font-size: 52px;
+		   line-height: 1.3em;
+		   margin: 30px 0;
+	 
+		   span {
+			 display: block;
+			 font-size: 60px;
+		   }
 		}
-		.promo__info{
-			@extend %clr;
-		}
-		.promo__text{
-			float: left;
-			width: 315px;
-			@include cr;
-			font-size: 26px;
-			line-height: 1.6;
+		.promo-text--second {
+		   @extend %main;
+		   font-size: 40px;
+		   margin-top: 50px;
+		   text-align: center;
 		}
 		.promo__buttons{
-			float: right;
-			width: 225px;
+			@extend %hide-text;
+			text-align: center;
+			
 			a{
-				display: block;
+				display: inline-block;
+				vertical-align: middle;
 				@include transition (all .2s linear);
 				&:hover{
 					opacity: .6;
@@ -1838,11 +1882,53 @@
 		}
 		.btn_appstore{
 			@include sized-sprite($icons, btn_appstore);
-			margin-bottom: 25px;
+			margin-right: 35px;
 		}
 		.btn_gplay{
 			@include sized-sprite($icons, btn_gplay);
 		}
+		
+		.footer {
+		   background: #142235;
+		   color: #fff;
+		   font-size: 14px;
+		   height: 65px;
+		   line-height: 65px;
+		   padding: 0 10px;
+	 
+		   .footer__holder {
+			 @extend %main;
+		  }
+	 
+		   .footer__copyright {
+			 float: left;
+			 width: 100px;
+		   }
+	 
+		   .footer__menu {
+			 float: right;
+			 position: relative;
+		   }
+	 
+		   .footer__menu-item {
+			 color: #fff;
+			 margin-left: 32px;
+			 text-decoration: none;
+			 
+			 &:first-child {
+			   margin-left: 0;
+			 }
+		   }
+		   .footer__menu-item--underline {
+			 border-bottom: 1px dashed #fff;
+	 
+			 &:hover,
+			 &.is-open {
+			   border-bottom-color: transparent;
+			 }
+		   }
+		 }
+  
 }
 
 
@@ -1870,6 +1956,39 @@
 	.user__registration,
 	.user__login{
 		position: relative;
+	}
+	.popup__contacts {
+		 color: #1a2b3b;
+		 font-size: 16px;
+		 bottom: 100%;
+		 right: 0;
+	 
+		 &:before {
+		   width: 0px;
+		   height: 0px;
+		   border-style: solid;
+		   border-width: 10px 10px 0 10px;
+		   border-color: #f1f4f5 transparent transparent transparent;
+	 
+		   position: absolute;
+		   bottom: -10px;
+		   right: 20px;
+		   content: "";
+		 }
+	 
+		 p {
+		   margin-bottom: 7px;
+		 }
+	 
+		 .popup__info {
+		   height: auto;
+		   line-height: 1.4em;
+		   padding-top: 20px;
+	 
+		   .popup__info-highlight {
+			 color: #00adef;
+		   }
+		 }
 	}
 	.popup__wrap{
 		position: relative;
@@ -2062,6 +2181,7 @@
 					position: absolute;
 					top: 35px;
 					right: -11px;
+					left: auto;
 					content: "";
 					width: 0px;
 					height: 0px;
@@ -2073,6 +2193,7 @@
 					position: absolute;
 					top: 35px;
 					right: -10px;
+					left: auto;
 					content: "";
 					width: 0px;
 					height: 0px;
