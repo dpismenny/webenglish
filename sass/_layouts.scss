@@ -37,3 +37,9 @@
 		margin: 0 auto;
 		min-height:1px;
 	}
+	
+	.l-half{
+		@include bs;
+		float:left;
+		width: 50%;
+    }

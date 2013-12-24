@@ -1,0 +1,111 @@
+.mobile {
+  min-width: 0;
+
+  .wrapper {
+    background: none;
+    margin: auto;
+    max-width: 720px;
+    padding: 0;
+    width: 100%;
+  }
+
+  .mobile-section {
+    @include co();
+  }
+  .mobile-section--main {
+    background: #203e60 url('../img/mobile/slide_main.jpg') center bottom no-repeat;
+    min-height: 580px;
+
+    .logo {
+      float: none;
+      text-align: center;
+
+      a {        
+        display: inline-block;
+      }
+    }
+  }
+  .mobile-section--first {
+
+    .logo {      
+      margin: 0 0 20px;
+      padding-top: 20px;
+
+      a {
+        background-position: 0 -76px;
+        width: 215px;
+        height: 51px;
+      }      
+    }
+  }
+  .mobile-section--second {
+    padding-top: 65px;
+  }
+  .mobile-section--third {
+    padding-bottom: 40px;
+    padding-top: 65px;
+
+    .btn {
+      display: block;
+      margin: 40px auto 0;
+    }
+
+    .logo {
+      margin: 40px 0 0;
+    }
+  }
+    .mobile-section__image {
+      display: block;
+      max-width: 100%;
+    }
+    .mobile-section__text {
+      color: #fff;
+      line-height: 1.6em;
+      text-align: center;
+    }
+      .mobile-section__text--size-1 {
+        font-size: 32px;
+      }
+      .mobile-section__text--size-2 {
+        font-size: 22px;
+      }
+      .mobile-section__text--size-3 {
+        font-size: 52px;
+      }
+      .mobile-section__text--size-4 {
+        font-size: 28px;
+      }
+
+  .promo__buttons{
+    @extend %hide-text;
+    margin-top: 40px;
+    padding-bottom: 40px;
+    text-align: center;
+
+    a{
+      display: inline-block;
+      margin: 0 12.5px;
+      vertical-align: top;
+      @include transition (all .2s linear);
+      
+      &:hover{
+        opacity: .6;
+      }
+      &:first-child {
+        margin-bottom: 15px;
+      }
+    }
+  }
+  .btn_appstore{
+    @include sized-sprite($icons, btn_appstore);
+  }
+  .btn_gplay{
+    @include sized-sprite($icons, btn_gplay);
+  }
+}
+
+// @include media(719px) {
+//   .mobile-section--main {
+//     .logo { padding-left: 0 !important; }
+//   }
+// }

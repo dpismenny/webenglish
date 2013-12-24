@@ -6,137 +6,177 @@
 	<title>Template</title>
 	<meta name="viewport" content="width=device-width"/>
 	<link rel="stylesheet" media="screen" href="css/screen.css" >
-	<script src="/build/build.js"></script>
+	<script src="build/build.js"></script>
 	<!--script src="js/jquery.js"></script--->
 	<!--script src="chosen/chosen.jquery.js" type="text/javascript"></script-->
 	<!--script src="js/common.js"></script-->
 </head>
 <body class="landing">
-	<!-- BEGIN .topper -->
-	<div class="topper">
-		<h1 class="logo">
-			<a href="#" title="3waytalk">3waytalk</a>
-		</h1>
-		<!-- BEGIN .user -->
-		<div class="user">
-			<div class="user__text">Are you an interpreter?</div>
-			<div class="user__buttons">
-				<div class="user__registration">
-					<a class="js-auth btn btn_lightblue" href="#">Registration</a>
-					<!-- BEGIN .popup popup__login -->
-					<div class="js-popups popup popup__registration">
-						<div class="popup__wrap">
-							<div class="popup__label apply">
-								<div class="popup__title">First Name</div>
-								<input class="input" type="text" placeholder="" value="Nikolay">
-								<i class="icon icon_apply"></i>
-							</div>
-							<div class="popup__label">
-								<div class="popup__title">Family Name</div>
-								<input class="input" type="text" placeholder="">
-							</div>
-							<div class="popup__label">
-								<div class="popup__title">Skype</div>
-								<input class="input" type="text" placeholder="">
-							</div>
-							<div class="popup__label error">
-								<div class="popup__title">Email</div>
-								<input class="input" type="email" placeholder="Will be used as login">
-								<i class="icon icon_error"></i>
-								<div class="error__help">
-									<div class="error__wrap">
-										Your email address could not be validated. Please check and try again.
+
+	<div class="wrapper">
+		
+		<!-- BEGIN .topper -->
+		<div class="topper">
+			<h1 class="logo">
+				<a href="#" title="3waytalk">3waytalk</a>
+			</h1>
+			<!-- BEGIN .user -->
+			<div class="user">
+				<div class="user__text">Are you an interpreter?</div>
+				<div class="user__buttons">
+					<div class="user__registration">
+						<a class="js-auth btn btn_lightblue" href="#">Registration</a>
+						<!-- BEGIN .popup popup__login -->
+						<div class="js-popups popup popup__registration">
+							<div class="popup__wrap">
+								<div class="popup__label apply">
+									<div class="popup__title">First Name</div>
+									<input class="input" type="text" placeholder="" value="Nikolay">
+									<i class="icon icon_apply"></i>
+								</div>
+								<div class="popup__label">
+									<div class="popup__title">Family Name</div>
+									<input class="input" type="text" placeholder="">
+								</div>
+								<div class="popup__label">
+									<div class="popup__title">Skype</div>
+									<input class="input" type="text" placeholder="">
+								</div>
+								<div class="popup__label error">
+									<div class="popup__title">Email</div>
+									<input class="input" type="email" placeholder="Will be used as login">
+									<i class="icon icon_error"></i>
+									<div class="error__help">
+										<div class="error__wrap">
+											Your email address could not be validated. Please check and try again.
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="popup__label">
-								<div class="popup__title">Password</div>
-								<input class="input" type="password" placeholder="">
-								<div class="popup__text">
-									Password please
+								<div class="popup__label">
+									<div class="popup__title">Password</div>
+									<input class="input" type="password" placeholder="">
+									<div class="popup__text">
+										Please provide real information. This information will be used to transfer money to you in the future.
+									</div>
+								</div>
+								<div class="popup__row">
+									<select data-placeholder="Your Native Language" class="chzn-select" style="width:380px;">
+										<option value=""></option>
+										<option value="Russian">Russian</option>
+										<option value="English">English</option>
+										<option value="Spanish">Spanish</option>
+										<option value="Deutsch">Deutsch</option>
+									</select>
+								</div>
+								<div class="popup__row">
+									<select data-placeholder="Your Second Language" class="chzn-select" style="width:380px;">
+										<option value=""></option>
+										<option value="Russian">Russian</option>
+										<option value="English">English</option>
+										<option value="Spanish">Spanish</option>
+										<option value="Deutsch">Deutsch</option>
+									</select>
+								</div>
+								<div class="popup__info">
+									<a class="btn btn_mod btn_lightblue" href="#">Pass the Test</a>
+									<div class="popup__pass">To pass the test you will need a microphone and headphones.</div>
 								</div>
 							</div>
-							<div class="popup__row">
-								<select data-placeholder="Your Native Language" class="chzn-select" style="width:380px;">
-									<option value=""></option>
-									<option value="Russian">Russian</option>
-									<option value="English">English</option>
-									<option value="Spanish">Spanish</option>
-									<option value="Deutsch">Deutsch</option>
-								</select>
-							</div>
-							<div class="popup__row">
-								<select data-placeholder="Your Second Language" class="chzn-select" style="width:380px;">
-									<option value=""></option>
-									<option value="Russian">Russian</option>
-									<option value="English">English</option>
-									<option value="Spanish">Spanish</option>
-									<option value="Deutsch">Deutsch</option>
-								</select>
-							</div>
-							<div class="popup__info">
-								<a class="btn btn_mod btn_lightblue" href="#">Pass the Test</a>
-								<div class="popup__pass">To pass the test you will need a microphone and headphones.</div>
+						</div>
+						<!-- /.popup popup__login -->
+					</div>
+					<div class="user__login">
+						<a class="js-auth btn btn_primary" href="#">Login</a>
+						<!-- BEGIN .popup popup__login -->
+						<div class="js-popups popup popup__login">
+							<div class="popup__wrap">
+								<div class="popup__row">
+									<i class="icon icon_email"></i>
+									<input class="input" type="email" placeholder="Email">
+								</div>
+								<div class="popup__row">
+									<i class="icon icon_password"></i>
+									<input class="input" type="password" placeholder="Password">
+								</div>
+								<div class="popup__info">
+										<a href="#">Forgot Password?</a>
+										<a class="btn btn_lightblue" href="#">Log in</a>
+								</div>
 							</div>
 						</div>
+						<!-- /.popup popup__login -->
 					</div>
-					<!-- /.popup popup__login -->
 				</div>
-				<div class="user__login">
-					<a class="js-auth btn btn_primary" href="#">Login</a>
-					<!-- BEGIN .popup popup__login -->
-					<div class="js-popups popup popup__login">
-						<div class="popup__wrap">
-							<div class="popup__row">
-								<i class="icon icon_email"></i>
-								<input class="input" type="email" placeholder="Email">
-							</div>
-							<div class="popup__row">
-								<i class="icon icon_password"></i>
-								<input class="input" type="password" placeholder="Password">
-							</div>
-							<div class="popup__info">
-									<a href="#">Forgot Password?</a>
-									<a class="btn btn_lightblue" href="#">Log in</a>
-							</div>
+			</div>
+			<!-- /.user -->
+		</div>
+		<!-- /.topper -->
+		
+		<!-- BEGIN .main -->
+		<div class="main">
+			
+			<div class="main__holder">
+				<div class="l-half l-half--main-left">
+					<div class="video">
+						<iframe src="http://player.vimeo.com/video/67156498?title=0&amp;byline=0&amp;portrait=0" width="560" height="420" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+					</div>
+
+					<div class="promo-text promo-text--first">
+						<span>Download your FREE</span>
+						mobile application now!
+					</div>
+
+					<div class="promo__buttons">
+						<a href="#" class="btn_appstore"></a>
+						<a href="#" class="btn_gplay"></a>
+					</div>
+				</div>
+				<div class="l-half l-half--main-right">
+					<img src="img/phones_new.png" alt="">
+				</div>
+			</div>
+
+			<div class="promo-text promo-text--second">
+				We’ll connect you to a professional interpreter in seconds!
+			</div>
+		</div>
+		<!-- /.main -->
+
+	</div>
+	
+	<!-- BEGIN .footer -->
+	<div class="footer">
+		<div class="footer__holder">
+			<div class="footer__copyright">
+				<a href="/" class="footer__menu-item">3WayTalk &copy; 2013</a>
+			</div>
+			<div class="footer__menu">
+				<a href="#" class="footer__menu-item">Privacy Policy</a>
+				<a href="#" class="footer__menu-item">Interpreter Terms & Conditions </a>
+				<a href="#" class="footer__menu-item">Complaints Procedure</a>
+				<a href="#" class="footer__menu-item">Buyer Terms & Conditions</a>
+				<a href="#" class="js-contacts footer__menu-item footer__menu-item--underline">Contact Us</a>
+				<!-- BEGIN .popup popup__login -->
+				<div class="js-popups popup popup__contacts">
+					<div class="popup__wrap">
+						<p>Netvoices Limited</p>
+						<p>11 Hope Street</p>
+						<p>Douglas</p>
+						<p>Isle of Man</p>
+						<p>IM1 1AQ</p>
+						<p>British isles</p>
+
+						<div class="popup__info">
+								<p>Email: <span class="popup__info-highlight">mail@3waytalk.com</span></p>
+								<p>Tel: <span class="popup__info-highlight">+44 7463 241852</span></p>
 						</div>
 					</div>
-					<!-- /.popup popup__login -->
 				</div>
-			</div>
-		</div>
-		<!-- /.user -->
-	</div>
-	<!-- /.topper -->
-	<!-- BEGIN .main -->
-	<div class="main">
-		<div class="main__holder">
-			<!-- BEGIN .video -->
-			<div class="video">
-				<iframe src="http://player.vimeo.com/video/67156498?title=0&amp;byline=0&amp;portrait=0" width="560" height="420" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-			</div>
-			<!-- /.video -->
-		</div>
-	</div>
-	<!-- /.main -->
-	<!-- BEGIN .promo -->
-	<div class="promo">
-		<div class="promo__content">
-			<h1 class="promo__heading">Do you need an interpreter?</h1>
-			<div class="promo__info">
-				<div class="promo__text">
-					Download Our Free Application<br>
-					And You Will Have Thousands<br>
-					Of Professional Interpreters<br>
-					Right In Your Pocket 24/7
-				</div>
-				<div class="promo__buttons">
-					<a href="#" class="btn_appstore"></a>
-					<a href="#" class="btn_gplay"></a>
-				</div>
+				<!-- /.popup popup__login -->
 			</div>
 		</div>
 	</div>
-	<!-- /.promo -->
+	<!-- /.footer -->
+
 </body>
 </html>

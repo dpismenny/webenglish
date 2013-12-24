@@ -10,6 +10,11 @@
     font-style: normal;
     font-family: 'cuprumbold';
 }
+@mixin co {
+	font-weight: normal;
+	font-style: normal;
+	font-family: 'cantoraoneregular';
+}
 
 @mixin clear{
 	&:after{
@@ -41,6 +46,12 @@ $break-large: 1180px;
 		@content;
 	}
 }
+// another respond mixin
+@mixin media($max-width) {
+	@media only screen and (max-width: $max-width) {
+		@content;
+	}
+}
 
 
 // ROTATE
@@ -62,6 +73,11 @@ $break-large: 1180px;
 // 	-ms-transition:     %what;
 // 	transition:         %what;
 // }
+@mixin bs {
+	-webkit-box-sizing: border-box;
+		 -moz-box-sizing: border-box;
+					box-sizing: border-box;
+}
 %hide-text{
 	font: 0/0 a;
 	text-shadow: none;
